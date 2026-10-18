@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account e impostazioni — Amarreda</title>
+  <meta name="description" content="Gestisci il tuo account, le impostazioni e le preferenze del tuo profilo Amarreda.">
+  <link rel="icon" type="image/svg+xml" href="../assets/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="logo" aria-label="Amarreda — Home">
+        <span class="logo-wordmark">Amarreda</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Apri il menu">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <nav class="main-nav" id="main-nav" aria-label="Navigazione principale">
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="progetti.html" class="nav-link">I miei progetti</a>
+        <a href="account.html" class="nav-link is-active">Account</a>
+        <a href="logout.html" class="nav-link" id="logout-link">Esci</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- STATO: NON AUTENTICATO -->
+    <section class="auth-page" id="state-not-authenticated">
+      <div class="container">
+        <div class="auth-card">
+          <h1 class="auth-title">Area riservata.</h1>
+          <p class="auth-subtitle">Questa pagina è accessibile solo agli utenti registrati.</p>
+          <a href="login.html" class="btn btn-primary btn-block btn-lg">Accedi</a>
+          <div class="auth-footer">
+            <p>Non hai un account? <a href="registrazione.html">Registrati</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATO: BACKEND NON CONFIGURATO -->
+    <section class="section" id="state-backend-warning" hidden>
+      <div class="container container-narrow">
+        <div class="callout callout-warning">
+          <h2 class="callout-title">Backend non configurato.</h2>
+          <p class="callout-text">Questa pagina richiede un backend per gestire le impostazioni dell'account, modificare i dati o cancellare l'account. Attualmente il sistema non può eseguire queste operazioni.</p>
+          <p class="callout-text">Per abilitare questa funzionalità, configura il backend Node.js e il database come indicato nel file README.md.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATO: AUTENTICATO -->
+    <section class="section" id="state-account" hidden>
+      <div class="container">
+        <div class="account-header">
+          <h1 class="account-title">Il tuo account.</h1>
+          <p class="account-lead">Gestisci le informazioni del tuo profilo e le impostazioni dell'account.</p>
+        </div>
+
+        <!-- SEZIONE: INFORMAZIONI PROFILO -->
+        <div class="account-section">
+          <h2 class="account-section-title">Informazioni del profilo.</h2>
+          <form id="profile-form" data-validate novalidate>
+
+            <div class="form-field">
+              <label for="profile-name" class="form-label form-label-required">Nome</label>
+              <input type="text" id="profile-name" name="name" class="form-input" required autocomplete="name">
+            </div>
+
+            <div class="form-field">
+              <label for="profile-email" class="form-label">Email</label>
+              <input type="email" id="profile-email" name="email" class="form-input" readonly disabled>
+              <p class="form-hint">L'indirizzo email non può essere modificato. Per cambiarlo, contatta l'assistenza.</p>
+            </div>
+
+            <div class="form-field">
+              <label for="profile-localita" class="form-label form-label-required">Località dell'immobile</label>
+              <input type="text" id="profile-localita" name="localita" class="form-input" required>
+              <p class="form-hint">La località dell'immobile da arredare (per privati) o dell'intervento associato alla richiesta iniziale (per professionisti e rivenditori).</p>
+            </div>
+
+            <div class="form-field">
+              <label for="profile-tipologia" class="form-label">Tipologia di utente</label>
+              <input type="text" id="profile-tipologia" name="tipologia" class="form-input" readonly disabled>
+              <p class="form-hint">La tipologia di utente non può essere modificata dopo la registrazione.</p>
+            </div>
+
+            <div class="form-field">
+              <label for="profile-piano" class="form-label">Piano attivo</label>
+              <input type="text" id="profile-piano" name="piano" class="form-input" readonly disabled>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Salva le modifiche</button>
+
+          </form>
+        </div>
+
+        <!-- SEZIONE: CAMBIA PASSWORD -->
+        <div class="account-section">
+          <h2 class="account-section-title">Cambia la password.</h2>
+          <form id="password-form" data-validate novalidate>
+
+            <div class="form-field">
+              <label for="password-current" class="form-label form-label-required">Password attuale</label>
+              <input type="password" id="password-current" name="currentPassword" class="form-input" required autocomplete="current-password">
+            </div>
+
+            <div class="form-field">
+              <label for="password-new" class="form-label form-label-required">Nuova password</label>
+              <input type="password" id="password-new" name="newPassword" class="form-input" required autocomplete="new-password" minlength="8">
+              <p class="form-hint">La password deve contenere almeno 8 caratteri.</p>
+            </div>
+
+            <div class="form-field">
+              <label for="password-confirm" class="form-label form-label-required">Conferma la nuova password</label>
+              <input type="password" id="password-confirm" name="confirmPassword" class="form-input" required autocomplete="new-password">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Cambia la password</button>
+
+          </form>
+        </div>
+
+        <!-- SEZIONE: PREFERENZE NOTIFICHE -->
+        <div class="account-section">
+          <h2 class="account-section-title">Preferenze di notifica.</h2>
+          <form id="notifications-form">
+
+            <div class="form-field">
+              <label class="form-check">
+                <input type="checkbox" id="notif-email-updates" name="emailUpdates" checked>
+                <span>Ricevi email con aggiornamenti sul tuo progetto e sullo stato delle elaborazioni.</span>
+              </label>
+            </div>
+
+            <div class="form-field">
+              <label class="form-check">
+                <input type="checkbox" id="notif-newsletter" name="newsletter">
+                <span>Ricevi la newsletter di Amarreda con novità, suggerimenti e ispirazioni.</span>
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Salva le preferenze</button>
+
+          </form>
+        </div>
+
+        <!-- SEZIONE: CANCELLAZIONE ACCOUNT -->
+        <div class="account-section account-section-danger">
+          <h2 class="account-section-title account-section-title-danger">Cancella il tuo account.</h2>
+          <p class="account-section-text">Questa azione è irreversibile. Tutti i tuoi dati, progetti, conversazioni e file caricati verranno eliminati definitivamente.</p>
+
+          <div class="callout callout-warning">
+            <h3 class="callout-title">Attenzione.</h3>
+            <p class="callout-text">Prima di procedere, assicurati di aver scaricato o salvato le informazioni importanti. Una volta cancellato l'account, non sarà possibile recuperare i dati.</p>
+          </div>
+
+          <button type="button" class="btn btn-danger" id="btn-delete-account">Cancella il mio account</button>
+
+          <!-- MODALE DI CONFERMA -->
+          <div class="modal" id="modal-delete" hidden role="dialog" aria-modal="true" aria-labelledby="modal-delete-title">
+            <div class="modal-overlay" id="modal-overlay"></div>
+            <div class="modal-content">
+              <h2 class="modal-title" id="modal-delete-title">Conferma la cancellazione dell'account.</h2>
+              <p class="modal-text">Stai per cancellare definitivamente il tuo account. Questa azione non può essere annullata.</p>
+
+              <form id="delete-form">
+                <div class="form-field">
+                  <label for="delete-confirm" class="form-label form-label-required">
+                    Per confermare, digita <strong>CANCELLA</strong>
+                  </label>
+                  <input type="text" id="delete-confirm" name="confirm" class="form-input" required autocomplete="off">
+                </div>
+
+                <div class="form-field">
+                  <label class="form-check">
+                    <input type="checkbox" id="delete-understand" name="understand" required>
+                    <span>Comprendo che questa azione è irreversibile e che tutti i miei dati verranno eliminati.</span>
+                  </label>
+                </div>
+
+                <div class="modal-actions">
+                  <button type="button" class="btn btn-ghost" id="btn-cancel-delete">Annulla</button>
+                  <button type="submit" class="btn btn-danger">Cancella definitivamente</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-brand">
+          <span class="logo-wordmark logo-wordmark-light">Amarreda</span>
+          <p class="footer-tagline">Progettazione d'interni assistita dall'intelligenza artificiale. Un percorso unico per decidere meglio e risparmiare tempo.</p>
+        </div>
+        <div class="footer-col">
+          <h3 class="footer-heading">Servizio</h3>
+          <a href="come-funziona.html" class="footer-link">Come funziona</a>
+          <a href="servizio-privati.html" class="footer-link">Privati</a>
+          <a href="servizio-professionisti.html" class="footer-link">Professionisti</a>
+          <a href="servizio-rivenditori.html" class="footer-link">Rivenditori</a>
+          <a href="progettazione-ai.html" class="footer-link">Progettazione AI</a>
+          <a href="risultati.html" class="footer-link">Risultati e progetti</a>
+        </div>
+        <div class="footer-col">
+          <h3 class="footer-heading">Esplora</h3>
+          <a href="prodotti.html" class="footer-link">Prodotti e ispirazioni</a>
+          <a href="prezzi.html" class="footer-link">Prezzi e piani</a>
+          <a href="chi-siamo.html" class="footer-link">Chi siamo</a>
+          <a href="contatti.html" class="footer-link">Contatti e assistenza</a>
+        </div>
+        <div class="footer-col">
+          <h3 class="footer-heading">Legale</h3>
+          <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+          <a href="cookie-policy.html" class="footer-link">Cookie Policy</a>
+          <a href="termini-condizioni.html" class="footer-link">Termini e Condizioni</a>
+          <a href="informazioni-stime.html" class="footer-link">Informazioni sulle stime</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 Amarreda. Tutti i diritti riservati.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script>
+    // Gestione pagina account
+    (function () {
+      const token = localStorage.getItem('amarreda_auth_token');
+      const user = localStorage.getItem('amarreda_user');
+
+      const stateNotAuth = document.getElementById('state-not-authenticated');
+      const stateBackendWarning = document.getElementById('state-backend-warning');
+      const stateAccount = document.getElementById('state-account');
+
+      // Se non c'è token, mostra stato non autenticato
+      if (!token || !user) {
+        stateNotAuth.hidden = false;
+        stateBackendWarning.hidden = true;
+        stateAccount.hidden = true;
+        return;
+      }
+
+      const userData = JSON.parse(user);
+
+      // Popola i campi del form profilo
+      const nameField = document.getElementById('profile-name');
+      const emailField = document.getElementById('profile-email');
+      const localitaField = document.getElementById('profile-localita');
+      const tipologiaField = document.getElementById('profile-tipologia');
+      const pianoField = document.getElementById('profile-piano');
+
+      if (nameField) nameField.value = userData.nome || '';
+      if (emailField) emailField.value = userData.email || '';
+      if (localitaField) localitaField.value = userData.localita || '';
+      if (tipologiaField) tipologiaField.value = userData.tipologia || '';
+      if (pianoField) pianoField.value = userData.piano === 'premium' ? 'Premium' : 'Free';
+
+      // Gestione salvataggio profilo
+      const profileForm = document.getElementById('profile-form');
+      if (profileForm) {
+        profileForm.addEventListener('submit', async function (e) {
+          e.preventDefault();
+
+          const formData = new FormData(this);
+          const data = {
+            nome: formData.get('name'),
+            localita: formData.get('localita')
+          };
+
+          try {
+            const response = await fetch('/api/auth/profile', {
+              method: 'PUT',
+              headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+              if (window.Amarreda && window.Amarreda.Toast) {
+                window.Amarreda.Toast.show('Profilo aggiornato correttamente.', 'success');
+              }
+              // Aggiorna localStorage
+              userData.nome = data.nome;
+              userData.localita = data.localita;
+              localStorage.setItem('amarreda_user', JSON.stringify(userData));
+            } else {
+              throw new Error('Errore nel salvataggio');
+            }
+          } catch (err) {
+            console.error('Errore salvataggio profilo:', err);
+            if (window.Amarreda && window.Amarreda.Toast) {
+              window.Amarreda.Toast.show('Backend non configurato. Impossibile salvare le modifiche.', 'error');
+            }
+          }
+        });
+      }
+
+      // Gestione cambio password
+      const passwordForm = document.getElementById('password-form');
+      if (passwordForm) {
+        passwordForm.addEventListener('submit', async function (e) {
+          e.preventDefault();
+
+          const formData = new FormData(this);
+          const currentPassword = formData.get('currentPassword');
+          const newPassword = formData.get('newPassword');
+          const confirmPassword = formData.get('confirmPassword');
+
+          if (newPassword !== confirmPassword) {
+            if (window.Amarreda && window.Amarreda.Toast) {
+              window.Amarreda.Toast.show('Le password non corrispondono.', 'error');
+            }
+            return;
+          }
+
+          try {
+            const response = await fetch('/api/auth/change-password', {
+              method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ currentPassword, newPassword })
+            });
+
+            if (response.ok) {
+              if (window.Amarreda && window.Amarreda.Toast) {
+                window.Amarreda.Toast.show('Password cambiata correttamente.', 'success');
+              }
+              this.reset();
+            } else {
+              throw new Error('Errore nel cambio password');
+            }
+          } catch (err) {
+            console.error('Errore cambio password:', err);
+            if (window.Amarreda && window.Amarreda.Toast) {
+              window.Amarreda.Toast.show('Backend non configurato. Impossibile cambiare la password.', 'error');
+            }
+          }
+        });
+      }
+
+      // Gestione preferenze notifiche
+      const notificationsForm = document.getElementById('notifications-form');
+      if (notificationsForm) {
+        notificationsForm.addEventListener('submit', async function (e) {
+          e.preventDefault();
+
+          const formData = new FormData(this);
+          const data = {
+            notificheEmail: formData.get('emailUpdates') === 'on',
+            newsletter: formData.get('newsletter') === 'on'
+          };
+
+          try {
+            const response = await fetch('/api/auth/profile', {
+              method: 'PUT',
+              headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ preferenze: data })
+            });
+
+            if (response.ok) {
+              if (window.Amarreda && window.Amarreda.Toast) {
+                window.Amarreda.Toast.show('Preferenze salvate correttamente.', 'success');
+              }
+            } else {
+              throw new Error('Errore nel salvataggio');
+            }
+          } catch (err) {
+            console.error('Errore salvataggio preferenze:', err);
+            if (window.Amarreda && window.Amarreda.Toast) {
+              window.Amarreda.Toast.show('Backend non configurato. Impossibile salvare le preferenze.', 'error');
+            }
+          }
+        });
+      }
+
+      // Gestione cancellazione account
+      const btnDelete = document.getElementById('btn-delete-account');
+      const modalDelete = document.getElementById('modal-delete');
+      const modalOverlay = document.getElementById('modal-overlay');
+      const btnCancelDelete = document.getElementById('btn-cancel-delete');
+      const deleteForm = document.getElementById('delete-form');
+      const deleteConfirm = document.getElementById('delete-confirm');
+
+      function openModal() {
+        modalDelete.removeAttribute('hidden');
+        document.body.style.overflow = 'hidden';
+        deleteConfirm.focus();
+      }
+
+      function closeModal() {
+        modalDelete.setAttribute('hidden', '');
+        document.body.style.overflow = '';
+        deleteForm.reset();
+      }
+
+      if (btnDelete) {
+        btnDelete.addEventListener('click', openModal);
+      }
+
+      if (btnCancelDelete) {
+        btnCancelDelete.addEventListener('click', closeModal);
+      }
+
+      if (modalOverlay) {
+        modalOverlay.addEventListener('click', closeModal);
+      }
+
+      // Chiudi modale con ESC
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !modalDelete.hidden) {
+          closeModal();
+        }
+      });
+
+      if (deleteForm) {
+        deleteForm.addEventListener('submit', async function (e) {
+          e.preventDefault();
+
+          const confirmText = deleteConfirm.value.trim();
+          if (confirmText !== 'CANCELLA') {
+            if (window.Amarreda && window.Amarreda.Toast) {
+              window.Amarreda.Toast.show('Devi digitare CANCELLA per confermare.', 'error');
+            }
+            return;
+          }
+
+          try {
+            const response = await fetch('/api/auth/account', {
+              method: 'DELETE',
+              headers: {
+                'Authorization': `Bearer ${token}`
+              }
+            });
+
+            if (response.ok) {
+              localStorage.removeItem('amarreda_auth_token');
+              localStorage.removeItem('amarreda_user');
+              window.location.href = '../index.html';
+            } else {
+              throw new Error('Errore nella cancellazione');
+            }
+          } catch (err) {
+            console.error('Errore cancellazione account:', err);
+            if (window.Amarreda && window.Amarreda.Toast) {
+              window.Amarreda.Toast.show('Backend non configurato. Impossibile cancellare l\'account.', 'error');
+            }
+          }
+        });
+      }
+
+      // Gestione logout
+      const logoutLink = document.getElementById('logout-link');
+      if (logoutLink) {
+        logoutLink.addEventListener('click', function (e) {
+          e.preventDefault();
+          localStorage.removeItem('amarreda_auth_token');
+          localStorage.removeItem('amarreda_user');
+          window.location.href = 'login.html';
+        });
+      }
+
+    })();
+  </script>
+</body>
+</html>

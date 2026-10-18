@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avvia un nuovo progetto — Amarreda</title>
+  <meta name="description" content="Prima di avviare la conversazione, leggi le condizioni del piano Free e conferma di averle comprese.">
+  <link rel="icon" type="image/svg+xml" href="../assets/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="logo" aria-label="Amarreda — Home">
+        <span class="logo-wordmark">Amarreda</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Apri il menu">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <nav class="main-nav" id="main-nav" aria-label="Navigazione principale">
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="progetti.html" class="nav-link">I miei progetti</a>
+        <a href="account.html" class="nav-link">Account</a>
+        <a href="logout.html" class="nav-link" id="logout-link">Esci</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- STATO: NON AUTENTICATO -->
+    <section class="auth-page" id="state-not-authenticated">
+      <div class="container">
+        <div class="auth-card">
+          <h1 class="auth-title">Area riservata.</h1>
+          <p class="auth-subtitle">Per avviare un progetto devi prima accedere al tuo account.</p>
+          <a href="login.html" class="btn btn-primary btn-block btn-lg">Accedi</a>
+          <div class="auth-footer">
+            <p>Non hai un account? <a href="registrazione.html">Registrati</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATO: LIMITE FREE RAGGIUNTO -->
+    <section class="section" id="state-limit-reached" hidden>
+      <div class="container container-narrow">
+        <div class="callout callout-warning">
+          <h2 class="callout-title">Hai già utilizzato la conversazione del piano Free.</h2>
+          <p class="callout-text">Il piano Free consente una sola conversazione di progettazione. La proposta iniziale è valida 30 giorni. Per nuove elaborazioni e aggiornamenti è necessario il piano Premium, secondo le relative condizioni.</p>
+        </div>
+        <div style="margin-top: var(--space-6); display: flex; flex-wrap: wrap; gap: var(--space-4);">
+          <a href="prezzi.html" class="btn btn-primary btn-lg">Scopri il piano Premium</a>
+          <a href="dashboard.html" class="btn btn-ghost">Torna alla dashboard</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATO: PRONTO PER AVVIARE -->
+    <section class="section" id="state-ready" hidden>
+      <div class="container container-narrow">
+
+        <div style="margin-bottom: var(--space-7);">
+          <h1 class="section-title">Prima di iniziare.</h1>
+          <p class="section-lead">L'assistente AI ti guiderà nella progettazione del tuo ambiente. Prima di avviare la conversazione, leggi attentamente le condizioni del piano Free.</p>
+        </div>
+
+        <!-- RIEPILOGO PIANO FREE -->
+        <div class="plan-summary-card">
+          <h2 class="section-title">Il piano Free.</h2>
+          <p class="plan-summary-text">Una sola conversazione di progettazione, che può comprendere tutti gli ambienti della casa. La proposta iniziale è valida 30 giorni. Nuove elaborazioni e aggiornamenti richiedono il piano Premium.</p>
+          <ul class="plan-summary-list">
+            <li>Una sola conversazione di progettazione.</li>
+            <li>Più ambienti nella stessa conversazione.</li>
+            <li>Una planimetria per ambiente.</li>
+            <li>Fino a tre fotografie per ambiente.</li>
+            <li>Proposta e stima preliminare.</li>
+            <li>Prodotti correlati, quando verificati.</li>
+          </ul>
+        </div>
+
+        <!-- AVVISO IMPORTANTI -->
+        <div class="callout callout-warning" style="margin-top: var(--space-6);">
+          <h3 class="callout-title">Attenzione.</h3>
+          <p class="callout-text">L'AI può commettere errori o interpretare in modo incompleto immagini e documenti. Le misure dedotte dalle fotografie non sono certificate. Il rendering è illustrativo e non costituisce una certificazione tecnica. Verifica le informazioni prima di utilizzare la proposta per acquisti o lavori.</p>
+        </div>
+
+        <!-- FORM DI CONFERMA -->
+        <form id="confirm-form" style="margin-top: var(--space-7);">
+
+          <div class="form-field">
+            <label class="form-check">
+              <input type="checkbox" id="confirm-understand" name="understand" required>
+              <span>Ho letto e compreso le condizioni del piano Free e le limitazioni del servizio.</span>
+            </label>
+          </div>
+
+          <div class="form-field">
+            <label class="form-check">
+              <input type="checkbox" id="confirm-ai" name="ai" required>
+              <span>Sono consapevole che sto interagendo con un sistema AI e che il risultato è preliminare.</span>
+            </label>
+          </div>
+
+          <div class="form-field">
+            <label class="form-check">
+              <input type="checkbox" id="confirm-verify" name="verify" required>
+              <span>Mi impegno a verificare le informazioni prima di prendere decisioni definitive.</span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block btn-lg" id="btn-start" disabled>Avvia la conversazione</button>
+
+        </form>
+
+        <div style="margin-top: var(--space-5); text-align: center;">
+          <a href="dashboard.html" class="btn btn-ghost">Annulla, torna alla dashboard</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- AVVISO BACKEND NON CONFIGURATO -->
+    <section class="section section-alt" id="state-backend-warning" hidden>
+      <div class="container container-narrow">
+        <div class="callout callout-warning">
+          <h2 class="callout-title">Backend non configurato.</h2>
+          <p class="callout-text">Questa pagina richiede un backend per verificare i limiti del piano Free e avviare la conversazione. Attualmente il sistema non può controllare il numero di conversazioni disponibili.</p>
+          <p class="callout-text">Per abilitare questa funzionalità, configura il backend Node.js e il database come indicato nel file README.md.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-brand">
+          <span class="logo-wordmark logo-wordmark-light">Amarreda</span>
+          <p class="footer-tagline">Progettazione d'interni assistita dall'intelligenza artificiale. Un percorso unico per decidere meglio e risparmiare tempo.</p>
+        </div>
+        <div class="footer-col">
+          <h3 class="footer-heading">Servizio</h3>
+          <a href="come-funziona.html" class="footer-link">Come funziona</a>
+          <a href="servizio-privati.html" class="footer-link">Privati</a>
+          <a href="servizio-professionisti.html" class="footer-link">Professionisti</a>
+          <a href="servizio-rivenditori.html" class="footer-link">Rivenditori</a>
+          <a href="progettazione-ai.html" class="footer-link">Progettazione AI</a>
+          <a href="risultati.html" class="footer-link">Risultati e progetti</a>
+        </div>
+        <div class="footer-col">
+          <h3 class="footer-heading">Esplora</h3>
+          <a href="prodotti.html" class="footer-link">Prodotti e ispirazioni</a>
+          <a href="prezzi.html" class="footer-link">Prezzi e piani</a>
+          <a href="chi-siamo.html" class="footer-link">Chi siamo</a>
+          <a href="contatti.html" class="footer-link">Contatti e assistenza</a>
+        </div>
+        <div class="footer-col">
+          <h3 class="footer-heading">Legale</h3>
+          <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+          <a href="cookie-policy.html" class="footer-link">Cookie Policy</a>
+          <a href="termini-condizioni.html" class="footer-link">Termini e Condizioni</a>
+          <a href="informazioni-stime.html" class="footer-link">Informazioni sulle stime</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 Amarreda. Tutti i diritti riservati.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script>
+    (function () {
+      const token = localStorage.getItem('amarreda_auth_token');
+      const user = localStorage.getItem('amarreda_user');
+
+      const stateNotAuth = document.getElementById('state-not-authenticated');
+      const stateLimitReached = document.getElementById('state-limit-reached');
+      const stateReady = document.getElementById('state-ready');
+      const stateBackendWarning = document.getElementById('state-backend-warning');
+
+      // Se non c'è token, mostra stato non autenticato
+      if (!token || !user) {
+        stateNotAuth.hidden = false;
+        stateLimitReached.hidden = true;
+        stateReady.hidden = true;
+        stateBackendWarning.hidden = true;
+        return;
+      }
+
+      const userData = JSON.parse(user);
+      const maxConversations = userData.maxConversazioni || 1;
+      const currentConversations = userData.conversazioni || 0;
+
+      // Verifica limite conversazioni
+      if (currentConversations >= maxConversations) {
+        stateNotAuth.hidden = true;
+        stateLimitReached.hidden = false;
+        stateReady.hidden = true;
+        stateBackendWarning.hidden = true;
+        return;
+      }
+
+      // Utente pronto per avviare
+      stateNotAuth.hidden = true;
+      stateLimitReached.hidden = true;
+      stateReady.hidden = false;
+      stateBackendWarning.hidden = true;
+
+      // Gestione checkbox e pulsante
+      const checkboxes = document.querySelectorAll('#confirm-form input[type="checkbox"]');
+      const btnStart = document.getElementById('btn-start');
+
+      function updateButtonState() {
+        const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+        btnStart.disabled = !allChecked;
+      }
+
+      checkboxes.forEach(cb => {
+        cb.addEventListener('change', updateButtonState);
+      });
+
+      // Gestione submit
+      const form = document.getElementById('confirm-form');
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        try {
+          const response = await fetch('/api/projects', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ titolo: 'Nuovo progetto' })
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            window.location.href = `progetto-dettaglio.html?id=${data.project.id}`;
+          } else if (response.status === 403) {
+            // Limite raggiunto (controllato lato server)
+            stateReady.hidden = true;
+            stateLimitReached.hidden = false;
+          } else {
+            throw new Error('Errore nella creazione del progetto');
+          }
+        } catch (err) {
+          console.error('Errore creazione progetto:', err);
+          stateReady.hidden = true;
+          stateBackendWarning.hidden = false;
+        }
+      });
+
+      // Gestione logout
+      const logoutLink = document.getElementById('logout-link');
+      if (logoutLink) {
+        logoutLink.addEventListener('click', function (e) {
+          e.preventDefault();
+          localStorage.removeItem('amarreda_auth_token');
+          localStorage.removeItem('amarreda_user');
+          window.location.href = 'login.html';
+        });
+      }
+
+    })();
+  </script>
+</body>
+</html>

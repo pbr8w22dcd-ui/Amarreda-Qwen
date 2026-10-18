@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amarreda — Progettazione d'interni assistita da AI</title>
+  <meta name="description" content="Parti dai tuoi ambienti, raccontaci come vorresti viverli e scopri una proposta d'arredo con rendering, stima dei costi e prodotti da esplorare.">
+  <link rel="icon" type="image/svg+xml" href="./assets/logo.svg">
+  
+  <!-- Font Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stili (con percorso ./ per GitHub Pages) -->
+  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="./css/pages.css">
+</head>
+<body>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="./index.html" class="logo" aria-label="Amarreda — Home">
+        <span class="logo-wordmark">Amarreda</span>
+      </a>
+
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Apri il menu">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+
+      <nav class="main-nav" id="main-nav" aria-label="Navigazione principale">
+        <a href="./pages/come-funziona.html" class="nav-link">Come funziona</a>
+        <a href="./pages/servizio-privati.html" class="nav-link">Privati</a>
+        <a href="./pages/servizio-professionisti.html" class="nav-link">Professionisti</a>
+        <a href="./pages/servizio-rivenditori.html" class="nav-link">Rivenditori</a>
+        <a href="./pages/prezzi.html" class="nav-link">Prezzi</a>
+        <a href="./pages/login.html" class="nav-link">Accedi</a>
+        <a href="./pages/registrazione.html" class="btn btn-primary btn-sm">Inizia il tuo progetto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ===================== HERO ===================== -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <h1 class="hero-title">La tua casa, le tue idee.<br>Meno tempo per arrivare alla soluzione giusta.</h1>
+          <p class="hero-subtitle">Parti dai tuoi ambienti, raccontaci come vorresti viverli e scopri una proposta d'arredo con rendering, stima dei costi e prodotti da esplorare. Tutto in un unico percorso.</p>
+          <div class="hero-cta">
+            <a href="./pages/registrazione.html" class="btn btn-primary btn-lg">Inizia il tuo progetto</a>
+            <a href="./pages/come-funziona.html" class="btn btn-ghost btn-lg">Scopri come funziona</a>
+          </div>
+          <p class="hero-microcopy">Per iniziare ti serviranno una planimetria, alcune fotografie e le tue idee.</p>
+        </div>
+        <figure class="hero-figure">
+          <!-- Segnaposto immagine: sostituire con ./assets/images/hero-home.webp quando disponibile -->
+          <div class="img-placeholder img-placeholder-hero" role="img" aria-label="Living contemporaneo italiano con luce naturale">
+            <span class="img-placeholder-label">Immagine hero<br>hero-home.webp</span>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ===================== INTRO ===================== -->
+    <section class="section section-narrow">
+      <div class="container text-center">
+        <h2 class="section-title">Arredare dovrebbe essere più semplice.</h2>
+        <p class="section-lead">Confrontare soluzioni, capire i costi e scegliere a chi affidarsi richiede tempo. Amarreda ti aiuta a organizzare le idee e a valutare le possibilità prima di affrontare il percorso d’acquisto.</p>
+      </div>
+    </section>
+
+    <!-- ===================== TRE TARGET (TENDINE) ===================== -->
+    <section class="section" id="target">
+      <div class="container">
+        <div class="target-grid">
+
+          <!-- PRIVATI -->
+          <article class="target-card">
+            <button class="target-trigger" aria-expanded="false" aria-controls="panel-privati" data-target="privati">
+              <span class="target-kicker">Privati</span>
+              <span class="target-title">La tua casa, senza giri infiniti.</span>
+              <span class="target-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="target-panel" id="panel-privati" role="region" aria-label="Servizio per

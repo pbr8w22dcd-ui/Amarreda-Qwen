@@ -1,0 +1,118 @@
+{
+  "_meta": {
+    "description": "Catalogo centrale dei marchi partner Amarreda",
+    "version": "1.0.0",
+    "last_updated": "2026-10-19",
+    "usage": "Usato dal frontend (marchi.html) e dal backend per validare i listini"
+  },
+  "brands": [
+    {
+      "id": "arredo3",
+      "name": "Arredo3",
+      "slug": "arredo3",
+      "description": "Design italiano, qualità artigianale e soluzioni su misura per ogni ambiente della casa.",
+      "tagline": "Partner Ufficiale",
+      "country": "IT",
+      "founded": 1982,
+      "website": "https://www.arredo3.com",
+      "logo_url": "../assets/brands/arredo3.svg",
+      "categories": ["cucine", "soggiorni", "camere", "bagni", "porte"],
+      "status": "active",
+      "integration_level": "full",
+      "products_count": 1245,
+      "variants_count": 4890,
+      "partner_since": "2026-01-15",
+      "last_sync": "2026-10-18T14:30:00Z",
+      "features": {
+        "has_3d_models": true,
+        "has_dynamic_pricing": true,
+        "has_affiliate_program": false,
+        "supports_custom_finitions": true
+      }
+    },
+    {
+      "id": "scavolini",
+      "name": "Scavolini",
+      "slug": "scavolini",
+      "description": "Leader italiano nella produzione di cucine, soggiorni e bagni di design.",
+      "tagline": "In Integrazione",
+      "country": "IT",
+      "founded": 1961,
+      "website": "https://www.scavolini.com",
+      "logo_url": "../assets/brands/scavolini.svg",
+      "categories": ["cucine", "bagni"],
+      "status": "beta",
+      "integration_level": "partial",
+      "products_count": 856,
+      "variants_count": 0,
+      "partner_since": "2026-09-01",
+      "last_sync": "2026-10-19T09:15:00Z",
+      "features": {
+        "has_3d_models": true,
+        "has_dynamic_pricing": false,
+        "has_affiliate_program": false,
+        "supports_custom_finitions": true
+      }
+    },
+    {
+      "id": "lube",
+      "name": "Lube",
+      "slug": "lube",
+      "description": "Uno dei principali produttori italiani di cucine e mobili per la casa.",
+      "tagline": "In Trattativa",
+      "country": "IT",
+      "founded": 1967,
+      "website": "https://www.cucinilube.it",
+      "logo_url": "../assets/brands/lube.svg",
+      "categories": ["cucine"],
+      "status": "pending",
+      "integration_level": "none",
+      "products_count": 0,
+      "variants_count": 0,
+      "partner_since": null,
+      "last_sync": null,
+      "features": {
+        "has_3d_models": false,
+        "has_dynamic_pricing": false,
+        "has_affiliate_program": false,
+        "supports_custom_finitions": false
+      }
+    },
+    {
+      "id": "kartell",
+      "name": "Kartell",
+      "slug": "kartell",
+      "description": "Icona del design italiano, specializzata in complementi d'arredo in materiale plastico.",
+      "tagline": "Affiliato Web",
+      "country": "IT",
+      "founded": 1949,
+      "website": "https://www.kartell.com",
+      "logo_url": "../assets/brands/kartell.svg",
+      "categories": ["complementi", "illuminazione", "soggiorni"],
+      "status": "affiliate",
+      "integration_level": "affiliate",
+      "products_count": 0,
+      "variants_count": 0,
+      "partner_since": "2026-08-10",
+      "last_sync": null,
+      "features": {
+        "has_3d_models": false,
+        "has_dynamic_pricing": false,
+        "has_affiliate_program": true,
+        "supports_custom_finitions": false
+      }
+    }
+  ],
+  "statuses": {
+    "active": "Partner ufficiale con integrazione completa",
+    "beta": "In fase di integrazione, listini parziali",
+    "pending": "In trattativa commerciale",
+    "affiliate": "Solo prodotti affiliati via web"
+  },
+  "integration_levels": {
+    "full": "Listini completi, modelli 3D, rendering, prezzi dinamici",
+    "partial": "Listini parziali, alcuni modelli 3D",
+    "affiliate": "Solo link affiliati esterni",
+    "none": "Nessuna integrazione attiva"
+  }
+}

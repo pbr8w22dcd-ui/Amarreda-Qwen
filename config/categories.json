@@ -1,0 +1,85 @@
+{
+  "_meta": {
+    "description": "Tassonomia standardizzata per l'assegnazione manuale dei cataloghi e l'estrazione dati esatta da PDF nativi",
+    "version": "1.1.0",
+    "last_updated": "2026-10-19"
+  },
+  "pdf_extraction_rules": {
+    "source_format": "PDF nativo (testo e vettoriale, non scansionato)",
+    "dimensions_unit": "mm (millimetri)",
+    "images": "2D (il listino contiene solo immagini 2D, nessun modello 3D)",
+    "pricing_rule": "ESTRAZIONE ESATTA. L'AI deve leggere il prezzo esattamente come scritto nel listino. Non inventare, non stimare e non usare fallback. Se un prezzo non è leggibile o mancante, il prodotto deve essere segnato come 'Da verificare' e segnalato all'admin."
+  },
+  "admin_upload_workflow": {
+    "description": "Quando un admin carica un PDF di un listino, l'interfaccia mostra questa lista di categorie sotto forma di checkbox. L'admin deve spuntare manualmente le categorie di appartenenza.",
+    "multi_category_support": true,
+    "examples": [
+      {
+        "brand": "Scavolini",
+        "admin_selection": ["cucine"]
+      },
+      {
+        "brand": "Tomasella",
+        "admin_selection": ["soggiorni", "camere"]
+      }
+    ]
+  },
+  "categories": [
+    {
+      "id": "cucine",
+      "name": "Cucine",
+      "description": "Composizioni modulari, isole, penisole, basi, pensili, colonne.",
+      "icon": "",
+      "ai_keywords": ["cucina", "composizione", "isola", "penisola", "lavello", "piano cottura", "colonne", "dispensa", "base", "pensile"],
+      "subcategories": ["composizioni", "accessori", "elettrodomestici", "rubinetteria"]
+    },
+    {
+      "id": "soggiorni",
+      "name": "Soggiorni e Living",
+      "description": "Pareti attrezzate, librerie, tavolini, contenitori, credenze.",
+      "icon": "🛋️",
+      "ai_keywords": ["soggiorno", "living", "parete attrezzata", "libreria", "tavolino", "mobile tv", "credenza", "mensole"],
+      "subcategories": ["pareti", "librerie", "tavolini", "contenitori"]
+    },
+    {
+      "id": "camere",
+      "name": "Camere da Letto",
+      "description": "Letti, reti, materassi, armadi, cabine armadio, comodini.",
+      "icon": "🛏️",
+      "ai_keywords": ["letto", "rete", "materasso", "armadio", "cabina armadio", "comodino", "testiera", "camera", "guardaroba"],
+      "subcategories": ["letti", "armadi", "cabine_armadio", "complementi_notte"]
+    },
+    {
+      "id": "bagni",
+      "name": "Bagni",
+      "description": "Mobili lavabo, specchiere, colonne, contenitori bagno.",
+      "icon": "",
+      "ai_keywords": ["bagno", "lavabo", "mobile bagno", "specchiera", "colonna", "contenitore", "vanità"],
+      "subcategories": ["mobili_lavabo", "specchiere", "colonne", "accessori"]
+    },
+    {
+      "id": "illuminazione",
+      "name": "Illuminazione",
+      "description": "Lampade da terra, da tavolo, sospensioni, plafoniere, faretti.",
+      "icon": "💡",
+      "ai_keywords": ["lampada", "lampadario", "sospensione", "faretti", "plafoniera", "luce", "illuminazione", "applique"],
+      "subcategories": ["sospensioni", "lampade_terra", "lampade_tavolo", "faretti"]
+    },
+    {
+      "id": "complementi",
+      "name": "Complementi d'Arredo",
+      "description": "Tavoli, sedie, divani, poltrone, tappeti, oggetti di design.",
+      "icon": "🪑",
+      "ai_keywords": ["tavolo", "sedia", "divano", "poltrona", "tappeto", "vaso", "specchio", "complemento", "panca"],
+      "subcategories": ["tavoli", "sedie", "divani", "tessili", "decorazioni"]
+    },
+    {
+      "id": "porte",
+      "name": "Sistemi Porta",
+      "description": "Porte interne, scorrevoli, filomuro, battenti.",
+      "icon": "🚪",
+      "ai_keywords": ["porta", "uscio", "scorrevole", "filomuro", "battente", "maniglia", "telaio"],
+      "subcategories": ["battenti", "scorrevoli", "filomuro", "maniglieria"]
+    }
+  ]
+}

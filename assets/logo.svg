@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="Amarreda">
+  <defs>
+    <!-- Gradiente oro/marrone caldo -->
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#B8996A;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#D4AF37;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B7355;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Gradiente avorio/argento -->
+    <linearGradient id="silverGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FCFAF6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E8E4DD;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Filtro per la sfera con effetto 3D -->
+    <radialGradient id="sphereGradient" cx="35%" cy="35%">
+      <stop offset="0%" style="stop-color:#A8B89A;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#89917D;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6E7663;stop-opacity:1" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Sfondo carbone -->
+  <rect width="800" height="1000" fill="#262522"/>
+  
+  <!-- Cornici angolari minimaliste -->
+  <g stroke="url(#goldGradient)" stroke-width="1" fill="none" opacity="0.6">
+    <!-- Angolo in alto a sinistra -->
+    <path d="M 80 150 L 80 120 L 110 120"/>
+    <!-- Angolo in alto a destra -->
+    <path d="M 690 120 L 720 120 L 720 150"/>
+    <!-- Angolo in basso a sinistra -->
+    <path d="M 80 850 L 80 880 L 110 880"/>
+    <!-- Angolo in basso a destra -->
+    <path d="M 690 880 L 720 880 L 720 850"/>
+  </g>
+  
+  <!-- Cerchio esterno tratteggiato -->
+  <circle cx="400" cy="420" r="180" fill="none" stroke="url(#goldGradient)" stroke-width="1" stroke-dasharray="4 6" opacity="0.4"/>
+  
+  <!-- Cerchio principale con apertura -->
+  <path d="M 400 260 A 160 160 0 1 1 280 520" fill="none" stroke="url(#goldGradient)" stroke-width="2"/>
+  
+  <!-- Sfera orbitante verde salvia -->
+  <circle cx="540" cy="340" r="18" fill="url(#sphereGradient)"/>
+  <circle cx="535" cy="335" r="5" fill="#C8D4B8" opacity="0.6"/>
+  
+  <!-- Monogramma "A" stilizzata -->
+  <g transform="translate(400, 420)">
+    <!-- Lettera A in avorio -->
+    <text x="-60" y="30" font-family="'Playfair Display', 'Cormorant Garamond', Georgia, serif" 
+          font-size="180" font-weight="400" fill="url(#silverGradient)" letter-spacing="-5">
+      A
+    </text>
+    <!-- Linea verticale dorata che attraversa la A -->
+    <line x1="0" y1="-60" x2="0" y2="80" stroke="url(#goldGradient)" stroke-width="2"/>
+  </g>
+  
+  <!-- Linea decorativa con diamante -->
+  <g transform="translate(400, 680)">
+    <line x1="-180" y1="0" x2="-20" y2="0" stroke="url(#goldGradient)" stroke-width="1" opacity="0.6"/>
+    <polygon points="0,-8 8,0 0,8 -8,0" fill="url(#goldGradient)"/>
+    <line x1="20" y1="0" x2="180" y2="0" stroke="url(#goldGradient)" stroke-width="1" opacity="0.6"/>
+  </g>
+  
+  <!-- Wordmark AMARREDA -->
+  <text x="400" y="760" font-family="'Cormorant Garamond', Georgia, serif" 
+        font-size="72" font-weight="300" fill="#FCFAF6" 
+        letter-spacing="18" text-anchor="middle">
+    AMARREDA
+  </text>
+  
+  <!-- Sottotitolo -->
+  <text x="400" y="810" font-family="'Manrope', sans-serif" 
+        font-size="14" font-weight="300" fill="url(#goldGradient)" 
+        letter-spacing="6" text-anchor="middle">
+    INTERIOR DESIGN · AI POWERED
+  </text>
+  
+  <!-- Linee decorative inferiori -->
+  <g transform="translate(400, 860)">
+    <line x1="-100" y1="0" x2="-20" y2="0" stroke="url(#goldGradient)" stroke-width="1" opacity="0.5"/>
+    <circle cx="-10" cy="0" r="2" fill="url(#goldGradient)" opacity="0.5"/>
+    <circle cx="0" cy="0" r="2" fill="url(#goldGradient)" opacity="0.5"/>
+    <circle cx="10" cy="0" r="2" fill="url(#goldGradient)" opacity="0.5"/>
+    <line x1="20" y1="0" x2="100" y2="0" stroke="url(#goldGradient)" stroke-width="1" opacity="0.5"/>
+  </g>
+</svg>

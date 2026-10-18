@@ -1,0 +1,18 @@
+# AMARREDA - Robots.txt
+# Blocca l'accesso alle aree amministrative e ai file di sistema
+
+User-agent: *
+Allow: /
+Allow: /pages/
+Allow: /assets/
+
+# Blocca l'indicizzazione del pannello admin (sicurezza)
+Disallow: /admin/
+
+# Blocca l'indicizzazione dei file di configurazione e script (best practice SEO)
+Disallow: /config/
+Disallow: /js/
+Disallow: /css/
+
+# Indica la posizione della sitemap
+Sitemap: https://pbr8w22dcd-ui.github.io/Amarreda-Qwen/sitemap.xml

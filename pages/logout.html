@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Esci dal tuo account — Amarreda</title>
+  <meta name="robots" content="noindex, follow">
+  <link rel="icon" type="image/svg+xml" href="../assets/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="logo" aria-label="Amarreda — Home">
+        <span class="logo-wordmark">Amarreda</span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="auth-page">
+      <div class="container">
+        <div class="auth-card">
+
+          <!-- STATO: NON AUTENTICATO -->
+          <div id="state-not-authenticated" hidden>
+            <h1 class="auth-title">Non sei collegato.</h1>
+            <p class="auth-subtitle">Non c'è alcuna sessione attiva da chiudere.</p>
+            <a href="../index.html" class="btn btn-primary btn-block btn-lg">Torna alla homepage</a>
+          </div>
+
+          <!-- STATO: CONFERMA LOGOUT -->
+          <div id="state-confirm">
+            <h1 class="auth-title">Vuoi uscire dal tuo account?</h1>
+            <p class="auth-subtitle">La tua sessione verrà chiusa. I tuoi progetti e le tue informazioni resteranno salvati e potrai ritrovarli al prossimo accesso.</p>
+
+            <div style="display: flex; flex-direction: column; gap: var(--space-3); margin-top: var(--space-6);">
+              <button type="button" class="btn btn-primary btn-block btn-lg" id="btn-logout-confirm">Sì, esci dal mio account</button>
+              <a href="dashboard.html" class="btn btn-ghost btn-block">Annulla, torna alla dashboard</a>
+            </div>
+          </div>
+
+          <!-- STATO: LOGOUT COMPLETATO -->
+          <div id="state-done" hidden>
+            <h1 class="auth-title">Sei uscito correttamente.</h1>
+            <p class="auth-subtitle">Grazie per aver utilizzato Amarreda. A presto.</p>
+            <div style="display: flex; flex-direction: column; gap: var(--space-3); margin-top: var(--space-6);">
+              <a href="../index.html" class="btn btn-primary btn-block btn-lg">Torna alla homepage</a>
+              <a href="login.html" class="btn btn-ghost btn-block">Accedi di nuovo</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 Amarreda. Tutti i diritti riservati.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script>
+    (function () {
+      const token = localStorage.getItem('amarreda_auth_token');
+
+      const stateNotAuth = document.getElementById('state-not-authenticated');
+      const stateConfirm = document.getElementById('state-confirm');
+      const stateDone = document.getElementById('state-done');
+
+      if (!token) {
+        stateNotAuth.hidden = false;
+        stateConfirm.hidden = true;
+        stateDone.hidden = true;
+        return;
+      }
+
+      const btnLogout = document.getElementById('btn-logout-confirm');
+      if (btnLogout) {
+        btnLogout.addEventListener('click', async function () {
+          // Prova a chiamare il backend per invalidare il token (se configurato)
+          try {
+            await fetch('/api/auth/logout', {
+              method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              }
+            });
+          } catch (err) {
+            // Backend non configurato: procediamo comunque con il logout locale
+          }
+
+          // Pulizia sessione locale
+          localStorage.removeItem('amarreda_auth_token');
+          localStorage.removeItem('amarreda_user');
+
+          // Mostra stato completato
+          stateConfirm.hidden = true;
+          stateDone.hidden = false;
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

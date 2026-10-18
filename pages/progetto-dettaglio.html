@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dettaglio progetto — Amarreda</title>
+  <meta name="description" content="La tua proposta d'arredo. Consulta le informazioni raccolte, il rendering, la stima dei costi e i prodotti correlati.">
+  <link rel="icon" type="image/svg+xml" href="../assets/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="logo" aria-label="Amarreda — Home">
+        <span class="logo-wordmark">Amarreda</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Apri il menu">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <nav class="main-nav" id="main-nav" aria-label="Navigazione principale">
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="progetti.html" class="nav-link is-active">I miei progetti</a>
+        <a href="account.html" class="nav-link">Account</a>
+        <a href="logout.html" class="nav-link" id="logout-link">Esci</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- STATO: NON AUTENTICATO -->
+    <section class="auth-page" id="state-not-authenticated">
+      <div class="container">
+        <div class="auth-card">
+          <h1 class="auth-title">Area riservata.</h1>
+          <p class="auth-subtitle">Questa pagina è accessibile solo agli utenti registrati.</p>
+          <a href="login.html" class="btn btn-primary btn-block btn-lg">Accedi</a>
+          <div class="auth-footer">
+            <p>Non hai un account? <a href="registrazione.html">Registrati</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATO: BACKEND NON CONFIGURATO -->
+    <section class="section" id="state-backend-warning" hidden>
+      <div class="container container-narrow">
+        <div class="callout callout-warning">
+          <h2 class="callout-title">Backend non configurato.</h2>
+          <p class="callout-text">Questa pagina richiede un backend per recuperare i dati del progetto. Attualmente il sistema non può caricare le informazioni raccolte, il rendering, la stima o i prodotti correlati.</p>
+          <p class="callout-text">Per abilitare questa funzionalità, configura il backend Node.js e il database come indicato nel file README.md.</p>
+        </div>
+        <div class="project-actions-top">
+          <a href="progetti.html" class="btn btn-ghost">Torna ai miei progetti</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATO: PROGETTO -->
+    <section class="section" id="state-project" hidden>
+
+      <!-- HEADER PROGETTO -->
+      <div class="container">
+        <div class="project-header">
+          <div class="project-header-content">
+            <span class="project-kicker">La tua proposta d'arredo.</span>
+            <h1 class="project-title" id="project-title">Progetto</h1>
+            <div class="project-meta">
+              <span class="project-meta-item">
+                <span class="project-meta-label">Creato il</span>
+                <span class="project-meta-value" id="project-date">—</span>
+              </span>
+              <span class="project-meta-item">
+                <span class="project-meta-label">Stato</span>
+                <span class="project-meta-value" id="project-status">—</span>
+              </span>
+              <span class="project-meta-item">
+                <span class="project-meta-label">Scadenza proposta</span>
+                <span class="project-meta-value" id="project-expiry">—</span>
+              </span>
+            </div>
+          </div>
+          <div class="project-header-actions">
+            <a href="progetti.html" class="btn btn-ghost">Torna ai progetti</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEZIONE 1: INFORMAZIONI DELL'AMBIENTE -->
+      <div class="container">
+        <section class="project-section">
+          <header class="project-section-header">
+            <h2 class="project-section-title">Informazioni dell'ambiente.</h2>
+            <p class="project-section-intro">I dati raccolti durante la conversazione, organizzati per ambiente.</p>
+          </header>
+          <div class="project-section-body" id="section-rooms">
+            <p class="project-empty-message">Nessuna informazione ancora disponibile. Avvia o riprendi la conversazione per raccogliere i dati degli ambienti.</p>
+          </div>
+        </section>
+      </div>
+
+      <!-- SEZIONE 2: ESIGENZE RACCOLTE -->
+      <div class="container">
+        <section class="project-section">
+          <header class="project-section-header">
+            <h2 class="project-section-title">Esigenze raccolte.</h2>
+            <p class="project-section-intro">Le preferenze, lo stile, i materiali e le priorità espresse durante la conversazione.</p>
+          </header>
+          <div class="project-section-body" id="section-brief">
+            <p class="project-empty-message">Le esigenze raccolte appariranno qui dopo la conversazione con l'AI.</p>
+          </div>
+        </section>
+      </div>
+
+      <!-- SEZIONE 3: PLANIMETRIA E FOTOGRAFIE -->
+      <div class="container">
+        <section class="project-section">
+          <header class="project-section-header">
+            <h2 class="project-section-title">Planimetria e fotografie.</h2>
+            <p class="project-section-intro">I materiali caricati per ciascun ambiente.</p>
+          </header>
+          <div class="project-section-body" id="section-files">
+            <p class="project-empty-message">Nessun file caricato. Puoi caricare una planimetria e fino a tre fotografie per ambiente.</p>
+          </div>
+        </section>
+      </div>
+
+      <!-- SEZIONE 4: RENDERING -->
+      <div class="container">
+        <section class="project-section">
+          <header class="project-section-header">
+            <h2 class="project-section-title">Rendering.</h2>
+            <p class="project-section-intro">Rappresentazione illustrativa dell'ambiente progettato.</p>
+          </header>
+          <div class="project-section-body" id="section-rendering">
+            <p class="project-empty-message">Il rendering non è ancora disponibile.</p>
+          </div>
+          <aside class="callout callout-warning project-section-note">
+            <p class="callout-text">Il rendering è una rappresentazione illustrativa. Le misure e la fattibilità della composizione devono essere verificate sulla base dei dati tecnici disponibili. Non costituisce una certificazione tecnica né un rilievo.</p>
+          </aside>
+        </section>
+      </div>
+
+      <!-- SEZIONE 5: CONFIGURAZIONE PRELIMINARE -->
+      <div class="container">
+        <section class="project-section">
+          <header class="project-section-header">
+            <h2 class="project-section-title">Configurazione preliminare.</h2>
+            <p class="project-section-intro">La proposta di layout e gli elementi principali individuati dall'AI.</p>
+          </header>
+          <div class="project-section-body" id="section-configuration">
+            <p class="project-empty-message">La configurazione preliminare sarà disponibile dopo l'elaborazione della conversazione.</p>
+          </div>
+        </section>
+      </div>
+
+      <!-- SEZIONE 6: STIMA DEI COSTI -->
+      <div class="container">
+        <section class="project-section">
+          <header class="project-section-header">
+            <h2 class="project-section-title">Stima dei costi.</h2>
+            <p class="project-section-intro">Una stima preliminare dei costi, utile per orientarti prima di prendere decisioni definitive.</p>
+          </header>
+          <div class="project-section-body" id="section-estimate">
+            <p class="project-empty-message">La stima non è ancora disponibile.</p>
+          </div>
+          <aside class="callout callout-warning project-section-note">
+            <p class="callout-text">Questa è una stima preliminare, non un preventivo contrattuale definitivo. Prezzi, quantità, lavorazioni e condizioni devono essere verificati prima di prendere decisioni definitive. Trasporto, montaggio, posa e lavorazioni edili non sono inclusi nel totale standard.</p>
+          </aside>
+        </section>
+      </div>
+
+      <!-- SEZIONE 7: PRODOTTI CORRELATI -->
+      <div class="container">
+        <section class="project-section">
+          <header class="project-section-header">
+            <h2 class="project-section-title">Prodotti correlati.</h2>
+            <p class="project-section-intro">Prodotti verificati e suggerimenti ispirazionali coerenti con la proposta.</p>
+          </header>
+          <div class="project-section-body" id="section-products">
+            <p class="project-empty-message">I prodotti correlati saranno disponibili quando saranno verificati i cataloghi e le fonti.</p>
+          </div>
+          <aside class="callout callout-info project-section-note">
+            <p class="callout-text">Le schede distinguono i prodotti realmente verificati dai suggerimenti puramente ispirazionali. I prezzi e la disponibilità possono variare. Verifica sempre le informazioni direttamente sul sito del venditore prima di procedere con l'acquisto.</p>
+          </aside>
+        </section>
+      </div>
+
+      <!-- SEZIONE 8: NOTE E VERIFICHE DA COMPLETARE -->
+      <div class="container">
+        <section class="project-section">
+          <header class="project-section-header">
+            <h2 class="project-section-title">Note e verifiche da completare.</h2>
+            <p class="project-section-intro">Le informazioni ancora mancanti o da confermare prima di procedere.</p>
+          </header>
+          <div class="project-section-body" id="section-notes">
+            <p class="project-empty-message">Nessuna nota o verifica in sospeso.</p>
+          </div>
+          <aside class="callout callout-info project-section-note">
+            <p class="callout-text">Verifica misure, prezzi e disponibilità prima di acquistare prodotti o avviare lavori.</p>
+          </aside>
+        </section>
+      </div>
+
+      <!-- SEZIONE PREMIUM: AGGIORNAMENTI -->
+      <div class="container">
+        <section class="project-section project-section-premium">
+          <header class="project-section-header">
+            <h2 class="project-section-title">Vuoi approfondire o modificare la proposta?</h2>
+            <p class="project-section-intro">La proposta Free è pensata per offrirti un primo quadro. Per nuove elaborazioni e aggiornamenti puoi accedere alle funzionalità previste dal piano Premium.</p>
+          </header>
+          <div class="project-section-body">
+            <a href="prezzi.html" class="btn btn-primary btn-lg">Scopri Premium</a>
+          </div>
+        </section>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-brand">
+          <span class="logo-wordmark logo-wordmark-light">Amarreda</span>
+          <p class="footer-tagline">Progettazione d'interni assistita dall'intelligenza artificiale. Un percorso unico per decidere meglio e risparmiare tempo.</p>
+        </div>
+        <div class="footer-col">
+          <h3 class="footer-heading">Servizio</h3>
+          <a href="come-funziona.html" class="footer-link">Come funziona</a>
+          <a href="servizio-privati.html" class="footer-link">Privati</a>
+          <a href="servizio-professionisti.html" class="footer-link">Professionisti</a>
+          <a href="servizio-rivenditori.html" class="footer-link">Rivenditori</a>
+          <a href="progettazione-ai.html" class="footer-link">Progettazione AI</a>
+          <a href="risultati.html" class="footer-link">Risultati e progetti</a>
+        </div>
+        <div class="footer-col">
+          <h3 class="footer-heading">Esplora</h3>
+          <a href="prodotti.html" class="footer-link">Prodotti e ispirazioni</a>
+          <a href="prezzi.html" class="footer-link">Prezzi e piani</a>
+          <a href="chi-siamo.html" class="footer-link">Chi siamo</a>
+          <a href="contatti.html" class="footer-link">Contatti e assistenza</a>
+        </div>
+        <div class="footer-col">
+          <h3 class="footer-heading">Legale</h3>
+          <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+          <a href="cookie-policy.html" class="footer-link">Cookie Policy</a>
+          <a href="termini-condizioni.html" class="footer-link">Termini e Condizioni</a>
+          <a href="informazioni-stime.html" class="footer-link">Informazioni sulle stime</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 Amarreda. Tutti i diritti riservati.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script>
+    // Gestione pagina dettaglio progetto
+    (function () {
+      const token = localStorage.getItem('amarreda_auth_token');
+      const user = localStorage.getItem('amarreda_user');
+
+      const stateNotAuth = document.getElementById('state-not-authenticated');
+      const stateBackendWarning = document.getElementById('state-backend-warning');
+      const stateProject = document.getElementById('state-project');
+
+      // Se non c'è token, mostra stato non autenticato
+      if (!token || !user) {
+        stateNotAuth.hidden = false;
+        stateBackendWarning.hidden = true;
+        stateProject.hidden = true;
+        return;
+      }
+
+      // Recupera ID progetto dall'URL
+      const params = new URLSearchParams(window.location.search);
+      const projectId = params.get('id');
+
+      async function loadProject() {
+        try {
+          const endpoint = projectId
+            ? `/api/projects/${encodeURIComponent(projectId)}`
+            : '/api/projects';
+
+          const response = await fetch(endpoint, {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }
+          });
+
+          if (response.status === 401 || response.status === 403) {
+            localStorage.removeItem('amarreda_auth_token');
+            localStorage.removeItem('amarreda_user');
+            stateNotAuth.hidden = false;
+            stateBackendWarning.hidden = true;
+            stateProject.hidden = true;
+            return;
+          }
+
+          if (!response.ok) {
+            throw new Error('Errore nel caricamento');
+          }
+
+          const data = await response.json();
+          const project = projectId ? data : (data.projects && data.projects[0]);
+
+          if (!project) {
+            stateBackendWarning.hidden = false;
+            stateProject.hidden = true;
+            return;
+          }
+
+          // Aggiorna header progetto
+          const title = document.getElementById('project-title');
+          const date = document.getElementById('project-date');
+          const status = document.getElementById('project-status');
+          const expiry = document.getElementById('project-expiry');
+
+          if (title) title.textContent = project.titolo || 'Progetto';
+
+          if (date) {
+            const created = new Date(project.dataCreazione);
+            date.textContent = created.toLocaleDateString('it-IT', {
+              day: '2-digit', month: 'long', year: 'numeric'
+            });
+          }
+
+          if (status) status.textContent = project.stato || 'In corso';
+
+          if (expiry) {
+            const created = new Date(project.dataCreazione);
+            const exp = new Date(created);
+            exp.setDate(exp.getDate() + 30);
+            expiry.textContent = exp.toLocaleDateString('it-IT', {
+              day: '2-digit', month: 'long', year: 'numeric'
+            });
+          }
+
+          // Popola sezioni con dati reali se disponibili
+          populateRooms(project.ambienti || []);
+          populateBrief(project.brief || null);
+          populateFiles(project.ambienti || []);
+          populateRendering(project.rendering || []);
+          populateConfiguration(project.configurazione || null);
+          populateEstimate(project.stima || null);
+          populateProducts(project.prodotti || []);
+          populateNotes(project.note || []);
+
+          stateBackendWarning.hidden = true;
+          stateProject.hidden = false;
+
+        } catch (err) {
+          console.error('Errore caricamento progetto:', err);
+          stateBackendWarning.hidden = false;
+          stateProject.hidden = true;
+        }
+      }
+
+      // Funzioni di popolamento sezioni
+      function populateRooms(rooms) {
+        const container = document.getElementById('section-rooms');
+        if (!container || rooms.length === 0) return;
+
+        container.innerHTML = rooms.map(room => `
+          <div class="project-data-card">
+            <h3 class="project-data-title">${room.nome || 'Ambiente'}</h3>
+            <dl class="project-data-list">
+              <div class="project-data-item">
+                <dt>Tipologia</dt>
+                <dd>${room.tipologia || '—'}</dd>
+              </div>
+              <div class="project-data-item">
+                <dt>Misure</dt>
+                <dd>${room.misure ? formatMisure(room.misure) : 'Da verificare'}</dd>
+              </div>
+              <div class="project-data-item">
+                <dt>Vincoli</dt>
+                <dd>${(room.vincoli || []).join(', ') || 'Nessun vincolo dichiarato'}</dd>
+              </div>
+            </dl>
+          </div>
+        `).join('');
+      }
+
+      function formatMisure(misure) {
+        if (!misure) return '—';
+        const parts = [];
+        if (misure.lunghezza) parts.push(`L: ${misure.lunghezza} cm`);
+        if (misure.larghezza) parts.push(`L: ${misure.larghezza} cm`);
+        if (misure.altezza) parts.push(`H: ${misure.altezza} cm`);
+        return parts.length > 0 ? parts.join(' · ') : 'Da verificare';
+      }
+
+      function populateBrief(brief) {
+        const container = document.getElementById('section-brief');
+        if (!container || !brief) return;
+
+        const items = [];
+        if (brief.stile) items.push(`<div class="project-data-item"><dt>Stile</dt><dd>${brief.stile}</dd></div>`);
+        if (brief.materiali) items.push(`<div class="project-data-item"><dt>Materiali</dt><dd>${brief.materiali}</dd></div>`);
+        if (brief.budget) items.push(`<div class="project-data-item"><dt>Budget indicativo</dt><dd>${brief.budget}</dd></div>`);
+        if (brief.priorita) items.push(`<div class="project-data-item"><dt>Priorità</dt><dd>${brief.priorita}</dd></div>`);
+
+        if (items.length > 0) {
+          container.innerHTML = `<dl class="project-data-list">${items.join('')}</dl>`;
+        }
+      }
+
+      function populateFiles(rooms) {
+        const container = document.getElementById('section-files');
+        if (!container) return;
+
+        const allFiles = rooms.flatMap(room =>
+          (room.fotografie || []).map(f => ({ ...f, ambiente: room.nome }))
+        );
+
+        if (allFiles.length === 0) return;
+
+        container.innerHTML = `
+          <div class="project-files-grid">
+            ${allFiles.map(file => `
+              <figure class="project-file-card">
+                <div class="img-placeholder" role="img" aria-label="Fotografia caricata per ${file.ambiente}">
+                  <span class="img-placeholder-label">${file.ambiente}<br>${file.filename || 'file'}</span>
+                </div>
+              </figure>
+            `).join('')}
+          </div>
+        `;
+      }
+
+      function populateRendering(renderings) {
+        const container = document.getElementById('section-rendering');
+        if (!container || renderings.length === 0) return;
+
+        container.innerHTML = renderings.map(r => `
+          <figure class="project-rendering-card">
+            <div class="img-placeholder" role="img" aria-label="Rendering generato per il progetto">
+              <span class="img-placeholder-label">Rendering<br>${r.stato || 'in attesa'}</span>
+            </div>
+            <figcaption class="project-rendering-caption">
+              <p>Generato il ${new Date(r.dataGenerazione).toLocaleDateString('it-IT')}</p>
+            </figcaption>
+          </figure>
+        `).join('');
+      }
+
+      function populateConfiguration(config) {
+        const container = document.getElementById('section-configuration');
+        if (!container || !config) return;
+
+        container.innerHTML = `<p class="project-text">${config.descrizione || 'Configurazione non disponibile.'}</p>`;
+      }
+
+      function populateEstimate(stima) {
+        const container = document.getElementById('section-estimate');
+        if (!container || !stima) return;
+
+        const voci = stima.voci || [];
+        const totalHTML = `
+          <div class="project-estimate-total">
+            <span class="project-estimate-label">Totale indicativo</span>
+            <span class="project-estimate-value">
+              € ${formatNumber(stima.totaleMinimo)} — € ${formatNumber(stima.totaleMassimo)}
+            </span>
+          </div>
+        `;
+
+        const vociHTML = voci.length > 0 ? `
+          <div class="table-wrap">
+            <table class="table project-estimate-table">
+              <thead>
+                <tr>
+                  <th>Ambiente</th>
+                  <th>Tipologia</th>
+                  <th>Minimo</th>
+                  <th>Massimo</th>
+                  <th>Fonte</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${voci.map(v => `
+                  <tr>
+                    <td>${v.ambiente || '—'}</td>
+                    <td>${v.tipologia || '—'}</td>
+                    <td>€ ${formatNumber(v.costoMinimo)}</td>
+                    <td>€ ${formatNumber(v.costoMassimo)}</td>
+                    <td>${v.fonte || '—'}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        ` : '';
+
+        const nonInclusiHTML = (stima.costiNonInclusi || []).length > 0 ? `
+          <div class="project-estimate-excluded">
+            <h4 class="project-estimate-excluded-title">Costi non inclusi</h4>
+            <ul class="project-estimate-excluded-list">
+              ${stima.costiNonInclusi.map(c => `<li>${c}</li>`).join('')}
+            </ul>
+          </div>
+        ` : '';
+
+        container.innerHTML = totalHTML + vociHTML + nonInclusiHTML;
+      }
+
+      function formatNumber(n) {
+        if (n == null) return '—';
+        return Number(n).toLocaleString('it-IT');
+      }
+
+      function populateProducts(products) {
+        const container = document.getElementById('section-products');
+        if (!container || products.length === 0) return;
+
+        container.innerHTML = `
+          <div class="project-products-grid">
+            ${products.map(p => `
+              <article class="project-product-card">
+                <div class="img-placeholder" role="img" aria-label="Immagine prodotto ${p.nome}">
+                  <span class="img-placeholder-label">${p.nome || 'Prodotto'}</span>
+                </div>
+                <div class="project-product-info">
+                  <h3 class="project-product-name">${p.nome || 'Prodotto'}</h3>
+                  <p class="project-product-brand">${p.brand || ''}</p>
+                  ${p.prezzo ? `<p class="project-product-price">€ ${formatNumber(p.prezzo)}</p>` : ''}
+                  ${p.fonte ? `<p class="project-product-source">Fonte: ${p.fonte}</p>` : ''}
+                  ${p.url ? `<a href="${p.url}" class="btn btn-ghost btn-sm" target="_blank" rel="noopener">Vedi sul sito del venditore</a>` : ''}
+                </div>
+              </article>
+            `).join('')}
+          </div>
+        `;
+      }
+
+      function populateNotes(notes) {
+        const container = document.getElementById('section-notes');
+        if (!container || notes.length === 0) return;
+
+        container.innerHTML = `
+          <ul class="project-notes-list">
+            ${notes.map(n => `<li class="project-note-item">${n}</li>`).join('')}
+          </ul>
+        `;
+      }
+
+      loadProject();
+
+      // Gestione logout
+      const logoutLink = document.getElementById('logout-link');
+      if (logoutLink) {
+        logoutLink.addEventListener('click', function (e) {
+          e.preventDefault();
+          localStorage.removeItem('amarreda_auth_token');
+          localStorage.removeItem('amarreda_user');
+          window.location.href = 'login.html';
+        });
+      }
+
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Progettazione AI — Amarreda</title>
+  <meta name="description" content="Interfaccia di progettazione assistita da AI. Parla con il nostro assistente per arredare il tuo ambiente.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- CSS con percorsi relativi (../) -->
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/pages.css">
+
+  <!-- Stili specifici per l'interfaccia Chat -->
+  <style>
+    /* Layout Chat */
+    .chat-layout {
+      display: flex;
+      height: calc(100vh - 80px); /* Altezza meno header */
+      background-color: var(--bg-deep);
+    }
+
+    /* Sidebar Informazioni */
+    .chat-sidebar {
+      width: 320px;
+      background-color: var(--bg-main);
+      border-right: var(--border-subtle);
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+      overflow-y: auto;
+    }
+
+    .sidebar-section {
+      padding-bottom: var(--space-5);
+      border-bottom: var(--border-subtle);
+    }
+
+    .sidebar-title {
+      font-size: var(--fs-micro);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--rame);
+      margin-bottom: var(--space-3);
+    }
+
+    .sidebar-value {
+      font-size: var(--fs-body);
+      color: var(--text-bright);
+      font-weight: 500;
+    }
+
+    .upload-zone {
+      border: 1px dashed rgba(184, 153, 106, 0.4);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      background: rgba(184, 153, 106, 0.02);
+    }
+
+    .upload-zone:hover {
+      border-color: var(--rame);
+      background: rgba(184, 153, 106, 0.05);
+    }
+
+    .upload-icon {
+      font-size: 1.5rem;
+      color: var(--rame);
+      margin-bottom: 0.5rem;
+    }
+
+    .upload-text {
+      font-size: var(--fs-micro);
+      color: var(--text-muted);
+    }
+
+    /* Area Chat Principale */
+    .chat-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: var(--space-6);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .message {
+      max-width: 75%;
+      padding: var(--space-4) var(--space-5);
+      border-radius: var(--radius-md);
+      font-size: var(--fs-body);
+      line-height: 1.6;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .message.ai {
+      align-self: flex-start;
+      background-color: var(--bg-card);
+      border: 1px solid rgba(184, 153, 106, 0.2);
+      color: var(--text-gray);
+      border-bottom-left-radius: 0;
+    }
+
+    .message.user {
+      align-self: flex-end;
+      background: var(--grad-rame);
+      color: var(--bg-deep);
+      font-weight: 500;
+      border-bottom-right-radius: 0;
+    }
+
+    .message-sender {
+      font-size: var(--fs-micro);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+      opacity: 0.7;
+    }
+
+    /* Area Input */
+    .chat-input-area {
+      padding: var(--space-5) var(--space-6);
+      background-color: var(--bg-main);
+      border-top: var(--border-subtle);
+      display: flex;
+      gap: var(--space-3);
+      align-items: flex-end;
+    }
+
+    .chat-input {
+      flex: 1;
+      background-color: var(--bg-deep);
+      border: 1px solid rgba(184, 153, 106, 0.2);
+      border-radius: var(--radius-md);
+      padding: var(--space-3) var(--space-4);
+      color: var(--text-bright);
+      font-family: var(--font-body);
+      font-size: var(--fs-body);
+      resize: none;
+      min-height: 50px;
+      max-height: 150px;
+      transition: border-color 0.3s;
+    }
+
+    .chat-input:focus {
+      outline: none;
+      border-color: var(--rame);
+    }
+
+    .chat-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .btn-send {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--grad-rame);
+      border: none;
+      color: var(--bg-deep);
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+      flex-shrink: 0;
+    }
+
+    .btn-send:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(184, 153, 106, 0.4);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .chat-layout { flex-direction: column; height: auto; }
+      .chat-sidebar { width: 100%; border-right: none; border-bottom: var(--border-subtle); padding: var(--space-4); }
+      .chat-messages { min-height: 60vh; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="logo" aria-label="Amarreda — Home">
+        <img src="../assets/logo.svg" alt="Amarreda" class="logo-image">
+      </a>
+      <nav class="main-nav" id="main-nav">
+        <a href="come-funziona.html" class="nav-link">Come funziona</a>
+        <a href="dashboard.html" class="nav-link">I miei progetti</a>
+        <a href="account.html" class="nav-link">Account</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- LAYOUT CHAT -->
+  <div class="chat-layout">
+    
+    <!-- SIDEBAR: Info Progetto e Upload -->
+    <aside class="chat-sidebar">
+      <div class="sidebar-section">
+        <h3 class="sidebar-title">Ambiente</h3>
+        <p class="sidebar-value" id="selected-room">Cucina</p>
+      </div>
+
+      <div class="sidebar-section">
+        <h3 class="sidebar-title">Stato Progetto</h3>
+        <p class="sidebar-value" style="color: var(--rame);">In intervista</p>
+      </div>
+
+      <div class="sidebar-section">
+        <h3 class="sidebar-title">Planimetria e Foto</h3>
+        <div class="upload-zone" id="upload-zone">
+          <div class="upload-icon">📁</div>
+          <p class="upload-text">Trascina qui la planimetria<br>o clicca per caricare</p>
+        </div>
+        <input type="file" id="file-input" hidden accept="image/*,.pdf">
+      </div>
+
+      <div class="sidebar-section" style="border-bottom: none; margin-top: auto;">
+        <a href="dashboard.html" class="btn btn-ghost btn-block">Salva ed esci</a>
+      </div>
+    </aside>
+
+    <!-- MAIN: Chat -->
+    <main class="chat-main">
+      <div class="chat-messages" id="chat-messages">
+        <!-- Messaggio di benvenuto iniziale -->
+        <div class="message ai">
+          <div class="message-sender">Assistente Amarreda</div>
+          Ciao! Sono qui per aiutarti a progettare la tua <strong>Cucina</strong>. Per iniziare, potresti dirmi quali sono le dimensioni approssimative dell'ambiente o caricare una planimetria nella barra laterale?
+        </div>
+      </div>
+
+      <!-- Input Area -->
+      <div class="chat-input-area">
+        <textarea class="chat-input" id="chat-input" placeholder="Scrivi la tua risposta o descrivi le tue esigenze..." rows="1"></textarea>
+        <button class="btn-send" id="btn-send" aria-label="Invia messaggio">➤</button>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- SCRIPTS con percorsi relativi (../) -->
+  <script src="../js/main.js"></script>
+  <script src="../js/automation-adapter.js"></script>
+  <script src="../js/ai-provider-qwen.js"></script>
+  <script src="../js/chat-client.js"></script>
+
+  <!-- Script temporaneo per testare l'UI della chat -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const input = document.getElementById('chat-input');
+      const btnSend = document.getElementById('btn-send');
+      const messagesContainer = document.getElementById('chat-messages');
+
+      function addMessage(text, type) {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `message ${type}`;
+        msgDiv.innerHTML = `<div class="message-sender">${type === 'user' ? 'Tu' : 'Assistente Amarreda'}</div>${text}`;
+        messagesContainer.appendChild(msgDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      }
+
+      function handleSend() {
+        const text = input.value.trim();
+        if (text) {
+          addMessage(text, 'user');
+          input.value = '';
+          input.style.height = 'auto'; // Reset altezza
+          
+          // Simulazione risposta AI (da sostituire con chat-client.js reale)
+          setTimeout(() => {
+            addMessage("Ho ricevuto la tua richiesta. Sto analizzando le informazioni per il tuo progetto. (Questa è una demo UI)", 'ai');
+          }, 1000);
+        }
+      }
+
+      btnSend.addEventListener('click', handleSend);
+      input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          handleSend();
+        }
+      });
+
+      // Auto-resize textarea
+      input.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+      });
+    });
+  </script>
+</body>
+</html>

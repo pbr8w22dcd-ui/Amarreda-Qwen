@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verifica la tua email — Amarreda</title>
+  <meta name="description" content="Controlla la tua casella email per verificare il tuo indirizzo e attivare il tuo account Amarreda.">
+  <link rel="icon" type="image/svg+xml" href="../assets/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="logo" aria-label="Amarreda — Home">
+        <span class="logo-wordmark">Amarreda</span>
+      </a>
+      <nav class="main-nav" id="main-nav" aria-label="Navigazione principale">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="login.html" class="nav-link">Accedi</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="auth-page">
+      <div class="container">
+        <div class="auth-card">
+
+          <!-- STATO PRINCIPALE: email in attesa di verifica -->
+          <div id="state-pending">
+            <h1 class="auth-title">Controlla la tua casella email.</h1>
+            <p class="auth-subtitle">Ti abbiamo inviato un link per verificare il tuo indirizzo. Confermalo per attivare l'account e iniziare il progetto.</p>
+
+            <div class="auth-email-display" id="email-display">
+              <span class="auth-email-label">Email registrata:</span>
+              <span class="auth-email-value" id="email-value">—</span>
+            </div>
+
+            <div class="auth-actions">
+              <a href="mailto:" class="btn btn-primary btn-block btn-lg" id="btn-open-mail">Apri la posta</a>
+              <button type="button" class="btn btn-ghost btn-block" id="btn-resend">Invia nuovamente l'email</button>
+            </div>
+
+            <div class="auth-status" id="resend-status" hidden role="status" aria-live="polite">
+              <p class="auth-status-text" id="resend-status-text"></p>
+            </div>
+
+            <div class="auth-footer">
+              <p>Hai già verificato l'email? <a href="login.html">Accedi</a></p>
+              <p>Oppure <a href="contatti.html">contatta l'assistenza</a>.</p>
+            </div>
+          </div>
+
+          <!-- STATO: email già verificata -->
+          <div id="state-already-verified" hidden>
+            <h1 class="auth-title">Email già verificata.</h1>
+            <p class="auth-subtitle">Il tuo indirizzo è già stato confermato. Puoi accedere al tuo account.</p>
+            <a href="login.html" class="btn btn-primary btn-block btn-lg">Accedi</a>
+          </div>
+
+          <!-- STATO: link scaduto -->
+          <div id="state-link-expired" hidden>
+            <h1 class="auth-title">Link scaduto.</h1>
+            <p class="auth-subtitle">Il link di verifica è scaduto. Richiedi un nuovo invio per continuare.</p>
+            <button type="button" class="btn btn-primary btn-block btn-lg" id="btn-resend-expired">Invia una nuova email</button>
+            <div class="auth-status" id="resend-expired-status" hidden role="status" aria-live="polite">
+              <p class="auth-status-text" id="resend-expired-status-text"></p>
+            </div>
+          </div>
+
+          <!-- STATO: invio non riuscito -->
+          <div id="state-send-failed" hidden>
+            <h1 class="auth-title">Invio non riuscito.</h1>
+            <p class="auth-subtitle">Non siamo riusciti a inviare l'email di verifica. Riprova oppure contatta l'assistenza.</p>
+            <button type="button" class="btn btn-primary btn-block btn-lg" id="btn-resend-failed">Riprova</button>
+            <div class="auth-status" id="resend-failed-status" hidden role="status" aria-live="polite">
+              <p class="auth-status-text" id="resend-failed-status-text"></p>
+            </div>
+            <div class="auth-footer">
+              <p><a href="contatti.html">Contatta l'assistenza</a></p>
+            </div>
+          </div>
+
+          <!-- STATO: servizio email non configurato -->
+          <div id="state-service-unavailable" hidden>
+            <h1 class="auth-title">Servizio email non disponibile.</h1>
+            <p class="auth-subtitle">Il servizio di invio email non è ancora configurato su questo sito. La verifica dell'account non può essere completata automaticamente.</p>
+            <div class="callout callout-warning">
+              <p>Per completare la registrazione, contatta l'assistenza indicando l'email utilizzata.</p>
+            </div>
+            <a href="contatti.html" class="btn btn-primary btn-block btn-lg">Contatta l'assistenza</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 Amarreda. Tutti i diritti riservati.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script>
+    // Gestione stati pagina verifica email
+    (function () {
+      // Recupera email dalla sessione precedente (se disponibile)
+      const pendingData = localStorage.getItem('amarreda_pending_verification');
+      let email = '';
+      let userId = '';
+
+      if (pendingData) {
+        try {
+          const data = JSON.parse(pendingData);
+          email = data.email || '';
+          userId = data.userId || '';
+        } catch (e) {
+          // Dati non validi
+        }
+      }
+
+      // Mostra email se disponibile
+      if (email) {
+        const emailValue = document.getElementById('email-value');
+        if (emailValue) emailValue.textContent = email;
+
+        const btnOpenMail = document.getElementById('btn-open-mail');
+        if (btnOpenMail) btnOpenMail.href = `mailto:${email}`;
+      }
+
+      // Funzione per mostrare uno stato specifico
+      function showState(stateId) {
+        const states = ['pending', 'already-verified', 'link-expired', 'send-failed', 'service-unavailable'];
+        states.forEach(state => {
+          const el = document.getElementById(`state-${state}`);
+          if (el) {
+            el.hidden = (state !== stateId);
+          }
+        });
+      }
+
+      // Controlla se c'è un parametro ?status= nell'URL
+      const params = new URLSearchParams(window.location.search);
+      const status = params.get('status');
+
+      if (status === 'already-verified') {
+        showState('already-verified');
+      } else if (status === 'link-expired') {
+        showState('link-expired');
+      } else if (status === 'send-failed') {
+        showState('send-failed');
+      } else {
+        showState('pending');
+      }
+
+      // Gestione pulsante "Invia nuovamente"
+      async function handleResend(btnId, statusId) {
+        const btn = document.getElementById(btnId);
+        const statusEl = document.getElementById(statusId);
+        const statusText = document.getElementById(`${statusId}-text`);
+
+        if (!btn || !statusEl || !statusText) return;
+
+        btn.addEventListener('click', async function () {
+          btn.classList.add('is-disabled');
+          btn.setAttribute('aria-disabled', 'true');
+          btn.textContent = 'Invio in corso…';
+
+          try {
+            const response = await fetch('/api/auth/resend-verification', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ userId: userId, email: email })
+            });
+
+            if (response.ok) {
+              statusText.textContent = 'Email inviata. Controlla la tua casella.';
+              statusEl.classList.remove('auth-status--error');
+              statusEl.removeAttribute('hidden');
+            } else if (response.status === 503) {
+              // Servizio non configurato
+              showState('service-unavailable');
+            } else {
+              statusText.textContent = 'Invio non riuscito. Riprova tra qualche istante.';
+              statusEl.classList.add('auth-status--error');
+              statusEl.removeAttribute('hidden');
+            }
+          } catch (err) {
+            // Backend non raggiungibile
+            statusText.textContent = 'Servizio non disponibile. Il servizio di invio email non è ancora configurato. Contatta l\'assistenza.';
+            statusEl.classList.add('auth-status--error');
+            statusEl.removeAttribute('hidden');
+          } finally {
+            btn.classList.remove('is-disabled');
+            btn.removeAttribute('aria-disabled');
+            btn.textContent = btnId === 'btn-resend' ? 'Invia nuovamente l\'email' : 'Invia una nuova email';
+          }
+        });
+      }
+
+      handleResend('btn-resend', 'resend-status');
+      handleResend('btn-resend-expired', 'resend-expired-status');
+      handleResend('btn-resend-failed', 'resend-failed-status');
+
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accedi — Amarreda</title>
+  <meta name="description" content="Accedi al tuo account Amarreda per continuare il tuo percorso di progettazione.">
+  <link rel="icon" type="image/svg+xml" href="../assets/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="logo" aria-label="Amarreda — Home">
+        <span class="logo-wordmark">Amarreda</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Apri il menu">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <nav class="main-nav" id="main-nav" aria-label="Navigazione principale">
+        <a href="../pages/come-funziona.html" class="nav-link">Come funziona</a>
+        <a href="../pages/servizio-privati.html" class="nav-link">Privati</a>
+        <a href="../pages/servizio-professionisti.html" class="nav-link">Professionisti</a>
+        <a href="../pages/servizio-rivenditori.html" class="nav-link">Rivenditori</a>
+        <a href="../pages/prezzi.html" class="nav-link">Prezzi</a>
+        <a href="login.html" class="nav-link is-active">Accedi</a>
+        <a href="registrazione.html" class="btn btn-primary btn-sm">Inizia il tuo progetto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="auth-page">
+      <div class="container">
+        <div class="auth-card">
+
+          <h1 class="auth-title">Bentornato.</h1>
+          <p class="auth-subtitle">Accedi per continuare il tuo percorso.</p>
+
+          <form id="login-form" data-validate novalidate>
+
+            <div class="form-field">
+              <label for="login-email" class="form-label form-label-required">Email</label>
+              <input type="email" id="login-email" name="email" class="form-input" required autocomplete="email" placeholder="nome@esempio.it">
+            </div>
+
+            <div class="form-field">
+              <label for="login-password" class="form-label form-label-required">Password</label>
+              <input type="password" id="login-password" name="password" class="form-input" required autocomplete="current-password">
+            </div>
+
+            <div class="auth-links">
+              <a href="recupero-password.html" class="auth-link">Hai dimenticato la password?</a>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block btn-lg">Accedi</button>
+
+          </form>
+
+          <div class="auth-footer">
+            <p>Non hai ancora un account? <a href="registrazione.html">Registrati</a></p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-brand">
+          <span class="logo-wordmark logo-wordmark-light">Amarreda</span>
+          <p class="footer-tagline">Progettazione d'interni assistita dall'intelligenza artificiale. Un percorso unico per decidere meglio e risparmiare tempo.</p>
+        </div>
+        <div class="footer-col">
+          <h3 class="footer-heading">Servizio</h3>
+          <a href="come-funziona.html" class="footer-link">Come funziona</a>
+          <a href="servizio-privati.html" class="footer-link">Privati</a>
+          <a href="servizio-professionisti.html" class="footer-link">Professionisti</a>
+          <a href="servizio-rivenditori.html" class="footer-link">Rivenditori</a>
+          <a href="progettazione-ai.html" class="footer-link">Progettazione AI</a>
+          <a href="risultati.html" class="footer-link">Risultati e progetti</a>
+        </div>
+        <div class="footer-col">
+          <h3 class="footer-heading">Esplora</h3>
+          <a href="prodotti.html" class="footer-link">Prodotti e ispirazioni</a>
+          <a href="prezzi.html" class="footer-link">Prezzi e piani</a>
+          <a href="chi-siamo.html" class="footer-link">Chi siamo</a>
+          <a href="contatti.html" class="footer-link">Contatti e assistenza</a>
+        </div>
+        <div class="footer-col">
+          <h3 class="footer-heading">Legale</h3>
+          <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+          <a href="cookie-policy.html" class="footer-link">Cookie Policy</a>
+          <a href="termini-condizioni.html" class="footer-link">Termini e Condizioni</a>
+          <a href="informazioni-stime.html" class="footer-link">Informazioni sulle stime</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 Amarreda. Tutti i diritti riservati.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

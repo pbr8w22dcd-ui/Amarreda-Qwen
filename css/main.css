@@ -310,16 +310,25 @@ textarea:focus-visible {
 }
 
 /* ------------------------------------------------------------
-   HEADER E NAVIGAZIONE
+   HEADER E NAVIGAZIONE — STICKY GARANTITO
    ------------------------------------------------------------ */
+html, body {
+  overflow-x: hidden;
+}
+
+body {
+  position: relative;
+}
+
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 100;
-  background-color: rgba(26, 25, 22, 0.95);
+  z-index: 1000;
+  background-color: rgba(26, 25, 22, 0.98);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: var(--border-subtle);
+  width: 100%;
 }
 
 .header-inner {
@@ -335,10 +344,11 @@ textarea:focus-visible {
   align-items: center;
   gap: 0.75rem;
   text-decoration: none;
+  flex-shrink: 0;
 }
 
 .logo-image {
-  width: 180px;
+  width: 160px;
   height: auto;
   display: block;
 }
@@ -427,6 +437,7 @@ textarea:focus-visible {
 .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3) {
   transform: translateY(-7px) rotate(-45deg);
 }
+  
 
 /* ------------------------------------------------------------
    HERO

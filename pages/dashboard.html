@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Amarreda</title>
+  <meta name="description" content="Il tuo progetto, da qui. Raccogli le informazioni della tua casa e inizia a definire gli ambienti che desideri arredare.">
+  <link rel="icon" type="image/svg+xml" href="../assets/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="logo" aria-label="Amarreda — Home">
+        <span class="logo-wordmark">Amarreda</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Apri il menu">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <nav class="main-nav" id="main-nav" aria-label="Navigazione principale">
+        <a href="dashboard.html" class="nav-link is-active">Dashboard</a>
+        <a href="progetti.html" class="nav-link">I miei progetti</a>
+        <a href="account.html" class="nav-link">Account</a>
+        <a href="logout.html" class="nav-link" id="logout-link">Esci</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- STATO: NON AUTENTICATO -->
+    <section class="auth-page" id="state-not-authenticated">
+      <div class="container">
+        <div class="auth-card">
+          <h1 class="auth-title">Area riservata.</h1>
+          <p class="auth-subtitle">Questa pagina è accessibile solo agli utenti registrati.</p>
+          <a href="login.html" class="btn btn-primary btn-block btn-lg">Accedi</a>
+          <div class="auth-footer">
+            <p>Non hai un account? <a href="registrazione.html">Registrati</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATO: AUTENTICATO — NESSUN PROGETTO -->
+    <section class="section" id="state-empty" hidden>
+      <div class="container">
+        <div class="dashboard-header">
+          <h1 class="dashboard-title">Il tuo progetto, da qui.</h1>
+          <p class="dashboard-lead">Raccogli le informazioni della tua casa e inizia a definire gli ambienti che desideri arredare.</p>
+        </div>
+
+        <div class="dashboard-card dashboard-card-empty">
+          <div class="dashboard-empty-content">
+            <h2 class="dashboard-empty-title">Nessun progetto avviato.</h2>
+            <p class="dashboard-empty-text">Non hai ancora creato un progetto. Puoi iniziare dalla planimetria e dalle fotografie dei tuoi ambienti.</p>
+            <a href="progetto-nuovo.html" class="btn btn-primary btn-lg">Avvia la progettazione</a>
+          </div>
+        </div>
+
+        <div class="dashboard-info">
+          <div class="dashboard-info-item">
+            <span class="dashboard-info-label">Piano attivo</span>
+            <span class="dashboard-info-value" id="plan-display">—</span>
+          </div>
+          <div class="dashboard-info-item">
+            <span class="dashboard-info-label">Conversazioni disponibili</span>
+            <span class="dashboard-info-value" id="conversations-display">—</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATO: AUTENTICATO — PROGETTO ESISTENTE -->
+    <section class="section" id="state-project" hidden>
+      <div class="container">
+        <div class="dashboard-header">
+          <h1 class="dashboard-title">Il tuo progetto, da qui.</h1>
+          <p class="dashboard-lead">Raccogli le informazioni della tua casa e inizia a definire gli ambienti che desideri arredare.</p>
+        </div>
+
+        <div class="dashboard-card">
+          <header class="dashboard-card-header">
+            <h2 class="dashboard-card-title">Progetto in corso</h2>
+            <span class="badge" id="project-status">—</span>
+          </header>
+
+          <div class="dashboard-project-details">
+            <div class="dashboard-detail">
+              <span class="dashboard-detail-label">Data di creazione</span>
+              <span class="dashboard-detail-value" id="project-date">—</span>
+            </div>
+            <div class="dashboard-detail">
+              <span class="dashboard-detail-label">Ambienti inseriti</span>
+              <span class="dashboard-detail-value" id="project-rooms">—</span>
+            </div>
+            <div class="dashboard-detail">
+              <span class="dashboard-detail-label">Stato delle elaborazioni</span>
+              <span class="dashboard-detail-value" id="project-processing">—</span>
+            </div>
+            <div class="dashboard-detail">
+              <span class="dashboard-detail-label">Scadenza proposta iniziale</span>
+              <span class="dashboard-detail-value" id="project-expiry">—</span>
+            </div>
+          </div>
+
+          <div class="dashboard-actions">
+            <a href="progetto-dettaglio.html" class="btn btn-primary btn-lg">Riprendi la conversazione</a>
+            <a href="progetti.html" class="btn btn-ghost">Vedi tutti i progetti</a>
+          </div>
+        </div>
+
+        <div class="dashboard-info">
+          <div class="dashboard-info-item">
+            <span class="dashboard-info-label">Piano attivo</span>
+            <span class="dashboard-info-value" id="plan-display-project">—</span>
+          </div>
+          <div class="dashboard-info-item">
+            <span class="dashboard-info-label">Conversazioni disponibili</span>
+            <span class="dashboard-info-value" id="conversations-display-project">—</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AVVISO BACKEND NON CONFIGURATO -->
+    <section class="section section-alt" id="state-backend-warning">
+      <div class="container container-narrow">
+        <div class="callout callout-warning">
+          <h2 class="callout-title">Backend non configurato.</h2>
+          <p class="callout-text">Questa dashboard richiede un backend per funzionare correttamente. Attualmente il sistema non può recuperare i dati del progetto, verificare il piano attivo o controllare le conversazioni disponibili.</p>
+          <p class="callout-text">Per abilitare questa funzionalità, configura il backend Node.js e il database come indicato nel file README.md.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-brand">
+          <span class="logo-wordmark logo-wordmark-light">Amarreda</span>
+          <p class="footer-tagline">Progettazione d'interni assistita dall'intelligenza artificiale. Un percorso unico per decidere meglio e risparmiare tempo.</p>
+        </div>
+        <div class="footer-col">
+          <h3 class="footer-heading">Servizio</h3>
+          <a href="come-funziona.html" class="footer-link">Come funziona</a>
+          <a href="servizio-privati.html" class="footer-link">Privati</a>
+          <a href="servizio-professionisti.html" class="footer-link">Professionisti</a>
+          <a href="servizio-rivenditori.html" class="footer-link">Rivenditori</a>
+          <a href="progettazione-ai.html" class="footer-link">Progettazione AI</a>
+          <a href="risultati.html" class="footer-link">Risultati e progetti</a>
+        </div>
+        <div class="footer-col">
+          <h3 class="footer-heading">Esplora</h3>
+          <a href="prodotti.html" class="footer-link">Prodotti e ispirazioni</a>
+          <a href="prezzi.html" class="footer-link">Prezzi e piani</a>
+          <a href="chi-siamo.html" class="footer-link">Chi siamo</a>
+          <a href="contatti.html" class="footer-link">Contatti e assistenza</a>
+        </div>
+        <div class="footer-col">
+          <h3 class="footer-heading">Legale</h3>
+          <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+          <a href="cookie-policy.html" class="footer-link">Cookie Policy</a>
+          <a href="termini-condizioni.html" class="footer-link">Termini e Condizioni</a>
+          <a href="informazioni-stime.html" class="footer-link">Informazioni sulle stime</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 Amarreda. Tutti i diritti riservati.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script>
+    // Gestione dashboard
+    (function () {
+      const token = localStorage.getItem('amarreda_auth_token');
+      const user = localStorage.getItem('amarreda_user');
+
+      const stateNotAuth = document.getElementById('state-not-authenticated');
+      const stateEmpty = document.getElementById('state-empty');
+      const stateProject = document.getElementById('state-project');
+      const stateBackendWarning = document.getElementById('state-backend-warning');
+
+      // Se non c'è token, mostra stato non autenticato
+      if (!token || !user) {
+        stateNotAuth.hidden = false;
+        stateEmpty.hidden = true;
+        stateProject.hidden = true;
+        stateBackendWarning.hidden = true;
+        return;
+      }
+
+      // Token presente: prova a caricare i dati
+      async function loadDashboard() {
+        try {
+          const response = await fetch('/api/projects', {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }
+          });
+
+          if (response.status === 401 || response.status === 403) {
+            // Token non valido o scaduto
+            localStorage.removeItem('amarreda_auth_token');
+            localStorage.removeItem('amarreda_user');
+            stateNotAuth.hidden = false;
+            stateEmpty.hidden = true;
+            stateProject.hidden = true;
+            stateBackendWarning.hidden = true;
+            return;
+          }
+
+          if (!response.ok) {
+            throw new Error('Errore nel caricamento');
+          }
+
+          const data = await response.json();
+          const userData = JSON.parse(user);
+
+          // Aggiorna info piano
+          const planDisplay = document.getElementById('plan-display');
+          const planDisplayProject = document.getElementById('plan-display-project');
+          const conversationsDisplay = document.getElementById('conversations-display');
+          const conversationsDisplayProject = document.getElementById('conversations-display-project');
+
+          const planName = userData.piano === 'premium' ? 'Premium' : 'Free';
+          const maxConversations = userData.maxConversazioni || 1;
+          const currentConversations = userData.conversazioni || 0;
+          const remaining = Math.max(0, maxConversations - currentConversations);
+
+          if (planDisplay) planDisplay.textContent = planName;
+          if (planDisplayProject) planDisplayProject.textContent = planName;
+          if (conversationsDisplay) conversationsDisplay.textContent = `${remaining} di ${maxConversations}`;
+          if (conversationsDisplayProject) conversationsDisplayProject.textContent = `${remaining} di ${maxConversations}`;
+
+          // Se ci sono progetti, mostra quello più recente
+          if (data.projects && data.projects.length > 0) {
+            const project = data.projects[0]; // Progetto più recente
+
+            stateEmpty.hidden = true;
+            stateProject.hidden = false;
+
+            // Aggiorna dettagli progetto
+            const projectDate = document.getElementById('project-date');
+            const projectRooms = document.getElementById('project-rooms');
+            const projectProcessing = document.getElementById('project-processing');
+            const projectExpiry = document.getElementById('project-expiry');
+            const projectStatus = document.getElementById('project-status');
+
+            if (projectDate) {
+              const date = new Date(project.dataCreazione);
+              projectDate.textContent = date.toLocaleDateString('it-IT', {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric'
+              });
+            }
+
+            if (projectRooms) {
+              const rooms = project.ambienti || [];
+              projectRooms.textContent = rooms.length > 0
+                ? rooms.map(r => r.nome).join(', ')
+                : 'Nessun ambiente inserito';
+            }
+
+            if (projectProcessing) {
+              projectProcessing.textContent = project.stato || 'In corso';
+            }
+
+            if (projectExpiry) {
+              // Calcola scadenza (30 giorni dalla creazione per piano Free)
+              const created = new Date(project.dataCreazione);
+              const expiry = new Date(created);
+              expiry.setDate(expiry.getDate() + 30);
+              projectExpiry.textContent = expiry.toLocaleDateString('it-IT', {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric'
+              });
+            }
+
+            if (projectStatus) {
+              projectStatus.textContent = project.stato || 'In corso';
+            }
+
+          } else {
+            // Nessun progetto
+            stateEmpty.hidden = false;
+            stateProject.hidden = true;
+          }
+
+          stateBackendWarning.hidden = true;
+
+        } catch (err) {
+          // Backend non raggiungibile o non configurato
+          console.error('Errore caricamento dashboard:', err);
+          stateEmpty.hidden = true;
+          stateProject.hidden = true;
+          stateBackendWarning.hidden = false;
+        }
+      }
+
+      loadDashboard();
+
+      // Gestione logout
+      const logoutLink = document.getElementById('logout-link');
+      if (logoutLink) {
+        logoutLink.addEventListener('click', function (e) {
+          e.preventDefault();
+          localStorage.removeItem('amarreda_auth_token');
+          localStorage.removeItem('amarreda_user');
+          window.location.href = 'login.html';
+        });
+      }
+
+    })();
+  </script>
+</body>
+</html>

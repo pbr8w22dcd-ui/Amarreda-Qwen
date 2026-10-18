@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — Amarreda</title>
+  <meta name="description" content="Pannello di amministrazione Amarreda. Gestisci progetti, utenti, cataloghi e impostazioni.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- CSS con percorsi relativi (../) -->
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/pages.css">
+
+  <!-- Stili specifici per Admin Dashboard -->
+  <style>
+    /* Layout Admin */
+    .admin-layout {
+      display: flex;
+      min-height: calc(100vh - 80px);
+      background-color: var(--bg-deep);
+    }
+
+    /* Sidebar Admin */
+    .admin-sidebar {
+      width: 260px;
+      background-color: var(--bg-main);
+      border-right: var(--border-subtle);
+      padding: var(--space-6) 0;
+      position: sticky;
+      top: 80px;
+      height: calc(100vh - 80px);
+      overflow-y: auto;
+    }
+
+    .admin-nav-section {
+      margin-bottom: var(--space-5);
+    }
+
+    .admin-nav-title {
+      font-size: var(--fs-micro);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      padding: 0 var(--space-5);
+      margin-bottom: var(--space-3);
+    }
+
+    .admin-nav-link {
+      display: block;
+      padding: var(--space-3) var(--space-5);
+      color: var(--text-gray);
+      text-decoration: none;
+      font-size: var(--fs-small);
+      transition: all 0.2s;
+      border-left: 3px solid transparent;
+    }
+
+    .admin-nav-link:hover {
+      background-color: rgba(184, 153, 106, 0.05);
+      color: var(--rame);
+      border-left-color: var(--rame);
+    }
+
+    .admin-nav-link.active {
+      background-color: rgba(184, 153, 106, 0.1);
+      color: var(--rame);
+      border-left-color: var(--rame);
+      font-weight: 600;
+    }
+
+    /* Main Content */
+    .admin-main {
+      flex: 1;
+      padding: var(--space-7);
+      overflow-y: auto;
+    }
+
+    .admin-header {
+      margin-bottom: var(--space-7);
+    }
+
+    .admin-title {
+      font-size: var(--fs-h2);
+      background: var(--grad-rame);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: var(--space-2);
+    }
+
+    .admin-subtitle {
+      color: var(--text-muted);
+      font-size: var(--fs-body);
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: var(--space-5);
+      margin-bottom: var(--space-7);
+    }
+
+    .stat-card {
+      background-color: var(--bg-card);
+      border: var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-6);
+      transition: all 0.3s;
+    }
+
+    .stat-card:hover {
+      border-color: rgba(184, 153, 106, 0.3);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .stat-label {
+      font-size: var(--fs-micro);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: var(--space-3);
+    }
+
+    .stat-value {
+      font-family: var(--font-display);
+      font-size: var(--fs-h2);
+      background: var(--grad-rame);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 600;
+    }
+
+    .stat-change {
+      font-size: var(--fs-micro);
+      color: var(--color-verde-salvia);
+      margin-top: var(--space-2);
+    }
+
+    /* Recent Projects Table */
+    .recent-projects {
+      background-color: var(--bg-card);
+      border: var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-6);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-5);
+    }
+
+    .section-title {
+      font-size: var(--fs-h3);
+      color: var(--text-bright);
+    }
+
+    .btn-view-all {
+      font-size: var(--fs-small);
+      color: var(--rame);
+      text-decoration: none;
+    }
+
+    .btn-view-all:hover {
+      color: var(--oro-chiaro);
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .data-table th {
+      text-align: left;
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--fs-micro);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      border-bottom: var(--border-subtle);
+    }
+
+    .data-table td {
+      padding: var(--space-4);
+      font-size: var(--fs-small);
+      color: var(--text-gray);
+      border-bottom: var(--border-subtle);
+    }
+
+    .data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: var(--fs-micro);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .status-completed {
+      background-color: rgba(137, 145, 125, 0.15);
+      color: var(--color-verde-salvia);
+    }
+
+    .status-in-progress {
+      background-color: rgba(184, 153, 106, 0.15);
+      color: var(--rame);
+    }
+
+    .status-failed {
+      background-color: rgba(169, 79, 61, 0.15);
+      color: #A94F3D;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .admin-layout { flex-direction: column; }
+      .admin-sidebar { width: 100%; position: static; height: auto; border-right: none; border-bottom: var(--border-subtle); }
+      .admin-main { padding: var(--space-5); }
+      .stats-grid { grid-template-columns: 1fr; }
+      .data-table { font-size: var(--fs-micro); }
+      .data-table th, .data-table td { padding: var(--space-2); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="logo" aria-label="Amarreda — Home">
+        <img src="../assets/logo.svg" alt="Amarreda" class="logo-image">
+      </a>
+      <nav class="main-nav" id="main-nav">
+        <a href="../index.html" class="nav-link">Torna al sito</a>
+        <a href="index.html" class="nav-link active">Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- LAYOUT ADMIN -->
+  <div class="admin-layout">
+    
+    <!-- SIDEBAR: Menu Admin -->
+    <aside class="admin-sidebar">
+      <div class="admin-nav-section">
+        <h3 class="admin-nav-title">Dashboard</h3>
+        <a href="index.html" class="admin-nav-link active">📊 Overview</a>
+      </div>
+
+      <div class="admin-nav-section">
+        <h3 class="admin-nav-title">Gestione</h3>
+        <a href="utenti.html" class="admin-nav-link">👥 Utenti</a>
+        <a href="cataloghi.html" class="admin-nav-link">📚 Cataloghi</a>
+        <a href="marchi.html" class="admin-nav-link">🏷️ Marchi</a>
+      </div>
+
+      <div class="admin-nav-section">
+        <h3 class="admin-nav-title">Sistema</h3>
+        <a href="impostazioni.html" class="admin-nav-link">⚙️ Impostazioni</a>
+        <a href="#" class="admin-nav-link">📈 Analytics</a>
+        <a href="#" class="admin-nav-link">🔧 Log di sistema</a>
+      </div>
+
+      <div class="admin-nav-section" style="margin-top: auto; padding-top: var(--space-5); border-top: var(--border-subtle);">
+        <a href="../pages/login.html" class="admin-nav-link">🚪 Logout</a>
+      </div>
+    </aside>
+
+    <!-- MAIN: Dashboard Content -->
+    <main class="admin-main">
+      
+      <div class="admin-header">
+        <h1 class="admin-title">Dashboard Amministratore</h1>
+        <p class="admin-subtitle">Panoramica del sistema e attività recenti</p>
+      </div>
+
+      <!-- STATISTICHE -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Progetti Totali</div>
+          <div class="stat-value">127</div>
+          <div class="stat-change">+12% questo mese</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label">Utenti Attivi</div>
+          <div class="stat-value">89</div>
+          <div class="stat-change">+8% questo mese</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label">Progetti Completati</div>
+          <div class="stat-value">94</div>
+          <div class="stat-change">74% completion rate</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label">Rendering Generati</div>
+          <div class="stat-value">203</div>
+          <div class="stat-change">+23% questo mese</div>
+        </div>
+      </div>
+
+      <!-- PROGETTI RECENTI -->
+      <div class="recent-projects">
+        <div class="section-header">
+          <h2 class="section-title">Progetti Recenti</h2>
+          <a href="#" class="btn-view-all">Vedi tutti →</a>
+        </div>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ID Progetto</th>
+              <th>Utente</th>
+              <th>Ambiente</th>
+              <th>Stato</th>
+              <th>Data</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>#PRJ-2026-001</td>
+              <td>mario.rossi@email.it</td>
+              <td>Cucina</td>
+              <td><span class="status-badge status-completed">Completato</span></td>
+              <td>19 Ott 2026</td>
+            </tr>
+            <tr>
+              <td>#PRJ-2026-002</td>
+              <td>anna.bianchi@email.it</td>
+              <td>Soggiorno</td>
+              <td><span class="status-badge status-in-progress">In corso</span></td>
+              <td>18 Ott 2026</td>
+            </tr>
+            <tr>
+              <td>#PRJ-2026-003</td>
+              <td>luca.verdi@email.it</td>
+              <td>Camera da letto</td>
+              <td><span class="status-badge status-completed">Completato</span></td>
+              <td>17 Ott 2026</td>
+            </tr>
+            <tr>
+              <td>#PRJ-2026-004</td>
+              <td>giulia.neri@email.it</td>
+              <td>Bagno</td>
+              <td><span class="status-badge status-failed">Fallito</span></td>
+              <td>16 Ott 2026</td>
+            </tr>
+            <tr>
+              <td>#PRJ-2026-005</td>
+              <td>marco.gialli@email.it</td>
+              <td>Studio</td>
+              <td><span class="status-badge status-in-progress">In corso</span></td>
+              <td>15 Ott 2026</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- SCRIPTS con percorsi relativi (../) -->
+  <script src="../js/main.js"></script>
+</body>
+</html>

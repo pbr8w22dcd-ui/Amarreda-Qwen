@@ -957,13 +957,32 @@ body {
 }
 /* ===== CORREZIONE LOGO E MENU HAMBURGER ===== */
 
-/* Logo più piccolo */
+/* ===== LOGO DIMENSIONI CORRETTE ===== */
 .logo-image {
-  height: 32px !important;
+  height: 44px !important;
   width: auto !important;
-  max-width: 150px !important;
+  max-width: 200px !important;
   display: block;
+  object-fit: contain;
 }
+
+/* Header leggermente più alto per ospitare il logo */
+.header-inner {
+  height: 72px !important;
+}
+
+/* Su mobile, logo un po' più piccolo per risparmiare spazio */
+@media (max-width: 768px) {
+  .logo-image {
+    height: 36px !important;
+    max-width: 160px !important;
+  }
+  
+  .header-inner {
+    height: 64px !important;
+  }
+}
+/* ===== FINE ===== */
 
 /* Header più compatto */
 .header-inner {

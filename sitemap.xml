@@ -24,11 +24,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  <url>
-    <loc>https://pbr8w22dcd-ui.github.io/Amarreda-Qwen/pages/servizio-rivenditori.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
+  
   <url>
     <loc>https://pbr8w22dcd-ui.github.io/Amarreda-Qwen/pages/prezzi.html</loc>
     <changefreq>monthly</changefreq>

@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contatti — Parla con il Team Amarreda</title>
+  <meta name="description" content="Hai domande sul servizio Amarreda? Contattaci via email, telefono o compila il form. Ti rispondiamo entro 24 ore.">
+  
+  <!-- SEO & Social -->
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="apple-touch-icon" href="../favicon.svg">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Contatti — Amarreda">
+  <meta property="og:description" content="Parla con il team Amarreda. Rispondiamo entro 24 ore.">
+  <meta property="og:image" content="../assets/logo.svg">
+  <meta property="og:url" content="https://pbr8w22dcd-ui.github.io/Amarreda-Qwen/pages/contatti.html">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/pages.css">
+
+  <style>
+    /* HERO */
+    .contact-hero {
+      min-height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: var(--space-8) var(--space-5);
+      background: radial-gradient(ellipse at top, rgba(184, 153, 106, 0.08) 0%, transparent 60%),
+                  var(--bg-deep);
+    }
+
+    .contact-hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 500;
+      color: var(--text-bright);
+      margin-bottom: var(--space-4);
+      letter-spacing: -0.02em;
+    }
+
+    .contact-hero-subtitle {
+      font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+      color: var(--text-gray);
+      line-height: 1.6;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* CONTACT INFO CARDS */
+    .contact-info-section {
+      padding: var(--space-7) var(--space-5);
+      background: var(--bg-main);
+    }
+
+    .contact-info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-5);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .contact-info-card {
+      padding: var(--space-6);
+      background: var(--bg-card);
+      border: var(--border-subtle);
+      border-radius: var(--radius-md);
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .contact-info-card:hover {
+      border-color: rgba(184, 153, 106, 0.3);
+      transform: translateY(-4px);
+    }
+
+    .contact-info-icon {
+      font-size: 2.5rem;
+      margin-bottom: var(--space-4);
+    }
+
+    .contact-info-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      color: var(--text-bright);
+      margin-bottom: var(--space-3);
+    }
+
+    .contact-info-text {
+      color: var(--text-gray);
+      line-height: 1.6;
+      font-size: var(--fs-small);
+      margin-bottom: var(--space-3);
+    }
+
+    .contact-info-link {
+      color: var(--rame);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .contact-info-link:hover {
+      color: var(--oro);
+      text-decoration: underline;
+    }
+
+    /* CONTACT FORM SECTION */
+    .contact-form-section {
+      padding: var(--space-8) var(--space-5);
+    }
+
+    .contact-form-container {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: var(--space-7);
+    }
+
+    .contact-form-info {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+    }
+
+    .contact-form-info-title {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--text-bright);
+      margin-bottom: var(--space-3);
+    }
+
+    .contact-form-info-text {
+      color: var(--text-gray);
+      line-height: 1.6;
+      font-size: var(--fs-small);
+    }
+
+    .contact-form-help {
+      padding: var(--space-5);
+      background: rgba(137, 145, 125, 0.05);
+      border: 1px solid rgba(137, 145, 125, 0.2);
+      border-radius: var(--radius-md);
+    }
+
+    .contact-form-help-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      color: var(--color-verde-salvia);
+      margin-bottom: var(--space-3);
+    }
+
+    .contact-form-help-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .contact-form-help-list li {
+      padding: 0.5rem 0;
+      color: var(--text-gray);
+      font-size: var(--fs-small);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .contact-form-help-list li::before {
+      content: '✓';
+      color: var(--color-verde-salvia);
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    /* FORM */
+    .contact-form {
+      background: var(--bg-card);
+      border: var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-6);
+    }
+
+    .form-group {
+      margin-bottom: var(--space-4);
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text-gray);
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .form-input,
+    .form-textarea,
+    .form-select {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      background: rgba(18, 17, 15, 0.6);
+      border: 1px solid rgba(184, 153, 106, 0.15);
+      border-radius: var(--radius-sm);
+      color: var(--text-bright);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: var(--text-muted);
+    }
+
+    .form-input:focus,
+    .form-textarea:focus,
+    .form-select:focus {
+      outline: none;
+      border-color: var(--rame);
+      background: rgba(18, 17, 15, 0.9);
+      box-shadow: 0 0 0 3px rgba(184, 153, 106, 0.1);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-select {
+      cursor: pointer;
+    }
+
+    .form-select option {
+      background: var(--bg-deep);
+      color: var(--text-bright);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+    }
+
+    .form-submit {
+      width: 100%;
+      padding: 1rem;
+      background: linear-gradient(135deg, #B8996A 0%, #D4AF37 100%);
+      border: none;
+      border-radius: var(--radius-sm);
+      color: var(--bg-deep);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: var(--space-3);
+    }
+
+    .form-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(184, 153, 106, 0.3);
+    }
+
+    .form-submit:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .form-consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-top: var(--space-4);
+    }
+
+    .form-consent input[type="checkbox"] {
+      margin-top: 0.2rem;
+      width: 18px;
+      height: 18px;
+      accent-color: var(--rame);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .form-consent label {
+      font-size: 0.85rem;
+      color: var(--text-gray);
+      line-height: 1.5;
+      cursor: pointer;
+    }
+
+    .form-consent label a {
+      color: var(--rame);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    /* FAQ SECTION */
+    .contact-faq-section {
+      padding: var(--space-7) var(--space-5);
+      background: var(--bg-main);
+    }
+
+    .contact-faq-title {
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--text-bright);
+      margin-bottom: var(--space-6);
+    }
+
+    .contact-faq-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-5);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .contact-faq-card {
+      padding: var(--space-5);
+      background: var(--bg-card);
+      border: var(--border-subtle);
+      border-radius: var(--radius-md);
+    }
+
+    .contact-faq-question {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      color: var(--text-bright);
+      margin-bottom: var(--space-3);
+    }
+
+    .contact-faq-answer {
+      color: var(--text-gray);
+      line-height: 1.6;
+      font-size: var(--fs-small);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .contact-hero { min-height: 40vh; padding: var(--space-6) var(--space-4); }
+      .contact-info-section,
+      .contact-form-section,
+      .contact-faq-section { padding: var(--space-6) var(--space-4); }
+      .contact-form-container { grid-template-columns: 1fr; gap: var(--space-5); }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="logo" aria-label="Amarreda — Home">
+        <img src="../assets/logo.svg" alt="Amarreda" class="logo-image">
+      </a>
+
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Apri il menu">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+
+      <nav class="main-nav" id="main-nav" aria-label="Navigazione principale">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="come-funziona.html" class="nav-link">Come funziona</a>
+        <a href="prezzi.html" class="nav-link">Prezzi</a>
+        <a href="catalogo.html" class="nav-link">Catalogo</a>
+        <a href="marchi.html" class="nav-link">Marchi</a>
+        <a href="recensioni.html" class="nav-link">Recensioni</a>
+        <a href="contatti.html" class="nav-link active">Contatti</a>
+        <a href="login.html" class="nav-link">Accedi</a>
+        <a href="registrazione.html" class="btn btn-primary btn-sm">Inizia il tuo progetto</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="contact-hero">
+    <div>
+      <h1 class="contact-hero-title">Parliamo della tua cucina</h1>
+      <p class="contact-hero-subtitle">
+        Hai domande sul servizio, sul progetto o sul tuo account? Siamo qui per aiutarti. Ti rispondiamo entro 24 ore.
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTACT INFO -->
+  <section class="contact-info-section">
+    <div class="contact-info-grid">
+      
+      <div class="contact-info-card">
+        <div class="contact-info-icon">📧</div>
+        <h3 class="contact-info-title">Email</h3>
+        <p class="contact-info-text">Scrivici per qualsiasi domanda o richiesta.</p>
+        <a href="mailto:info@amarreda.com" class="contact-info-link">info@amarreda.com</a>
+      </div>
+
+      <div class="contact-info-card">
+        <div class="contact-info-icon">📞</div>
+        <h3 class="contact-info-title">Telefono</h3>
+        <p class="contact-info-text">Chiamaci dal lunedì al venerdì, dalle 9 alle 18.</p>
+        <a href="tel:+390212345678" class="contact-info-link">+39 02 1234 5678</a>
+      </div>
+
+      <div class="contact-info-card">
+        <div class="contact-info-icon">💬</div>
+        <h3 class="contact-info-title">Chat AI</h3>
+        <p class="contact-info-text">La nostra AI è disponibile 24/7 per rispondere alle tue domande sul progetto.</p>
+        <a href="progetto-nuovo.html" class="contact-info-link">Inizia una chat →</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT FORM -->
+  <section class="contact-form-section">
+    <div class="contact-form-container">
+      
+      <!-- LEFT: INFO -->
+      <div class="contact-form-info">
+        <div>
+          <h2 class="contact-form-info-title">Come possiamo aiutarti?</h2>
+          <p class="contact-form-info-text">
+            Compila il form e ti risponderemo il prima possibile. Per domande urgenti, usa il telefono o la chat AI.
+          </p>
+        </div>
+
+        <div class="contact-form-help">
+          <h3 class="contact-form-help-title">Possiamo aiutarti con:</h3>
+          <ul class="contact-form-help-list">
+            <li>Domande sul funzionamento del servizio</li>
+            <li>Problemi tecnici con il progetto</li>
+            <li>Informazioni sui piani Free e Pro</li>
+            <li>Supporto per l'account o la registrazione</li>
+            <li>Richieste di partnership o collaborazione</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- RIGHT: FORM -->
+      <form class="contact-form" id="contact-form" novalidate>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="first-name">Nome *</label>
+            <input type="text" id="first-name" name="first-name" class="form-input" placeholder="Mario" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="last-name">Cognome *</label>
+            <input type="text" id="last-name" name="last-name" class="form-input" placeholder="Rossi" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email">Email *</label>
+          <input type="email" id="email" name="email" class="form-input" placeholder="mario.rossi@email.com" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="phone">Telefono</label>
+          <input type="tel" id="phone" name="phone" class="form-input" placeholder="+39 333 1234567">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="subject">Argomento *</label>
+          <select id="subject" name="subject" class="form-select" required>
+            <option value="">Seleziona un argomento...</option>
+            <option value="info-servizio">Informazioni sul servizio</option>
+            <option value="problema-tecnico">Problema tecnico</option>
+            <option value="account">Supporto account</option>
+            <option value="piani">Domande sui piani Free/Pro</option>
+            <option value="partnership">Partnership o collaborazione</option>
+            <option value="altro">Altro</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="message">Messaggio *</label>
+          <textarea id="message" name="message" class="form-textarea" placeholder="Descrivi la tua richiesta o domanda..." required></textarea>
+        </div>
+
+        <div class="form-consent">
+          <input type="checkbox" id="consent-privacy" name="consent-privacy" required>
+          <label for="consent-privacy">
+            Ho letto e accetto la <a href="privacy-policy.html" target="_blank">Privacy Policy</a>. I tuoi dati saranno trattati in conformità con il GDPR.
+          </label>
+        </div>
+
+        <button type="submit" class="form-submit" id="submit-btn">
+          Invia messaggio
+        </button>
+
+      </form>
+
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="contact-faq-section">
+    <h2 class="contact-faq-title">Domande frequenti</h2>
+    <div class="contact-faq-grid">
+      
+      <div class="contact-faq-card">
+        <h3 class="contact-faq-question">Quanto tempo ci vuole per ricevere una risposta?</h3>
+        <p class="contact-faq-answer">Ti rispondiamo entro 24 ore lavorative. Per domande urgenti, usa il telefono o la chat AI disponibile 24/7.</p>
+      </div>
+
+      <div class="contact-faq-card">
+        <h3 class="contact-faq-question">Posso modificare il mio progetto dopo averlo completato?</h3>
+        <p class="contact-faq-answer">Nel Piano Free, il progetto è bloccato dopo il rendering finale. Nel Piano Pro, puoi fare modifiche illimitate fino al rendering e anche rifare la progettazione se cambi idea.</p>
+      </div>
+
+      <div class="contact-faq-card">
+        <h3 class="contact-faq-question">Come funziona lo sconto del 5%?</h3>
+        <p class="contact-faq-answer">Lo sconto extra del 5% è riservato ai clienti Pro e Business presso i rivenditori convenzionati. Quando autorizzi l'invio del progetto, il rivenditore riceve l'indicazione di applicare lo sconto.</p>
+      </div>
+
+      <div class="contact-faq-card">
+        <h3 class="contact-faq-question">I miei dati sono al sicuro?</h3>
+        <p class="contact-faq-answer">Assolutamente sì. I tuoi dati sono protetti da crittografia e non vengono condivisi con terzi senza il tuo consenso esplicito. Leggi la nostra Privacy Policy per tutti i dettagli.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <img src="../assets/logo.svg" alt="Amarreda" class="footer-logo">
+          <p class="footer-text">La piattaforma AI per progettare la tua cucina con trasparenza e serenità.</p>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-title">Esplora</h4>
+          <ul class="footer-links">
+            <li><a href="come-funziona.html">Come funziona</a></li>
+            <li><a href="prezzi.html">Prezzi</a></li>
+            <li><a href="catalogo.html">Catalogo</a></li>
+            <li><a href="marchi.html">Marchi</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-title">Azienda</h4>
+          <ul class="footer-links">
+            <li><a href="chi-siamo.html">Chi siamo</a></li>
+            <li><a href="contatti.html">Contatti</a></li>
+            <li><a href="recensioni.html">Recensioni</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-title">Legale</h4>
+          <ul class="footer-links">
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="cookie-policy.html">Cookie Policy</a></li>
+            <li><a href="termini-condizioni.html">Termini e Condizioni</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Amarreda. Tutti i diritti riservati.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="../js/main.js"></script>
+  <script>
+    // Form submission
+    const form = document.getElementById('contact-form');
+    const submitBtn = document.getElementById('submit-btn');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // Check required fields
+      const firstName = document.getElementById('first-name').value.trim();
+      const lastName = document.getElementById('last-name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value.trim();
+      const consent = document.getElementById('consent-privacy').checked;
+
+      if (!firstName || !lastName || !email || !subject || !message) {
+        alert('Per favore, compila tutti i campi obbligatori.');
+        return;
+      }
+
+      if (!consent) {
+        alert('Devi accettare la Privacy Policy per continuare.');
+        return;
+      }
+
+      // Simulate submission
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Invio in corso...';
+
+      setTimeout(() => {
+        alert('✅ Messaggio inviato con successo! Ti risponderemo entro 24 ore.');
+        form.reset();
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Invia messaggio';
+      }, 1500);
+    });
+  </script>
+</body>
+</html>

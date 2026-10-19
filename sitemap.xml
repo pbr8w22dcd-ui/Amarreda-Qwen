@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <!-- HOMEPAGE -->
+  <url>
+    <loc>https://pbr8w22dcd-ui.github.io/Amarreda-Qwen/index.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- PAGINE ISTITUZIONALI E SERVIZI -->
+  <url>
+    <loc>https://pbr8w22dcd-ui.github.io/Amarreda-Qwen/pages/come-funziona.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://pbr8w22dcd-ui.github.io/Amarreda-Qwen/pages/servizio-privati.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pbr8w22dcd-ui.github.io/Amarreda-Qwen/pages/servizio-professionisti.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pbr8w22dcd-ui.github.io/Amarreda-Qwen/pages/servizio-rivenditori.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pbr8w22dcd-ui.github.io/Amarreda-Qwen/pages/prezzi.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://pbr8w22dcd-ui.github.io/Amarreda-Qwen/pages/chi-siamo.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pbr8w22dcd-ui.github.io/Amarreda-Qwen/pages/contatti.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- PROGETTAZIONE E CHAT AI -->
+  <url>
+    <loc>https://pbr8w22dcd-ui.github.io/Amarreda-Qwen/pages/progettazione-ai.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://pbr8w22dcd-ui.github.io/Amarreda-Qwen/pages/progetto-chat.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://pbr8w22dcd-ui.github.io/Amarreda-Qwen/pages/risultati.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- MARCHI E CATALOGHI -->
+  <url>
+    <loc>https://pbr8w22dcd-ui.github.io/Amarreda-Qwen/pages/marchi.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pbr8w22dcd-ui.github.io/Amarreda-Qwen/pages/marchi-arredo3.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pbr8w22dcd-ui.github.io/Amarreda-Qwen/pages/prodotti.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- AREA UTENTE (Pubbliche) -->
+  <url>
+    <loc>https://pbr8w22dcd-ui.github.io/Amarreda-Qwen/pages/registrazione.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pbr8w22dcd-ui.github.io/Amarreda-Qwen/pages/login.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- PAGINE LEGALI -->
+  <url>
+    <loc>https://pbr8w22dcd-ui.github.io/Amarreda-Qwen/pages/privacy-policy.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://pbr8w22dcd-ui.github.io/Amarreda-Qwen/pages/cookie-policy.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://pbr8w22dcd-ui.github.io/Amarreda-Qwen/pages/termini-condizioni.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://pbr8w22dcd-ui.github.io/Amarreda-Qwen/pages/informazioni-stime.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+</urlset>

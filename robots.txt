@@ -8,6 +8,7 @@ Allow: /assets/
 
 # Blocca l'indicizzazione del pannello admin (sicurezza)
 Disallow: /admin/
+Disallow: /riservato/
 
 # Blocca l'indicizzazione dei file di configurazione e script (best practice SEO)
 Disallow: /config/

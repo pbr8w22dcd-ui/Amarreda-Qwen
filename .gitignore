@@ -1,0 +1,25 @@
+# File di sistema (da ignorare sempre)
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# File di ambiente (CRUCIALE: non caricare mai chiavi API o password qui)
+.env
+.env.local
+.env.production
+*.env
+
+# Log e file temporanei
+*.log
+npm-debug.log*
+
+# Editor e IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# File di build (se in futuro aggiungi Node.js)
+node_modules/
+dist/
+build/

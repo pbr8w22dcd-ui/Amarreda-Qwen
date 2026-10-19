@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Come Funziona — Progetta la tua cucina con AI | Amarreda</title>
+  <meta name="description" content="Scopri come Amarreda ti aiuta a progettare la tua cucina con l'AI di un interior designer. Dalla misura al preventivo in 4 passaggi semplici.">
+  
+  <!-- SEO & Social -->
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="apple-touch-icon" href="../favicon.svg">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Come Funziona — Amarreda">
+  <meta property="og:description" content="Dalla misura al preventivo in 4 passaggi. AI, rendering e trasparenza.">
+  <meta property="og:image" content="../assets/logo.svg">
+  <meta property="og:url" content="https://pbr8w22dcd-ui.github.io/Amarreda-Qwen/pages/come-funziona.html">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/pages.css">
+
+  <style>
+    /* HERO */
+    .how-hero {
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: var(--space-8) var(--space-5);
+      background: radial-gradient(ellipse at top, rgba(184, 153, 106, 0.08) 0%, transparent 60%),
+                  var(--bg-deep);
+    }
+
+    .how-hero-content {
+      max-width: 800px;
+    }
+
+    .how-hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 500;
+      color: var(--text-bright);
+      margin-bottom: var(--space-4);
+      letter-spacing: -0.02em;
+    }
+
+    .how-hero-subtitle {
+      font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+      color: var(--text-gray);
+      line-height: 1.6;
+    }
+
+    /* SECTION BASE */
+    .how-section {
+      padding: var(--space-8) var(--space-5);
+    }
+
+    .how-section-alt {
+      background-color: var(--bg-main);
+    }
+
+    .how-section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto var(--space-7);
+    }
+
+    .how-section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 500;
+      color: var(--text-bright);
+      margin-bottom: var(--space-3);
+    }
+
+    .how-section-subtitle {
+      font-size: var(--fs-body);
+      color: var(--text-gray);
+      line-height: 1.6;
+    }
+
+    /* APPROACH SECTION */
+    .approach-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-5);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .approach-card {
+      padding: var(--space-6);
+      background: var(--bg-card);
+      border: var(--border-subtle);
+      border-radius: var(--radius-md);
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .approach-card:hover {
+      border-color: rgba(184, 153, 106, 0.3);
+      transform: translateY(-4px);
+    }
+
+    .approach-icon {
+      font-size: 3rem;
+      margin-bottom: var(--space-4);
+    }
+
+    .approach-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      color: var(--text-bright);
+      margin-bottom: var(--space-3);
+    }
+
+    .approach-text {
+      color: var(--text-gray);
+      line-height: 1.6;
+      font-size: var(--fs-small);
+    }
+
+    /* STEPS TIMELINE */
+    .steps-timeline {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .steps-timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--rame) 0%, rgba(184, 153, 106, 0.2) 100%);
+      transform: translateX(-50%);
+    }
+
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-6);
+      margin-bottom: var(--space-7);
+      position: relative;
+    }
+
+    .step-item:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+
+    .step-marker {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 60px;
+      background: var(--grad-rame);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--bg-deep);
+      z-index: 2;
+      box-shadow: 0 0 0 8px var(--bg-deep);
+    }
+
+    .step-content {
+      flex: 1;
+      max-width: calc(50% - 60px);
+      background: var(--bg-card);
+      border: var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-5);
+      transition: all 0.3s;
+    }
+
+    .step-content:hover {
+      border-color: rgba(184, 153, 106, 0.3);
+    }
+
+    .step-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--text-bright);
+      margin-bottom: var(--space-3);
+    }
+
+    .step-text {
+      color: var(--text-gray);
+      line-height: 1.6;
+      font-size: var(--fs-small);
+      margin-bottom: var(--space-3);
+    }
+
+    .step-details {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .step-details li {
+      padding: 0.5rem 0;
+      color: var(--text-gray);
+      font-size: var(--fs-micro);
+      border-bottom: 1px solid rgba(184, 153, 106, 0.1);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .step-details li:last-child {
+      border-bottom: none;
+    }
+
+    .step-details li::before {
+      content: '✓';
+      color: var(--rame);
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    /* AFTER SECTION */
+    .after-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-5);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .after-card {
+      padding: var(--space-6);
+      background: var(--bg-card);
+      border: var(--border-subtle);
+      border-radius: var(--radius-md);
+      transition: all 0.3s;
+    }
+
+    .after-card:hover {
+      border-color: rgba(184, 153, 106, 0.3);
+    }
+
+    .after-icon {
+      font-size: 2.5rem;
+      margin-bottom: var(--space-4);
+    }
+
+    .after-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      color: var(--text-bright);
+      margin-bottom: var(--space-3);
+    }
+
+    .after-text {
+      color: var(--text-gray);
+      line-height: 1.6;
+      font-size: var(--fs-small);
+    }
+
+    /* FAQ */
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: var(--bg-card);
+      border: var(--border-subtle);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-3);
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .faq-item:hover {
+      border-color: rgba(184, 153, 106, 0.3);
+    }
+
+    .faq-question {
+      padding: var(--space-4) var(--space-5);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .faq-question h3 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      color: var(--text-bright);
+      margin: 0;
+      font-weight: 500;
+    }
+
+    .faq-toggle {
+      color: var(--rame);
+      font-size: 1.5rem;
+      transition: transform 0.3s;
+      flex-shrink: 0;
+    }
+
+    .faq-item.active .faq-toggle {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 500px;
+    }
+
+    .faq-answer-content {
+      padding: 0 var(--space-5) var(--space-5);
+      color: var(--text-gray);
+      line-height: 1.6;
+      font-size: var(--fs-small);
+    }
+
+    /* CTA FINAL */
+    .how-cta {
+      text-align: center;
+      padding: var(--space-8) var(--space-5);
+      background: radial-gradient(ellipse at center, rgba(184, 153, 106, 0.1) 0%, transparent 70%),
+                  var(--bg-deep);
+    }
+
+    .how-cta-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--text-bright);
+      margin-bottom: var(--space-4);
+    }
+
+    .how-cta-subtitle {
+      color: var(--text-gray);
+      font-size: var(--fs-body);
+      margin-bottom: var(--space-6);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .how-hero { min-height: 50vh; padding: var(--space-6) var(--space-4); }
+      .how-section { padding: var(--space-6) var(--space-4); }
+      
+      .steps-timeline::before {
+        left: 30px;
+      }
+      
+      .step-item,
+      .step-item:nth-child(even) {
+        flex-direction: row;
+        padding-left: 80px;
+      }
+      
+      .step-marker {
+        left: 30px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+      }
+      
+      .step-content {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="logo" aria-label="Amarreda — Home">
+        <img src="../assets/logo.svg" alt="Amarreda" class="logo-image">
+      </a>
+      <nav class="main-nav" id="main-nav">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="come-funziona.html" class="nav-link active">Come funziona</a>
+        <a href="prezzi.html" class="nav-link">Prezzi</a>
+        <a href="catalogo.html" class="nav-link">Catalogo</a>
+        <a href="chi-siamo.html" class="nav-link">Chi siamo</a>
+        <a href="contatti.html" class="nav-link">Contatti</a>
+        <a href="login.html" class="nav-link nav-link-cta">Accedi</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Apri menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="how-hero">
+    <div class="how-hero-content">
+      <h1 class="how-hero-title">Come funziona Amarreda</h1>
+      <p class="how-hero-subtitle">
+        Dalla misura al preventivo in 4 passaggi semplici. La nostra AI, addestrata da interior designer con oltre 30 anni di esperienza, ti guida passo dopo passo verso la cucina dei tuoi sogni.
+      </p>
+    </div>
+  </section>
+
+  <!-- IL NOSTRO APPROCCIO -->
+  <section class="how-section">
+    <div class="how-section-header">
+      <h2 class="how-section-title">Il nostro approccio</h2>
+      <p class="how-section-subtitle">Non siamo un configuratore freddo. Siamo un team di esperti che ha digitalizzato 30 anni di esperienza nel settore dell'arredamento.</p>
+    </div>
+    <div class="approach-grid">
+      <div class="approach-card">
+        <div class="approach-icon">🎓</div>
+        <h3 class="approach-title">Esperienza reale</h3>
+        <p class="approach-text">La nostra AI non improvvisa. Applica regole tecniche precise: distanze ergonomiche, funzionalità, vincoli strutturali. Come un vero progettista.</p>
+      </div>
+      <div class="approach-card">
+        <div class="approach-icon">💶</div>
+        <h3 class="approach-title">Trasparenza totale</h3>
+        <p class="approach-text">Confronti i listini reali di brand diversi sulla stessa configurazione. Sai esattamente quanto spendi, senza sorprese o costi nascosti.</p>
+      </div>
+      <div class="approach-card">
+        <div class="approach-icon">🤝</div>
+        <h3 class="approach-title">Rivenditori verificati</h3>
+        <p class="approach-text">Ti mettiamo in contatto solo con professionisti della tua zona, valutati per serietà e assistenza post-vendita. Nessun rischio.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- I 4 STEP -->
+  <section class="how-section how-section-alt">
+    <div class="how-section-header">
+      <h2 class="how-section-title">I 4 passaggi del progetto</h2>
+      <p class="how-section-subtitle">Un processo semplice, guidato e trasparente. Dall'idea al preventivo in meno di 10 minuti.</p>
+    </div>
+    <div class="steps-timeline">
+      
+      <!-- STEP 1 -->
+      <div class="step-item">
+        <div class="step-marker">1</div>
+        <div class="step-content">
+          <h3 class="step-title">📐 Raccontaci il tuo contesto</h3>
+          <p class="step-text">Iniziamo con due domande fondamentali per calibrare il progetto sulle tue esigenze reali.</p>
+          <ul class="step-details">
+            <li>Stato dell'ambiente: nuova costruzione, ristrutturazione o rinnovo</li>
+            <li>Tempi di consegna: da subito a oltre 1 anno</li>
+            <li>Caricamento planimetria con misure e vincoli</li>
+            <li>Conferma della planimetria ridisegnata dall'AI</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step-item">
+        <div class="step-marker">2</div>
+        <div class="step-content">
+          <h3 class="step-title">🎨 Scegli la tua cucina</h3>
+          <p class="step-text">L'AI ti guida nella scelta di ogni dettaglio, dal brand ai materiali, dagli elettrodomestici alle finiture.</p>
+          <ul class="step-details">
+            <li>Stile: moderno, classico o contemporaneo</li>
+            <li>Brand e modello (o lascia che l'AI ti suggerisca)</li>
+            <li>Materiali ante: laminato, laccato, Fenix, legno, vetro</li>
+            <li>Colori basi e pensili (palette reale del brand)</li>
+            <li>Top: laminato, HPL, quarzo o gres</li>
+            <li>Elettrodomestici: marca, tipologia, posa</li>
+            <li>Configurazione: lineare, angolo, isola, penisola</li>
+            <li>Finiture: gola/maniglia, schienale, LED</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step-item">
+        <div class="step-marker">3</div>
+        <div class="step-content">
+          <h3 class="step-title">🤖 L'AI progetta per te</h3>
+          <p class="step-text">In 2-3 minuti, l'AI genera il tuo progetto completo, rispettando tutte le regole tecniche.</p>
+          <ul class="step-details">
+            <li>Composizione con moduli reali del brand scelto</li>
+            <li>Verifica tecnica: distanze, ergonomia, funzionalità</li>
+            <li>Rendering fotorealistico basato sulle tue foto</li>
+            <li>Planimetria quotata con misure precise</li>
+            <li>Stima di costo: range min-max con spiegazione</li>
+            <li>PDF completo scaricabile nella tua area riservata</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="step-item">
+        <div class="step-marker">4</div>
+        <div class="step-content">
+          <h3 class="step-title">💰 Confronta e decidi</h3>
+          <p class="step-text">Valuti la stima, confronti i brand (con il Piano Pro) e richiedi il contatto con un rivenditore di zona.</p>
+          <ul class="step-details">
+            <li>Verifica se la stima rientra nel tuo budget</li>
+            <li>Con il Pro: confronto tra 3 brand sulla stessa configurazione</li>
+            <li>Scelta del rivenditore convenzionato nella tua zona</li>
+            <li>Fissaggio appuntamento con giorni e fasce orarie</li>
+            <li>Invio del progetto completo al rivenditore</li>
+            <li>Sconto extra del 5% e premio post-acquisto</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- COSA SUCCEDE DOPO -->
+  <section class="how-section">
+    <div class="how-section-header">
+      <h2 class="how-section-title">Cosa succede dopo</h2>
+      <p class="how-section-subtitle">Il progetto è pronto. Ora ti accompagniamo fino all'acquisto e oltre, con premi e vantaggi esclusivi.</p>
+    </div>
+    <div class="after-grid">
+      <div class="after-card">
+        <div class="after-icon">📅</div>
+        <h3 class="after-title">Appuntamento in negozio</h3>
+        <p class="after-text">Il rivenditore ti contatta per fissare l'appuntamento. Porta con te il progetto: sarà la base per il preventivo definitivo e il rilievo misure.</p>
+      </div>
+      <div class="after-card">
+        <div class="after-icon">📝</div>
+        <h3 class="after-title">Preventivo e ordine</h3>
+        <p class="after-text">Il rivenditore elabora il preventivo finale basato sul progetto Amarreda. Se confermi, parte l'ordine con tempi di consegna di 60-90 giorni lavorativi.</p>
+      </div>
+      <div class="after-card">
+        <div class="after-icon">🎁</div>
+        <h3 class="after-title">Premio post-acquisto</h3>
+        <p class="after-text">Carica il contratto di acquisto nella tua area riservata e ricevi: sconto del 20% su prodotti affiliati (elettrodomestici, complementi) e buono Amazon pari al costo del progetto.</p>
+      </div>
+      <div class="after-card">
+        <div class="after-icon">⭐</div>
+        <h3 class="after-title">Supporto continuo</h3>
+        <p class="after-text">L'AI resta disponibile per dubbi, modifiche o nuovi progetti. Il tuo account è sempre attivo e i progetti salvati per sempre.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="how-section how-section-alt">
+    <div class="how-section-header">
+      <h2 class="how-section-title">Domande frequenti</h2>
+      <p class="how-section-subtitle">Tutto quello che devi sapere prima di iniziare.</p>
+    </div>
+    <div class="faq-container">
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          <h3>Quanto costa il servizio?</h3>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-content">
+            Il Piano Free è completamente gratuito e include 1 progetto cucina completo al mese. Il Piano Pro costa 49,90€ una tantum e ti permette di confrontare 3 brand sulla stessa configurazione, aggiungere 1 ambiente extra a 20€ e ricevere uno sconto extra del 5% presso i rivenditori convenzionati.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <h3>La stima è un preventivo definitivo?</h3>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-content">
+            No, la stima è una forbice di prezzo basata sul listino vigente. Il minimo include moduli con ante semplici, il massimo include moduli con meccanismi premium (cestoni, estraibili). Il preventivo definitivo lo elabora il rivenditore dopo il rilievo misure e la conferma della configurazione.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <h3>Posso modificare il progetto dopo il rendering?</h3>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-content">
+            Nel Piano Free, puoi fare tutte le modifiche che vuoi durante la creazione del progetto, ma una volta generato il rendering finale, il progetto è bloccato. Nel Piano Pro, hai modifiche illimitate fino al rendering finale, e puoi anche rifare la progettazione della cucina se cambi idea.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <h3>Come funziona lo sconto del 5%?</h3>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-content">
+            Lo sconto extra del 5% è riservato ai clienti Pro e Business presso i rivenditori convenzionati. Quando autorizzi l'invio del progetto al rivenditore, lui riceve la richiesta con l'indicazione che deve applicare il 5% di sconto sul listino. Il rivenditore accetta perché riceve un lead già qualificato e pronto all'acquisto.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <h3>Cos'è il premio post-acquisto?</h3>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-content">
+            Dopo l'acquisto della cucina, se carichi il contratto di acquisto nella tua area riservata, ricevi: uno sconto del 20% su prodotti affiliati (elettrodomestici, complementi d'arredo) e un buono Amazon pari al costo del progetto Amarreda (50€ per il Free, 99,90€ per il Pro). È il nostro modo di ringraziarti per aver completato il percorso con noi.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <h3>Quanto tempo ci vuole per completare il progetto?</h3>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-content">
+            Il processo completo richiede circa 10-15 minuti: 5 minuti per inserire le misure e le scelte, 2-3 minuti per l'elaborazione dell'AI, e il resto per valutare il risultato e decidere il prossimo passo. Puoi interrompere e riprendere in qualsiasi momento: il progetto resta salvato nella tua area riservata.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <h3>I miei dati sono al sicuro?</h3>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-content">
+            Assolutamente sì. I tuoi dati sono protetti da crittografia e non vengono mai condivisi con terzi senza il tuo consenso esplicito. Quando autorizzi l'invio del progetto a un rivenditore, dai un consenso specifico e revocabile in qualsiasi momento. Leggi la nostra Privacy Policy per tutti i dettagli.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA FINALE -->
+  <section class="how-cta">
+    <h2 class="how-cta-title">Pronto a progettare la tua cucina?</h2>
+    <p class="how-cta-subtitle">Inizia gratuitamente in meno di 5 minuti. Nessun impegno, nessuna carta di credito richiesta.</p>
+    <a href="progetto-nuovo.html" class="btn btn-primary btn-lg">🟢 Inizia il tuo progetto</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <img src="../assets/logo.svg" alt="Amarreda" class="footer-logo">
+          <p class="footer-text">La piattaforma AI per progettare la tua cucina con trasparenza e serenità.</p>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-title">Esplora</h4>
+          <ul class="footer-links">
+            <li><a href="come-funziona.html">Come funziona</a></li>
+            <li><a href="prezzi.html">Prezzi</a></li>
+            <li><a href="catalogo.html">Catalogo</a></li>
+            <li><a href="chi-siamo.html">Chi siamo</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-title">Azienda</h4>
+          <ul class="footer-links">
+            <li><a href="chi-siamo.html">Chi siamo</a></li>
+            <li><a href="contatti.html">Contatti</a></li>
+            <li><a href="professionisti-business.html">Professionisti</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-title">Legale</h4>
+          <ul class="footer-links">
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="cookie-policy.html">Cookie Policy</a></li>
+            <li><a href="termini-condizioni.html">Termini e Condizioni</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Amarreda. Tutti i diritti riservati.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="../js/main.js"></script>
+  <script>
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(question => {
+      question.addEventListener('click', () => {
+        const item = question.parentElement;
+        const isActive = item.classList.contains('active');
+        
+        // Close all
+        document.querySelectorAll('.faq-item').forEach(faq => {
+          faq.classList.remove('active');
+        });
+        
+        // Open clicked (if it wasn't already open)
+        if (!isActive) {
+          item.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

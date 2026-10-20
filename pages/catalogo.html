@@ -473,226 +473,140 @@
     // ============================================
     // DATI CATALOGO (per ora hardcoded, poi da Supabase)
     // ============================================
-    const catalogModels = [
-      {
-        id: 1,
-        brand: 'veneta',
-        brandName: 'Veneta Cucine',
-        model: 'Essenza',
-        product: 'cucina',
-        style: 'moderno',
-        material: 'laminato',
-        description: 'Linee pulite e funzionalità per una cucina moderna e accogliente.',
-        badge: 'Nuovo'
-      },
-      {
-        id: 2,
-        brand: 'stosa',
-        brandName: 'Stosa',
-        model: 'Château',
-        product: 'cucina',
-        style: 'classico',
-        material: 'legno',
-        description: 'Il calore del legno massello incontra il fascino intramontabile del classico.',
-        badge: null
-      },
-      {
-        id: 3,
-        brand: 'lube',
-        brandName: 'Lube',
-        model: 'Mia',
-        product: 'cucina',
-        style: 'contemporaneo',
-        material: 'laccato',
-        description: 'Equilibrio perfetto tra tradizione e innovazione, per chi ama il design senza tempo.',
-        badge: null
-      },
-      {
-        id: 4,
-        brand: 'arredo3',
-        brandName: 'Arredo3',
-        model: 'Ak_24',
-        product: 'cucina',
-        style: 'moderno',
-        material: 'fenix',
-        description: 'Superficie anti-impronta e autoriparante per una cucina sempre perfetta.',
-        badge: 'Top'
-      },
-      {
-        id: 5,
-        brand: 'veneta',
-        brandName: 'Veneta Cucine',
-        model: 'Daytona',
-        product: 'cucina',
-        style: 'moderno',
-        material: 'laccato',
-        description: 'Design minimalista e colori decisi per chi ama lo stile contemporaneo.',
-        badge: null
-      },
-      {
-        id: 6,
-        brand: 'stosa',
-        brandName: 'Stosa',
-        model: 'Stosa Cucine',
-        product: 'cucina',
-        style: 'contemporaneo',
-        material: 'laminato',
-        description: 'Finiture materiche e dettagli curati per un ambiente unico e raffinato.',
-        badge: null
-      },
-      {
-        id: 7,
-        brand: 'lube',
-        brandName: 'Lube',
-        model: 'Materica',
-        product: 'cucina',
-        style: 'classico',
-        material: 'legno',
-        description: 'L\'anima rustica del legno si fonde con la tecnologia moderna.',
-        badge: null
-      },
-      {
-        id: 8,
-        brand: 'arredo3',
-        brandName: 'Arredo3',
-        model: 'Aria',
-        product: 'cucina',
-        style: 'moderno',
-        material: 'vetro',
-        description: 'Trasparenza e leggerezza per una cucina luminosa e ariosa.',
-        badge: 'Novità'
-      },
-      {
-        id: 9,
-        brand: 'veneta',
-        brandName: 'Veneta Cucine',
-        model: 'Sprint',
-        product: 'cucina',
-        style: 'contemporaneo',
-        material: 'laminato',
-        description: 'Giovane, dinamica e versatile. Perfetta per chi ama cambiare spesso.',
-        badge: null
-      },
-      {
-        id: 10,
-        brand: 'stosa',
-        brandName: 'Stosa',
-        model: 'Libera',
-        product: 'cucina',
-        style: 'moderno',
-        material: 'laccato',
-        description: 'Composizioni libere e personalizzabili per esprimere la tua unicità.',
-        badge: null
-      },
-      {
-        id: 11,
-        brand: 'lube',
-        brandName: 'Lube',
-        model: 'Aurora',
-        product: 'cucina',
-        style: 'contemporaneo',
-        material: 'fenix',
-        description: 'Eleganza discreta e tecnologia avanzata per una cucina al passo coi tempi.',
-        badge: null
-      },
-      {
-        id: 12,
-        brand: 'arredo3',
-        brandName: 'Arredo3',
-        model: 'Evo',
-        product: 'cucina',
-        style: 'moderno',
-        material: 'laminato',
-        description: 'L\'evoluzione del concetto di cucina, con soluzioni intelligenti e su misura.',
-        badge: null
-      }
-    ];
-
     // ============================================
-    // FUNZIONI DI RENDERING
-    // ============================================
-    function createCardHTML(model) {
-      const badgeHTML = model.badge 
-        ? `<div class="catalog-card-badge">${model.badge}</div>` 
-        : '';
-      
-      const styleLabels = {
-        'moderno': 'Moderno',
-        'classico': 'Classico',
-        'contemporaneo': 'Contemporaneo'
-      };
-      
-      const materialLabels = {
-        'laminato': 'Laminato',
-        'laccato': 'Laccato',
-        'fenix': 'Fenix',
-        'legno': 'Legno',
-        'vetro': 'Vetro'
-      };
+// DATI CATALOGO DA SUPABASE
+// ============================================
+let catalogModels = [];
 
-      return `
-        <div class="catalog-card" data-product="${model.product}" data-style="${model.style}" data-material="${model.material}" data-brand="${model.brand}">
-          <div class="catalog-card-image">
-            <span>Immagine modello</span>
-            ${badgeHTML}
-          </div>
-          <div class="catalog-card-content">
-            <div class="catalog-card-brand">${model.brandName}</div>
-            <h3 class="catalog-card-title">Modello "${model.model}"</h3>
-            <p class="catalog-card-description">${model.description}</p>
-            <div class="catalog-card-tags">
-              <span class="catalog-tag">${styleLabels[model.style]}</span>
-              <span class="catalog-tag">${materialLabels[model.material]}</span>
-            </div>
-            <a href="progetto-chat.html?brand=${model.brand}&model=${encodeURIComponent(model.model)}&material=${model.material}&style=${model.style}" class="catalog-card-cta">
-              Inizia progetto con questo modello →
-            </a>
-          </div>
+// ============================================
+// FUNZIONI DI RENDERING
+// ============================================
+function createCardHTML(model) {
+  const badgeHTML = ''; // I badge li togliamo per ora, li gestiremo dopo
+  
+  const styleLabels = {
+    'moderno': 'Moderno',
+    'classico': 'Classico',
+    'contemporaneo': 'Contemporaneo'
+  };
+  
+  const materialLabels = {
+    'laminato': 'Laminato',
+    'laccato': 'Laccato',
+    'fenix': 'Fenix',
+    'legno': 'Legno',
+    'vetro': 'Vetro'
+  };
+
+  // Gestione immagine: se esiste la mostra, altrimenti placeholder
+  const imageHTML = model.image_url 
+    ? `<img src="${model.image_url}" alt="${model.model_name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';this.parentElement.innerHTML='<span>Immagine modello</span>';">`
+    : '<span>Immagine modello</span>';
+
+  return `
+    <div class="catalog-card" data-product="${model.product_type}" data-style="${model.style}" data-material="${model.material}" data-brand="${model.brand}">
+      <div class="catalog-card-image">
+        ${imageHTML}
+        ${badgeHTML}
+      </div>
+      <div class="catalog-card-content">
+        <div class="catalog-card-brand">${model.brand}</div>
+        <h3 class="catalog-card-title">Modello "${model.model_name}"</h3>
+        <p class="catalog-card-description">${model.description || ''}</p>
+        <div class="catalog-card-tags">
+          <span class="catalog-tag">${styleLabels[model.style] || model.style}</span>
+          <span class="catalog-tag">${materialLabels[model.material] || model.material}</span>
         </div>
-      `;
-    }
+        <a href="progetto-chat.html?brand=${encodeURIComponent(model.brand)}&model=${encodeURIComponent(model.model_name)}&material=${model.material}&style=${model.style}" class="catalog-card-cta">
+          Inizia progetto con questo modello →
+        </a>
+      </div>
+    </div>
+  `;
+}
 
-    function renderCatalog(models) {
-      const grid = document.getElementById('catalog-grid');
-      
-      if (models.length === 0) {
-        grid.innerHTML = `
-          <div class="catalog-empty">
-            <div class="catalog-empty-icon">🔍</div>
-            <h3 class="catalog-empty-title">Nessun modello trovato</h3>
-            <p class="catalog-empty-text">Prova a modificare i filtri per trovare il modello perfetto per te.</p>
-            <button class="btn btn-ghost" onclick="resetFilters()">Reset filtri</button>
-          </div>
-        `;
-      } else {
-        grid.innerHTML = models.map(createCardHTML).join('');
-      }
-      
-      document.getElementById('filters-count').innerHTML = 
-        `Mostrando <strong>${models.length}</strong> modell${models.length === 1 ? 'o' : 'i'}`;
-    }
+function renderCatalog(models) {
+  const grid = document.getElementById('catalog-grid');
+  
+  if (models.length === 0) {
+    grid.innerHTML = `
+      <div class="catalog-empty">
+        <div class="catalog-empty-icon">🔍</div>
+        <h3 class="catalog-empty-title">Nessun modello trovato</h3>
+        <p class="catalog-empty-text">Prova a modificare i filtri per trovare il modello perfetto per te.</p>
+        <button class="btn btn-ghost" onclick="resetFilters()">Reset filtri</button>
+      </div>
+    `;
+  } else {
+    grid.innerHTML = models.map(createCardHTML).join('');
+  }
+  
+  document.getElementById('filters-count').innerHTML = 
+    `Mostrando <strong>${models.length}</strong> modell${models.length === 1 ? 'o' : 'i'}`;
+}
 
-    // ============================================
-    // LOGICA FILTRI
-    // ============================================
-    function applyFilters() {
-      const productFilter = document.getElementById('filter-product').value;
-      const styleFilter = document.getElementById('filter-style').value;
-      const materialFilter = document.getElementById('filter-material').value;
-      const brandFilter = document.getElementById('filter-brand').value;
-      const searchFilter = document.getElementById('filter-search').value.toLowerCase().trim();
+// ============================================
+// LOGICA FILTRI (ora legge dal database)
+// ============================================
+async function applyFilters() {
+  const filters = {
+    product_type: document.getElementById('filter-product').value,
+    style: document.getElementById('filter-style').value,
+    material: document.getElementById('filter-material').value,
+    brand: document.getElementById('filter-brand').value,
+    search: document.getElementById('filter-search').value
+  };
+  
+  const filtered = await getCatalogModels(filters);
+  renderCatalog(filtered);
+}
 
-      const filtered = catalogModels.filter(model => {
-        if (productFilter && model.product !== productFilter) return false;
-        if (styleFilter && model.style !== styleFilter) return false;
-        if (materialFilter && model.material !== materialFilter) return false;
-        if (brandFilter && model.brand !== brandFilter) return false;
-        if (searchFilter && !model.model.toLowerCase().includes(searchFilter) && !model.brandName.toLowerCase().includes(searchFilter)) return false;
-        return true;
-      });
+async function resetFilters() {
+  document.getElementById('filter-product').value = '';
+  document.getElementById('filter-style').value = '';
+  document.getElementById('filter-material').value = '';
+  document.getElementById('filter-brand').value = '';
+  document.getElementById('filter-search').value = '';
+  
+  catalogModels = await getCatalogModels();
+  renderCatalog(catalogModels);
+}
 
-      renderCatalog(filtered);
-    }
+// ============================================
+// EVENT LISTENERS
+// ============================================
+document.getElementById('filter-product').addEventListener('change', applyFilters);
+document.getElementById('filter-style').addEventListener('change', applyFilters);
+document.getElementById('filter-material').addEventListener('change', applyFilters);
+document.getElementById('filter-brand').addEventListener('change', applyFilters);
+
+// Ricerca con debounce (aspetta 300ms dopo che l'utente smette di scrivere)
+let searchTimeout;
+document.getElementById('filter-search').addEventListener('input', () => {
+  clearTimeout(searchTimeout);
+  searchTimeout = setTimeout(applyFilters, 300);
+});
+
+document.getElementById('filter-reset').addEventListener('click', resetFilters);
+
+// ============================================
+// CARICAMENTO INIZIALE DA SUPABASE
+// ============================================
+(async function init() {
+  try {
+    catalogModels = await getCatalogModels();
+    renderCatalog(catalogModels);
+  } catch (error) {
+    console.error('Errore nel caricamento iniziale:', error);
+    document.getElementById('catalog-grid').innerHTML = `
+      <div class="catalog-empty">
+        <div class="catalog-empty-icon">⚠️</div>
+        <h3 class="catalog-empty-title">Errore di connessione</h3>
+        <p class="catalog-empty-text">Impossibile caricare il catalogo. Riprova tra poco.</p>
+      </div>
+    `;
+  }
+})();
 
     function resetFilters() {
       document.getElementById('filter-product').value = '';

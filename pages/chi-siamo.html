@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi Siamo — Amarreda</title>
+  <meta name="description" content="Amarreda nasce per rendere la progettazione della cucina più semplice, trasparente e accessibile. Scopri come lavoriamo.">
+  
+  <!-- SEO & Social -->
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="apple-touch-icon" href="../favicon.svg">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Chi Siamo — Amarreda">
+  <meta property="og:description" content="Un nuovo modo di progettare la tua cucina, con il supporto dell'AI e l'esperienza nel mondo dell'arredamento.">
+  <meta property="og:image" content="../assets/logo.svg">
+  <meta property="og:url" content="https://pbr8w22dcd-ui.github.io/Amarreda-Qwen/pages/chi-siamo.html">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/pages.css">
+
+  <style>
+    /* HERO */
+    .about-hero {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: var(--space-8) var(--space-5);
+      background: radial-gradient(ellipse at top, rgba(184, 153, 106, 0.08) 0%, transparent 60%),
+                  var(--bg-deep);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-hero-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.15;
+      z-index: 0;
+    }
+
+    .about-hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+    }
+
+    .about-hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 500;
+      color: var(--text-bright);
+      margin-bottom: var(--space-4);
+      letter-spacing: -0.02em;
+    }
+
+    .about-hero-subtitle {
+      font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+      color: var(--text-gray);
+      line-height: 1.6;
+      margin-bottom: var(--space-6);
+    }
+
+    /* SECTION BASE */
+    .about-section {
+      padding: var(--space-8) var(--space-5);
+    }
+
+    .about-section-alt {
+      background-color: var(--bg-main);
+    }
+
+    .about-section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto var(--space-7);
+    }
+
+    .about-section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 500;
+      color: var(--text-bright);
+      margin-bottom: var(--space-3);
+    }
+
+    .about-section-subtitle {
+      font-size: var(--fs-body);
+      color: var(--text-gray);
+      line-height: 1.6;
+    }
+
+    /* STORY SECTION */
+    .story-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-7);
+      align-items: center;
+    }
+
+    .story-content {
+      color: var(--text-gray);
+      line-height: 1.8;
+      font-size: var(--fs-body);
+    }
+
+    .story-content p {
+      margin-bottom: var(--space-4);
+    }
+
+    .story-image {
+      width: 100%;
+      aspect-ratio: 4/3;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: var(--border-subtle);
+    }
+
+    .story-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* VALUES GRID */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-5);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .value-card {
+      padding: var(--space-6);
+      background: var(--bg-card);
+      border: var(--border-subtle);
+      border-radius: var(--radius-md);
+      transition: all 0.3s;
+    }
+
+    .value-card:hover {
+      border-color: rgba(184, 153, 106, 0.3);
+      transform: translateY(-4px);
+    }
+
+    .value-image {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      margin-bottom: var(--space-4);
+    }
+
+    .value-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .value-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      color: var(--text-bright);
+      margin-bottom: var(--space-3);
+    }
+
+    .value-text {
+      color: var(--text-gray);
+      line-height: 1.6;
+      font-size: var(--fs-small);
+    }
+
+    /* TEAM SECTION */
+    .team-intro {
+      max-width: 800px;
+      margin: 0 auto var(--space-7);
+      text-align: center;
+      color: var(--text-gray);
+      line-height: 1.8;
+      font-size: var(--fs-body);
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: var(--space-6);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .team-card {
+      background: var(--bg-card);
+      border: var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .team-card:hover {
+      border-color: rgba(184, 153, 106, 0.3);
+      transform: translateY(-4px);
+    }
+
+    .team-photo {
+      width: 100%;
+      aspect-ratio: 1;
+      overflow: hidden;
+    }
+
+    .team-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+    .team-card:hover .team-photo img {
+      transform: scale(1.05);
+    }
+
+    .team-content {
+      padding: var(--space-5);
+    }
+
+    .team-name {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--text-bright);
+      margin-bottom: var(--space-2);
+    }
+
+    .team-role {
+      font-size: var(--fs-micro);
+      color: var(--rame);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-3);
+    }
+
+    .team-bio {
+      color: var(--text-gray);
+      line-height: 1.6;
+      font-size: var(--fs-small);
+      margin-bottom: var(--space-4);
+    }
+
+    .team-quote {
+      padding: var(--space-3);
+      background: rgba(137, 145, 125, 0.05);
+      border-left: 3px solid var(--color-verde-salvia);
+      border-radius: var(--radius-sm);
+      color: var(--text-gray);
+      font-style: italic;
+      font-size: var(--fs-small);
+      line-height: 1.6;
+    }
+
+    /* METHOD SECTION */
+    .method-container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .method-intro {
+      text-align: center;
+      color: var(--text-gray);
+      line-height: 1.8;
+      font-size: var(--fs-body);
+      margin-bottom: var(--space-7);
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .method-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--space-5);
+    }
+
+    .method-step {
+      padding: var(--space-5);
+      background: var(--bg-card);
+      border: var(--border-subtle);
+      border-radius: var(--radius-md);
+      position: relative;
+    }
+
+    .method-step-image {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      margin-bottom: var(--space-4);
+    }
+
+    .method-step-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .method-step-number {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 40px;
+      background: var(--grad-rame);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--bg-deep);
+      z-index: 2;
+    }
+
+    .method-step-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      color: var(--text-bright);
+      margin-bottom: var(--space-3);
+      margin-top: var(--space-3);
+      text-align: center;
+    }
+
+    .method-step-text {
+      color: var(--text-gray);
+      line-height: 1.6;
+      font-size: var(--fs-small);
+      text-align: center;
+    }
+
+    /* GOAL SECTION */
+    .goal-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-7);
+      align-items: center;
+    }
+
+    .goal-content {
+      color: var(--text-gray);
+      line-height: 1.8;
+      font-size: var(--fs-body);
+    }
+
+    .goal-content p {
+      margin-bottom: var(--space-4);
+    }
+
+    .goal-image {
+      width: 100%;
+      aspect-ratio: 4/3;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: var(--border-subtle);
+    }
+
+    .goal-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* CTA FINAL */
+    .about-cta {
+      text-align: center;
+      padding: var(--space-8) var(--space-5);
+      background: radial-gradient(ellipse at center, rgba(184, 153, 106, 0.1) 0%, transparent 70%),
+                  var(--bg-deep);
+    }
+
+    .about-cta-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--text-bright);
+      margin-bottom: var(--space-4);
+    }
+
+    .about-cta-subtitle {
+      color: var(--text-gray);
+      font-size: var(--fs-body);
+      margin-bottom: var(--space-6);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .about-hero { min-height: 60vh; padding: var(--space-6) var(--space-4); }
+      .about-section { padding: var(--space-6) var(--space-4); }
+      .story-container,
+      .goal-container { grid-template-columns: 1fr; gap: var(--space-5); }
+      .team-grid { grid-template-columns: 1fr; }
+      .method-steps { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="logo" aria-label="Amarreda — Home">
+        <img src="../assets/logo.svg" alt="Amarreda" class="logo-image">
+      </a>
+
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Apri il menu">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+
+      <nav class="main-nav" id="main-nav" aria-label="Navigazione principale">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="come-funziona.html" class="nav-link">Come funziona</a>
+        <a href="prezzi.html" class="nav-link">Prezzi</a>
+        <a href="catalogo.html" class="nav-link">Catalogo</a>
+        <a href="marchi.html" class="nav-link">Marchi</a>
+        <a href="recensioni.html" class="nav-link">Recensioni</a>
+        <a href="chi-siamo.html" class="nav-link active">Chi siamo</a>
+        <a href="contatti.html" class="nav-link">Contatti</a>
+        <a href="login.html" class="nav-link">Accedi</a>
+        <a href="registrazione.html" class="btn btn-primary btn-sm">Inizia il tuo progetto</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="about-hero">
+    <div class="about-hero-image" style="background-image: url('../assets/team/hero-team.jpg');"></div>
+    <div class="about-hero-content">
+      <h1 class="about-hero-title">Un nuovo modo di progettare la tua cucina</h1>
+      <p class="about-hero-subtitle">
+        Amarreda nasce per rendere la progettazione della cucina più semplice, trasparente e accessibile. Grazie all’intelligenza artificiale e all’esperienza nel mondo dell’arredamento, puoi progettare comodamente da casa, esplorare le possibilità e arrivare a una scelta più consapevole, senza lo stress di visitare tanti showroom.
+        <br><br>
+        La tua cucina parte dalle tue idee. La tecnologia ti aiuta a trasformarle in un progetto concreto.
+      </p>
+      <a href="come-funziona.html" class="btn btn-primary btn-lg">Scopri come funziona</a>
+    </div>
+  </section>
+
+  <!-- LA NOSTRA STORIA -->
+  <section class="about-section">
+    <div class="about-section-header">
+      <h2 class="about-section-title">Come è nato Amarreda</h2>
+    </div>
+    <div class="story-container">
+      <div class="story-content">
+        <p>
+          Scegliere una cucina significa prendere decisioni importanti: organizzare gli spazi, valutare materiali e finiture, individuare gli elettrodomestici e capire quanto costerà la soluzione desiderata.
+        </p>
+        <p>
+          Spesso questo percorso richiede tempo, visite in diversi negozi e confronti difficili tra proposte non sempre equivalenti.
+        </p>
+        <p>
+          Amarreda nasce per semplificare questo processo, mettendo la tecnologia al servizio di chi desidera arredare casa con maggiore chiarezza e libertà di scelta.
+        </p>
+        <p>
+          Attraverso la nostra piattaforma digitale, puoi inserire le misure del tuo ambiente, esplorare configurazioni e finiture, visualizzare il progetto e orientarti tra le alternative disponibili. L’intelligenza artificiale ti accompagna nel percorso, aiutandoti a trasformare le tue esigenze in una proposta da approfondire.
+        </p>
+        <p>
+          Il nostro obiettivo è rendere più semplice il passaggio dall’idea al progetto, aiutandoti a risparmiare tempo e ad arrivare al confronto con i rivenditori con le idee più chiare.
+        </p>
+        <p>
+          <strong>Perché progettare la cucina dovrebbe essere un’esperienza stimolante, non una corsa tra negozi e preventivi.</strong>
+        </p>
+      </div>
+      <div class="story-image">
+        <img src="../assets/team/storia-cucina.jpeg" alt="Cucina contemporanea elegante con materiali naturali">
+      </div>
+    </div>
+  </section>
+
+  <!-- COSA CI GUIDA OGNI GIORNO -->
+  <section class="about-section about-section-alt">
+    <div class="about-section-header">
+      <h2 class="about-section-title">Cosa ci guida ogni giorno</h2>
+    </div>
+    <div class="values-grid">
+      
+      <div class="value-card">
+        <div class="value-image">
+          <img src="../assets/team/valore-trasparenza.jpeg" alt="Trasparenza">
+        </div>
+        <h3 class="value-title">Trasparenza</h3>
+        <p class="value-text">Crediamo che una scelta consapevole parta da informazioni chiare. Per questo Amarreda punta a rendere più comprensibili le alternative, le stime di costo e le differenze tra le proposte, aiutandoti a valutare con maggiore serenità il tuo investimento.</p>
+      </div>
+
+      <div class="value-card">
+        <div class="value-image">
+          <img src="../assets/team/valore-qualita.jpeg." alt="Qualità progettuale">
+        </div>
+        <h3 class="value-title">Qualità progettuale</h3>
+        <p class="value-text">Una cucina deve essere bella, ma anche funzionale. L’organizzazione degli spazi, le distanze, l’ergonomia e la scelta dei materiali sono elementi fondamentali. La tecnologia ci aiuta a portare queste valutazioni all’interno di un percorso digitale più semplice e accessibile.</p>
+      </div>
+
+      <div class="value-card">
+        <div class="value-image">
+          <img src="../assets/team/valore-ascolto.jpeg" alt="Le tue esigenze al centro">
+        </div>
+        <h3 class="value-title">Le tue esigenze al centro</h3>
+        <p class="value-text">Ogni casa e ogni persona sono diverse. Per questo il percorso parte dalle tue misure, dalle tue preferenze estetiche, dalle abitudini quotidiane e dal budget che desideri rispettare. La soluzione giusta non è quella standard, ma quella più coerente con il tuo modo di vivere.</p>
+      </div>
+
+      <div class="value-card">
+        <div class="value-image">
+          <img src="../assets/team/valore-innovazione.jpeg" alt="Innovazione al servizio delle persone">
+        </div>
+        <h3 class="value-title">Innovazione al servizio delle persone</h3>
+        <p class="value-text">L’intelligenza artificiale apre nuove possibilità nella progettazione d’interni. In Amarreda diventa uno strumento per esplorare configurazioni, visualizzare proposte e organizzare le informazioni, rendendo il percorso più intuitivo senza perdere di vista le esigenze reali di chi dovrà vivere quello spazio.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- LE COMPETENZE DIETRO AMARREDA -->
+  <section class="about-section">
+    <div class="about-section-header">
+      <h2 class="about-section-title">Le competenze dietro Amarreda</h2>
+      <p class="about-section-subtitle">Esperienza nell’arredamento e innovazione digitale</p>
+    </div>
+    <div class="team-intro">
+      <p>
+        Amarreda nasce dall’incontro tra la conoscenza del mondo dell’arredamento, la progettazione d’interni e le opportunità offerte dall’intelligenza artificiale.
+      </p>
+      <p>
+        L’obiettivo è valorizzare le competenze progettuali attraverso strumenti digitali che permettano di esplorare le alternative, comprendere meglio le possibilità e prepararsi a scegliere con maggiore consapevolezza.
+      </p>
+    </div>
+    <div class="team-grid">
+
+      <!-- FONDATRICE -->
+      <div class="team-card">
+        <div class="team-photo">
+          <img src="../assets/team/team-fondatrice.jpeg" alt="Fondatrice di Amarreda">
+        </div>
+        <div class="team-content">
+          <h3 class="team-name">[Nome e cognome]</h3>
+          <div class="team-role">Fondatrice di Amarreda</div>
+          <p class="team-bio">
+            Amarreda nasce dalla volontà di rendere la progettazione della cucina più accessibile, flessibile e vicina alle esigenze delle persone. L’esperienza nel settore dell’arredamento mi ha permesso di comprendere quanto sia importante trovare un equilibrio tra estetica, funzionalità, qualità e budget. Con Amarreda desidero portare questa attenzione in un’esperienza digitale, in cui la tecnologia aiuti le persone a orientarsi e a sviluppare le proprie idee senza dover iniziare da una visita in showroom.
+          </p>
+          <div class="team-quote">
+            «Credo che tutti debbano poter affrontare il progetto della propria casa con più chiarezza, libertà di scelta e consapevolezza.»
+          </div>
+        </div>
+      </div>
+
+      <!-- PROGETTAZIONE D'INTERNI -->
+      <div class="team-card">
+        <div class="team-photo">
+          <img src="../assets/team/team-progettazione.jpeg" alt="Progettazione d'interni">
+        </div>
+        <div class="team-content">
+          <h3 class="team-name">Progettazione d’interni</h3>
+          <div class="team-role">Competenza progettuale</div>
+          <p class="team-bio">
+            La conoscenza degli spazi, dei materiali e delle esigenze quotidiane costituisce la base di ogni buon progetto. Amarreda valorizza questi principi attraverso un percorso che aiuta a valutare configurazioni, finiture e funzionalità in relazione alle caratteristiche dell’ambiente e alle preferenze personali.
+          </p>
+        </div>
+      </div>
+
+      <!-- TECNOLOGIA E AI -->
+      <div class="team-card">
+        <div class="team-photo">
+          <img src="../assets/team/team-tecnologia.jpeg" alt="Tecnologia e intelligenza artificiale">
+        </div>
+        <div class="team-content">
+          <h3 class="team-name">Tecnologia e intelligenza artificiale</h3>
+          <div class="team-role">Supporto digitale</div>
+          <p class="team-bio">
+            La tecnologia rende possibile un nuovo modo di avvicinarsi alla progettazione. Gli strumenti di intelligenza artificiale supportano il percorso digitale, aiutando a elaborare proposte, visualizzare le soluzioni e organizzare le informazioni necessarie per compiere scelte più consapevoli.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- COME LAVORIAMO -->
+  <section class="about-section about-section-alt">
+    <div class="about-section-header">
+      <h2 class="about-section-title">Come lavoriamo</h2>
+      <p class="about-section-subtitle">Dalle tue idee a un progetto da realizzare</p>
+    </div>
+    <div class="method-container">
+      <p class="method-intro">
+        Con Amarreda puoi affrontare la progettazione della cucina direttamente online, seguendo un percorso guidato che ti aiuta a passare dalle prime informazioni alla valutazione delle alternative.
+      </p>
+      <div class="method-steps">
+        
+        <div class="method-step">
+          <div class="method-step-number">1</div>
+          <div class="method-step-image">
+            <img src="../assets/team/metodo-fase1.jpeg" alt="Fase 1 - Raccontaci le tue esigenze">
+          </div>
+          <h3 class="method-step-title">Raccontaci le tue esigenze</h3>
+          <p class="method-step-text">Inserisci le misure del tuo ambiente, indica i vincoli architettonici e parti dalle tue preferenze estetiche, dalle necessità quotidiane e dal budget. Il progetto comincia dallo spazio che hai e da come desideri viverlo.</p>
+        </div>
+
+        <div class="method-step">
+          <div class="method-step-number">2</div>
+          <div class="method-step-image">
+            <img src="../assets/team/metodo-fase2.jpeg" alt="Fase 2 - Esplora le possibilità">
+          </div>
+          <h3 class="method-step-title">Esplora le possibilità</h3>
+          <p class="method-step-text">Valuta configurazioni, materiali, finiture ed elettrodomestici. La piattaforma ti aiuta a organizzare le informazioni e a orientarti tra le alternative disponibili, con il supporto dell’intelligenza artificiale.</p>
+        </div>
+
+        <div class="method-step">
+          <div class="method-step-number">3</div>
+          <div class="method-step-image">
+            <img src="../assets/team/metodo-fase3.jpeg" alt="Fase 3 - Visualizza il tuo progetto">
+          </div>
+          <h3 class="method-step-title">Visualizza il tuo progetto</h3>
+          <p class="method-step-text">L’AI utilizza le informazioni inserite per supportare la progettazione e generare una visualizzazione della cucina. Puoi così comprendere meglio l’idea sviluppata e valutare la coerenza della soluzione con le tue esigenze.</p>
+        </div>
+
+        <div class="method-step">
+          <div class="method-step-number">4</div>
+          <div class="method-step-image">
+            <img src="../assets/team/metodo-fase4.jpeg" alt="Fase 4 - Confronta le alternative e prosegui">
+          </div>
+          <h3 class="method-step-title">Confronta le alternative e prosegui</h3>
+          <p class="method-step-text">Ottieni una stima del costo e, con il percorso previsto dal piano scelto, confronta le proposte dei brand disponibili sulla stessa configurazione. Quando sei pronto, puoi richiedere il contatto con un rivenditore verificato e approfondire le condizioni della soluzione individuata.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- IL NOSTRO OBIETTIVO -->
+  <section class="about-section">
+    <div class="about-section-header">
+      <h2 class="about-section-title">Il nostro obiettivo</h2>
+      <p class="about-section-subtitle">La tua cucina, progettata intorno a te</p>
+    </div>
+    <div class="goal-container">
+      <div class="goal-content">
+        <p>
+          La cucina è uno degli ambienti più importanti della casa. Deve rispecchiare il tuo stile, adattarsi ai tuoi spazi e accompagnare le tue abitudini quotidiane.
+        </p>
+        <p>
+          Per questo Amarreda mette al centro le tue esigenze e utilizza la tecnologia per aiutarti a trasformarle in un progetto concreto. Vogliamo rendere più semplice orientarti tra le alternative, comprendere le possibilità e valutare il tuo investimento prima di procedere all’acquisto.
+        </p>
+        <p>
+          Non vogliamo scegliere al posto tuo, ma aiutarti ad arrivare alla tua scelta con maggiore consapevolezza.
+        </p>
+        <p>
+          <strong>Meno tempo perso tra showroom e preventivi. Più chiarezza sul progetto che desideri realizzare.</strong>
+        </p>
+      </div>
+      <div class="goal-image">
+        <img src="../assets/team/obiettivo-cucina.jpeg" alt="Cucina contemporanea accogliente con luce naturale">
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINALE -->
+  <section class="about-cta">
+    <h2 class="about-cta-title">Pronto a iniziare?</h2>
+    <p class="about-cta-subtitle">
+      La cucina che immagini può partire da un’idea, da una necessità o dal desiderio di cambiare.<br>
+      Inizia online con Amarreda, esplora le possibilità con il supporto dell’intelligenza artificiale e dai forma al progetto della tua prossima cucina.
+    </p>
+    <a href="progetto-nuovo.html" class="btn btn-primary btn-lg">Inizia il tuo progetto gratuito</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <img src="../assets/logo.svg" alt="Amarreda" class="footer-logo">
+          <p class="footer-text">Amarreda — Progetta la tua cucina senza stress, con l’AI.</p>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-title">Esplora</h4>
+          <ul class="footer-links">
+            <li><a href="come-funziona.html">Come funziona</a></li>
+            <li><a href="prezzi.html">Prezzi</a></li>
+            <li><a href="catalogo.html">Catalogo</a></li>
+            <li><a href="chi-siamo.html">Chi siamo</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-title">Azienda</h4>
+          <ul class="footer-links">
+            <li><a href="chi-siamo.html">Chi siamo</a></li>
+            <li><a href="contatti.html">Contatti</a></li>
+            <li><a href="recensioni.html">Recensioni</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-title">Legale</h4>
+          <ul class="footer-links">
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="cookie-policy.html">Cookie Policy</a></li>
+            <li><a href="termini-condizioni.html">Termini e Condizioni</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Amarreda. Tutti i diritti riservati.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="../js/main.js"></script>
+</body>
+</html>

@@ -468,29 +468,70 @@
     </div>
   </footer>
 
-  <!-- SCRIPTS (ORDINE CORRETTO) -->
-  <!-- 1. Libreria Supabase -->
+    <!-- SCRIPTS (ORDINE CORRETTO) -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <!-- 2. Configurazione con le tue chiavi -->
   <script src="../js/supabase.js"></script>
-  <!-- 3. Script generali del sito -->
   <script src="../js/main.js"></script>
   
-  <!-- 4. Logica specifica del catalogo -->
   <script>
-      <!-- 4. Logica specifica del catalogo (con debug a schermo) -->
-  <script>
-  <script>
-    // TEST: Se vedi questo avviso, il JavaScript funziona!
-    alert('TEST: Il JavaScript è partito! Supabase è: ' + (typeof supabaseClient !== 'undefined' ? 'CARICATO' : 'NON TROVATO'));
+    // TEST IMMEDIATO: se vedi questo avviso, il codice funziona!
+    alert("DEBUG: supabaseClient è " + (typeof supabaseClient !== 'undefined' ? "CARICATO" : "NON TROVATO"));
 
-    if (typeof supabaseClient === 'undefined') {
-      document.getElementById('filters-count').innerHTML = '❌ Errore: il file js/supabase.js non viene letto. Controlla gli apici e le chiavi.';
-      document.getElementById('catalog-grid').innerHTML = '<div class="catalog-empty"><h3>Controlla il file supabase.js</h3></div>';
-    } else {
-      document.getElementById('filters-count').innerHTML = '✅ Supabase collegato! Caricamento...';
-      // Qui metteremo il codice vero quando avremo superato il test
+    let catalogModels = [];
+
+    async function getCatalogModels(filters = {}) {
+      // Questa funzione è ora presa da supabase.js, ma la ridefiniamo qui per sicurezza se fallisce
+      let query = supabaseClient.from('catalog_models').select('*').eq('is_active', true);
+      if (filters.brand) query = query.ilike('brand', `%${filters.brand}%`);
+      const { data, error } = await query;
+      if (error) {
+        alert("ERRORE SUPABASE: " + error.message);
+        return [];
+      }
+      return data;
     }
+
+    function renderCatalog(models) {
+      const grid = document.getElementById('catalog-grid');
+      if (!grid) return;
+      
+      if (models.length === 0) {
+        grid.innerHTML = '<div class="catalog-empty"><h3>Nessun modello trovato o tabella vuota.</h3></div>';
+      } else {
+        grid.innerHTML = models.map(m => `
+          <div class="catalog-card">
+            <div class="catalog-card-content">
+              <div class="catalog-card-brand">${m.brand}</div>
+              <h3 class="catalog-card-title">${m.model_name}</h3>
+              <p class="catalog-card-description">${m.description || ''}</p>
+            </div>
+          </div>
+        `).join('');
+      }
+      document.getElementById('filters-count').innerHTML = `Trovati <strong>${models.length}</strong> modelli`;
+    }
+
+    (async function init() {
+      try {
+        if (typeof supabaseClient === 'undefined') {
+          throw new Error("Il file js/supabase.js non viene letto. Controlla il nome del file.");
+        }
+        alert("DEBUG: Sto per chiedere i dati a Supabase...");
+        catalogModels = await getCatalogModels();
+        alert("DEBUG: Dati ricevuti! Numero modelli: " + catalogModels.length);
+        renderCatalog(catalogModels);
+      } catch (error) {
+        document.getElementById('catalog-grid').innerHTML = `
+          <div class="catalog-empty">
+            <h3 style="color: #ff6b6b;">ERRORE: ${error.message}</h3>
+          </div>
+        `;
+      }
+    })();
+  </script>
+</body>
+</html>
+  
   </script>
 </body>
 </html>

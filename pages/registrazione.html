@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrati — Crea il tuo account Amarreda</title>
+  <meta name="description" content="Registrati gratuitamente su Amarreda e inizia a progettare la tua cucina con la nostra AI.">
+  
+  <!-- SEO & Social -->
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="apple-touch-icon" href="../favicon.svg">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Registrati — Amarreda">
+  <meta property="og:description" content="Crea il tuo account e inizia a progettare la tua cucina.">
+  <meta property="og:image" content="../assets/logo.svg">
+  <meta property="og:url" content="https://pbr8w22dcd-ui.github.io/Amarreda-Qwen/pages/registrazione.html">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/pages.css">
+
+  <style>
+    /* AUTH PAGE LAYOUT */
+    .auth-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: 
+        radial-gradient(ellipse at top left, rgba(184, 153, 106, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at bottom right, rgba(137, 145, 125, 0.06) 0%, transparent 50%),
+        var(--bg-deep, #12110F);
+    }
+
+    .auth-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-7, 4rem) var(--space-5, 1.5rem);
+    }
+
+    .auth-card {
+      width: 100%;
+      max-width: 520px;
+      background: rgba(26, 25, 22, 0.7);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(184, 153, 106, 0.2);
+      border-radius: var(--radius-md, 12px);
+      padding: var(--space-7, 4rem) var(--space-6, 2.5rem);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .auth-header {
+      text-align: center;
+      margin-bottom: var(--space-6, 2.5rem);
+    }
+
+    .auth-badge {
+      display: inline-block;
+      padding: 0.35rem 1rem;
+      background: rgba(137, 145, 125, 0.1);
+      border: 1px solid rgba(137, 145, 125, 0.3);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      color: var(--color-verde-salvia, #89917D);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-4, 1.5rem);
+    }
+
+    .auth-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      font-weight: 500;
+      color: var(--text-bright, #FCFAF6);
+      margin-bottom: var(--space-3, 1rem);
+      letter-spacing: -0.01em;
+    }
+
+    .auth-subtitle {
+      font-size: 1rem;
+      color: var(--text-gray, #9A958D);
+      line-height: 1.6;
+    }
+
+    /* ACCOUNT TYPE SELECTOR */
+    .account-type {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-3, 1rem);
+      margin-bottom: var(--space-5, 2rem);
+    }
+
+    .account-type-option {
+      position: relative;
+    }
+
+    .

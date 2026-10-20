@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Partner Rivenditori — Rete Amarreda</title>
+  <meta name="description" content="Unisciti alla rete di rivenditori Amarreda. Ricevi lead caldi, con progetto in mano, budget dichiarato e idee chiare.">
+  
+  <!-- SEO & Social -->
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="apple-touch-icon" href="../favicon.svg">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Partner Rivenditori — Amarreda">
+  <meta property="og:description" content="Ricevi clienti già pronti all'acquisto. Con progetto, budget e misure verificati.">
+  <meta property="og:image" content="../assets/logo.svg">
+  <meta property="og:url" content="https://pbr8w22dcd-ui.github.io/Amarreda-Qwen/pages/partner-rivenditori.html">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/pages.css">
+
+  <style>
+    /* HERO */
+    .partner-hero {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: var(--space-8) var(--space-5);
+      background: radial-gradient(ellipse at top, rgba(184, 153, 106, 0.1) 0%, transparent 60%),
+                  var(--bg-deep);
+    }
+
+    .partner-hero-content {
+      max-width: 900px;
+    }
+
+    .partner-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1.25rem;
+      background: rgba(137, 145, 125, 0.1);
+      border: 1px solid rgba(137, 145, 125, 0.3);
+      border-radius: 100px;
+      font-size: var(--fs-micro);
+      color: var(--color-verde-salvia);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-5);
+    }
+
+    .partner-hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 500;
+      color: var(--text-bright);
+      margin-bottom: var(--space-4);
+      letter-spacing: -0.02em;
+    }
+
+    .partner-hero-subtitle {
+      font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+      color: var(--text-gray);
+      line-height: 1.6;
+      margin-bottom: var(--space-5);
+    }
+
+    .partner-hero-box {
+      background: rgba(184, 153, 106, 0.05);
+      border: 1px solid rgba(184, 153, 106, 0.2);
+      border-radius: var(--radius-md);
+      padding: var(--space-5);
+      text-align: left;
+      margin-top: var(--space-6);
+    }
+
+    .partner-hero-box strong {
+      color: var(--rame);
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .partner-hero-box p {
+      color: var(--text-gray);
+      font-size: var(--fs-small);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* SECTION BASE */
+    .partner-section {
+      padding: var(--space-8) var(--space-5);
+    }
+
+    .partner-section-alt {
+      background-color: var(--bg-main);
+    }
+
+    .partner-section-header {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto var(--space-7);
+    }
+
+    .partner-section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 500;
+      color: var(--text-bright);
+      margin-bottom: var(--space-3);
+    }
+
+    .partner-section-subtitle {
+      font-size: var(--fs-body);
+      color: var(--text-gray);
+      line-height: 1.6;
+    }
+
+    /* PROBLEM CARDS */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-5);
+      max-width: 1100px;
+      margin: 0 auto var(--space-6);
+    }
+
+    .problem-card {
+      padding: var(--space-6);
+      background: var(--bg-card);
+      border: 1px solid rgba(169, 79, 61, 0.2); /* Rosso tenue per il "dolore" */
+      border-radius: var(--radius-md);
+    }
+
+    .problem-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      color: var(--text-bright);
+      margin-bottom: var(--space-3);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .problem-card p {
+      color: var(--text-gray);
+      font-size: var(--fs-small);
+      line-height: 1.6;
+    }
+
+    .problem-transition {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: var(--space-5);
+      background: rgba(137, 145, 125, 0.05);
+      border-left: 4px solid var(--color-verde-salvia);
+      border-radius: var(--radius-sm);
+      color: var(--text-gray);
+      font-size: var(--fs-body);
+      line-height: 1.6;
+    }
+
+    .problem-transition strong {
+      color: var(--text-bright);
+    }
+
+    /* STEPS */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--space-5);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .step-card {
+      padding: var(--space-5);
+      background: var(--bg-card);
+      border: var(--border-subtle);
+      border-radius: var(--radius-md);
+      position: relative;
+    }
+
+    .step-number {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 40px;
+      background: var(--grad-rame);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--bg-deep);
+    }
+
+    .step-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      color: var(--text-bright);
+      margin-bottom: var(--space-3);
+      margin-top: var(--space-3);
+      text-align: center;
+    }
+
+    .step-text {
+      color: var(--text-gray);
+      line-height: 1.6;
+      font-size: var(--fs-small);
+      text-align: center;
+    }
+
+    /* PRICING PLANS */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: var(--space-5);
+      max-width: 1100px;
+      margin: 0 auto var(--space-7);
+    }
+
+    .pricing-card {
+      background: var(--bg-card);
+      border: var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pricing-card.featured {
+      border-color: var(--rame);
+      background: linear-gradient(180deg, rgba(184, 153, 106, 0.05) 0%, var(--bg-card) 100%);
+      position: relative;
+    }
+
+    .pricing-card.featured::before {
+      content: 'Consigliato per chi vuole crescere';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--grad-rame);
+      color: var(--bg-deep);
+      padding: 0.25rem 1rem;
+      border-radius: 100px;
+      font-size: var(--fs-micro);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .pricing-name {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      color: var(--text-bright);
+      margin-bottom: var(--space-2);
+    }
+
+    .pricing-price {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 600;
+      background: var(--grad-rame);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: var(--space-2);
+    }
+
+    .pricing-price small {
+      font-size: 1rem;
+      color: var(--text-muted);
+      -webkit-text-fill-color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .pricing-desc {
+      color: var(--text-gray);
+      font-size: var(--fs-small);
+      line-height: 1.5;
+      margin-bottom: var(--space-4);
+      min-height: 60px;
+    }
+
+    .pricing-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 var(--space-5);
+      flex: 1;
+    }
+
+    .pricing-features li {
+      padding: 0.6rem 0;
+      color: var(--text-gray);
+      font-size: var(--fs-small);
+      border-bottom: 1px solid rgba(184, 153, 106, 0.08);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      line-height: 1.5;
+    }
+
+    .pricing-features li::before {
+      content: '✓';
+      color: var(--rame);
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .pricing-example {
+      background: rgba(137, 145, 125, 0.05);
+      border: 1px solid rgba(137, 145, 125, 0.2);
+      border-radius: var(--radius-sm);
+      padding: var(--space-4);
+      margin-top: var(--space-4);
+      font-size: var(--fs-small);
+      color: var(--text-gray);
+      line-height: 1.6;
+    }
+
+    .pricing-example strong {
+      color: var(--color-verde-salvia);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    /* COMPARISON TABLE */
+    .comparison-table-wrapper {
+      max-width: 1000px;
+      margin: 0 auto;
+      overflow-x: auto;
+      border: var(--border-subtle);
+      border-radius: var(--radius-md);
+      background: var(--bg-card);
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 700px;
+    }
+
+    .comparison-table th {
+      padding: var(--space-4);
+      text-align: left;
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--text-bright);
+      font-weight: 500;
+      border-bottom: 1px solid rgba(184, 153, 106, 0.2);
+      background: rgba(184, 153, 106, 0.05);
+    }
+
+    .comparison-table td {
+      padding: var(--space-3) var(--space-4);
+      color: var(--text-gray);
+      font-size: var(--fs-small);
+      border-bottom: 1px solid rgba(184, 153, 106, 0.08);
+    }
+
+    .comparison-table td:first-child {
+      color: var(--text-bright);
+      font-weight: 500;
+    }
+
+    .comparison-table .check { color: var(--rame); font-weight: 600; }
+    .comparison-table .cross { color: var(--text-muted); }
+
+    /* VERIFICATION SECTION */
+    .verify-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-5);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .verify-step {
+      text-align: center;
+      padding: var(--space-5);
+      background: var(--bg-card);
+      border: var(--border-subtle);
+      border-radius: var(--radius-md);
+    }
+
+    .verify-step-icon {
+      font-size: 2.5rem;
+      margin-bottom: var(--space-3);
+    }
+
+    .verify-step-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      color: var(--text-bright);
+      margin-bottom: var(--space-3);
+    }
+
+    .verify-step-text {
+      color: var(--text-gray);
+      font-size: var(--fs-small);
+      line-height: 1.6;
+    }
+
+    /* FORM */
+    .form-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      border: var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-6);
+    }
+
+    .form-section-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      color: var(--rame);
+      margin-bottom: var(--space-4);
+      padding-bottom: var(--space-2);
+      border-bottom: 1px solid rgba(184, 153, 106, 0.2);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+      margin-bottom: var(--space-5);
+    }
+
+    .form-grid .full-width {
+      grid-column: 1 / -1;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-label {
+      font-size: 0.85rem;
+      color: var(--text-gray);
+      font-weight: 500;
+    }
+
+    .form-input, .form-select {
+      padding: 0.85rem 1rem;
+      background: rgba(18, 17, 15, 0.6);
+      border: 1px solid rgba(184, 153, 106, 0.15);
+      border-radius: var(--radius-sm);
+      color: var(--text-bright);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+
+    .form-input:focus, .form-select:focus {
+      outline: none;
+      border-color: var(--rame);
+      background: rgba(18, 17, 15, 0.9);
+      box-shadow: 0 0 0 3px rgba(184, 153, 106, 0.1);
+    }
+
+    .form-select option {
+      background: var(--bg-deep);
+      color: var(--text-bright);
+    }
+
+    .form-consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: var(--space-3);
+    }
+
+    .form-consent input[type="checkbox"] {
+      margin-top: 0.2rem;
+      width: 18px;
+      height: 18px;
+      accent-color: var(--rame);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .form-consent label {
+      font-size: 0.85rem;
+      color: var(--text-gray);
+      line-height: 1.5;
+      cursor: pointer;
+    }
+
+    .form-consent label a {
+      color: var(--rame);
+      text-decoration: underline;
+    }
+
+    .form-submit {
+      width: 100%;
+      padding: 1rem;
+      background: linear-gradient(135deg, #B8996A 0%, #D4AF37 100%);
+      border: none;
+      border-radius: var(--radius-sm);
+      color: var(--bg-deep);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: var(--space-4);
+    }
+
+    .form-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(184, 153, 106, 0.3);
+    }
+
+    /* FAQ */
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: var(--bg-card);
+      border: var(--border-subtle);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-3);
+      overflow: hidden;
+    }
+
+    .faq-question {
+      padding: var(--space-4) var(--space-5);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .faq-question h3 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      color: var(--text-bright);
+      margin: 0;
+      font-weight: 500;
+    }
+
+    .faq-toggle {
+      color: var(--rame);
+      font-size: 1.5rem;
+      transition: transform 0.3s;
+      flex-shrink: 0;
+    }
+
+    .faq-item.active .faq-toggle {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 500px;
+    }
+
+    .faq-answer-content {
+      padding: 0 var(--space-5) var(--space-5);
+      color: var(--text-gray);
+      line-height: 1.6;
+      font-size: var(--fs-small);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .partner-hero { min-height: 60vh; padding: var(--space-6) var(--space-4); }
+      .partner-section { padding: var(--space-6) var(--space-4); }
+      .form-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="logo" aria-label="Amarreda — Home">
+        <img src="../assets/logo.svg" alt="Amarreda" class="logo-image">
+      </a>
+
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Apri il menu">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+
+      <nav class="main-nav" id="main-nav" aria-label="Navigazione principale">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="come-funziona.html" class="nav-link">Come funziona</a>
+        <a href="prezzi.html" class="nav-link">Prezzi</a>
+        <a href="catalogo.html" class="nav-link">Catalogo</a>
+        <a href="chi-siamo.html" class="nav-link">Chi siamo</a>
+        <a href="contatti.html" class="nav-link">Contatti</a>
+        <a href="login.html" class="nav-link">Accedi</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="partner-hero">
+    <div class="partner-hero-content">
+      <div class="partner-badge">🤝 Rete Partner Amarreda</div>
+      <h1 class="partner-hero-title">Basta clienti senza budget, confusi e in anticipo di un anno.</h1>
+      <p class="partner-hero-subtitle">
+        Quante volte hai ricevuto in showroom un cliente con la cartelletta piena di preventivi, senza un'idea chiara di quanto vuole spendere, con planimetrie scaricate da internet "tanto per vedere"? Quante ore hai dedicato a clienti che poi non erano pronti all'acquisto?
+        <br><br>
+        <strong>Amarreda è nato per evitare esattamente questo.</strong>
+      </p>
+      <div class="partner-hero-box">
+        <strong>🎯 Il cliente Amarreda arriva da te diverso.</strong>
+        <p>Ha già un progetto in mano, una stima di prezzo realistica, le idee chiare sui materiali e sullo stile. Si è già innamorato della sua cucina guardando il rendering. Tu devi solo fargliela toccare con mano. E farlo firmare.</p>
+      </div>
+      <p style="margin-top: var(--space-4); font-size: var(--fs-micro); color: var(--text-muted); font-style: italic;">
+        *Accesso riservato ai rivenditori di cucine. Verifica della Partita IVA richiesta.
+      </p>
+    </div>
+  </section>
+
+  <!-- IL PROBLEMA -->
+  <section class="partner-section partner-section-alt">
+    <div class="partner-section-header">
+      <h2 class="partner-section-title">Il problema quotidiano di ogni showroom</h2>
+      <p class="partner-section-subtitle">Conosciamo bene la realtà di chi vende cucine. Ecco cosa succede ogni giorno:</p>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <h3>😓 Il cliente "turista"</h3>
+        <p>Entra in showroom senza budget definito. Vuole "solo farsi un'idea". Ti chiede preventivi su preventivi, confronta, prende appunti. Esce e non torna per mesi. Hai perso 3 ore di lavoro.</p>
+      </div>
+      <div class="problem-card">
+        <h3>📅 Il cliente "in anticipo"</h3>
+        <p>Ha la planimetria della casa che ancora non ha comprato, o che sarà pronta tra un anno. Vuole comunque un preventivo "tanto per capire". Quando sarà il momento, si sarà già dimenticato di te.</p>
+      </div>
+      <div class="problem-card">
+        <h3>📁 Il cliente "cartelletta"</h3>
+        <p>Arriva con 5-6 preventivi di concorrenti, senza sapere cosa scegliere. Ti chiede di "battere il prezzo" senza capire le differenze. Il confronto è impossibile, la chiusura pure.</p>
+      </div>
+    </div>
+    <div class="problem-transition">
+      💡 <strong>E se il tuo prossimo cliente fosse diverso?</strong><br>
+      Un cliente che arriva con un progetto in mano, una stima di prezzo realistica e le idee chiare. Pronto all'acquisto. Senza cartelletta, senza perdite di tempo. <strong>Questo è il cliente Amarreda.</strong>
+    </div>
+  </section>
+
+  <!-- COME FUNZIONA -->
+  <section class="partner-section">
+    <div class="partner-section-header">
+      <h2 class="partner-section-title">4 passaggi semplici per ricevere il tuo primo lead</h2>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <h3 class="step-title">Registrati e verifica la P.IVA</h3>
+        <p class="step-text">Compila il form in fondo alla pagina. Il nostro sistema verificherà automaticamente la corrispondenza tra Partita IVA e ragione sociale.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <h3 class="step-title">Attiva il tuo account</h3>
+        <p class="step-text">Una volta verificata la P.IVA, ricevi le credenziali per accedere all'area riservata e gestire i lead.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <h3 class="step-title">Ricevi i lead nella tua zona</h3>
+        <p class="step-text">Quando un cliente completa un progetto con un brand che tratti, ricevi una notifica. Hai 24 ore per bloccare il lead.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <h3 class="step-title">Contatta e chiudi (con Upsell)</h3>
+        <p class="step-text">Ricevi il dossier completo. Il cliente è già innamorato del progetto: tu glielo fai toccare con mano e hai tutto lo spazio per fare upsell su materiali e finiture premium.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PIANI -->
+  <section class="partner-section partner-section-alt">
+    <div class="partner-section-header">
+      <h2 class="partner-section-title">Due modi per ricevere lead caldi</h2>
+      <p class="partner-section-subtitle">Scegli quello più adatto al tuo business. Nessun costo fisso nel Piano Base.</p>
+    </div>
+    <div class="pricing-grid">
+      
+      <!-- PIANO BASE -->
+      <div class="pricing-card">
+        <div class="partner-badge">Per iniziare</div>
+        <h3 class="pricing-name">Piano Base</h3>
+        <div class="pricing-price">25€ <small>+ IVA / lead</small></div>
+        <p class="pricing-desc">Paghi solo quando decidi di bloccare un lead. Ideale per chi vuole testare il servizio senza impegni.</p>
+        <ul class="pricing-features">
+          <li>Accesso alla rete partner Amarreda</li>
+          <li>Notifica email per lead nella tua zona</li>
+          <li>24 ore di esclusiva per bloccare il lead</li>
+          <li>Dossier completo (chat, planimetria, rendering, budget)</li>
+          <li>Dashboard base per monitorare lead e vendite</li>
+        </ul>
+        <div class="pricing-example">
+          <strong>💡 Come funziona il pagamento:</strong>
+          Paghi 25€ + IVA al momento del blocco. A vendita conclusa, paghi il 2% di provvigione sul netto IVA. Addebito fine mese corrente.
+        </div>
+      </div>
+
+      <!-- PIANO BUSINESS -->
+      <div class="pricing-card featured">
+        <div class="partner-badge" style="background: rgba(184, 153, 106, 0.1); border-color: rgba(184, 153, 106, 0.3); color: var(--rame);">Per chi vuole crescere</div>
+        <h3 class="pricing-name">Piano Business</h3>
+        <div class="pricing-price">250€ <small>+ IVA / mese</small></div>
+        <p class="pricing-desc">Ricevi fino a 10 lead caldi prioritari al mese. Il costo del lead viene scalato dalla provvigione: paghi solo a vendita conclusa.</p>
+        <ul class="pricing-features">
+          <li><strong>10 lead caldi prioritari al mese</strong> (gli altri non li vedono)</li>
+          <li><strong>Costo lead scalato dalla provvigione</strong> (niente 25€ anticipati)</li>
+          <li>Priorità assoluta di assegnazione nella tua zona</li>
+          <li>Dashboard avanzata con analytics e report mensile</li>
+          <li>Account manager dedicato e supporto prioritario</li>
+        </ul>
+        <div class="pricing-example">
+          <strong>💡 Esempio concreto:</strong>
+          Ricevi 10 lead, chiudi 3 vendite da 10.000€ (netto IVA).
+          Provvigione: 3 × 200€ = 600€.
+          Costo lead scalato: 3 × 25€ = 75€.
+          Totale da pagare: 600€ - 75€ = 525€ + 250€ canone = <strong>775€</strong>.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TABELLA COMPARATIVA -->
+    <div class="comparison-table-wrapper">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Caratteristica</th>
+            <th>Piano Base</th>
+            <th>Piano Business</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Costo mensile</td>
+            <td>0€</td>
+            <td>250€ + IVA</td>
+          </tr>
+          <tr>
+            <td>Costo per lead</td>
+            <td>25€ + IVA (anticipato)</td>
+            <td>Incluso nel canone (scalato da provvigione)</td>
+          </tr>
+          <tr>
+            <td>Numero lead al mese</td>
+            <td>Illimitati (a pagamento)</td>
+            <td>Fino a 10 prioritari</td>
+          </tr>
+          <tr>
+            <td>Priorità assegnazione</td>
+            <td>Standard</td>
+            <td class="check">Massima</td>
+          </tr>
+          <tr>
+            <td>Provvigione a vendita</td>
+            <td>2% netto IVA</td>
+            <td>2% netto IVA (lead scalato)</td>
+          </tr>
+          <tr>
+            <td>Supporto</td>
+            <td>Email</td>
+            <td class="check">Telefono + Email prioritario</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- VERIFICA VENDITA -->
+  <section class="partner-section">
+    <div class="partner-section-header">
+      <h2 class="partner-section-title">Come verifichiamo l'avvenuta vendita</h2>
+      <p class="partner-section-subtitle">Un processo semplice e trasparente per tutelare sia te che noi.</p>
+    </div>
+    <div class="verify-steps">
+      <div class="verify-step">
+        <div class="verify-step-icon">📝</div>
+        <h3 class="verify-step-title">1. Il cliente acquista</h3>
+        <p class="verify-step-text">Dopo l'appuntamento e il rilievo misure, il cliente firma il contratto di acquisto nel tuo showroom.</p>
+      </div>
+      <div class="verify-step">
+        <div class="verify-step-icon">📤</div>
+        <h3 class="verify-step-title">2. Il cliente carica il contratto</h3>
+        <p class="verify-step-text">Per sbloccare il suo omaggio (buono Amazon o sconto), il cliente carica il contratto nella sua area riservata Amarreda.</p>
+      </div>
+      <div class="verify-step">
+        <div class="verify-step-icon">✅</div>
+        <h3 class="verify-step-title">3. Amarreda verifica</h3>
+        <p class="verify-step-text">Il nostro team verifica che l'acquisto sia stato effettuato presso il tuo negozio.</p>
+      </div>
+      <div class="verify-step">
+        <div class="verify-step-icon">📋</div>
+        <h3 class="verify-step-title">4. Prova e addebito</h3>
+        <p class="verify-step-text">Carichiamo la prova nella tua area riservata. La provvigione del 2% viene calcolata e addebitata a fine mese corrente.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="partner-section partner-section-alt">
+    <div class="partner-section-header">
+      <h2 class="partner-section-title">Domande frequenti</h2>
+    </div>
+    <div class="faq-container">
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          <h3>Come vengono calcolate le stime di prezzo?</h3>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-content">
+            Le stime sono calcolate sulla base di cucine già progettate in quella dimensione. <strong>Prezzo minimo:</strong> modello scelto, top, elettrodomestici base (solitamente Beko), tutte ante battenti. <strong>Prezzo massimo:</strong> modello scelto, top, elettrodomestici medi scelti dal cliente. La forbice che ricevi è realistica e gestibile. I prezzi sono <strong>IVA inclusa</strong>: questo ti permette di applicare lo sconto del 5% (per i clienti PRO) e gestire promozioni commerciali mantenendo il tuo margine.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <h3>Il cliente ha diritto allo sconto del 5% in ogni caso?</h3>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-content">
+            No. Lo sconto del 5% è riservato <strong>esclusivamente ai clienti che hanno scelto il Piano Pro</strong> (49,90€). I clienti del Piano Free non hanno diritto a questo sconto extra. Quando ricevi un lead, ti indichiamo se è Free o Pro, così sai in anticipo come gestire il preventivo.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <h3>Quando avviene il pagamento della provvigione del 2%?</h3>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-content">
+            Il pagamento avviene <strong>a fine mese corrente</strong>, calcolato sul netto IVA del contratto di vendita. L'addebito avviene automaticamente sulla carta autorizzata in fase di registrazione. Riceverai un riepilogo mensile con tutte le vendite chiuse.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <h3>Posso fare upsell al cliente?</h3>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-content">
+            Assolutamente sì, ed è anzi incoraggiato. La stima che il cliente ha ricevuto è una forbice (min-max) basata su configurazioni standard. Hai tutto lo spazio per proporre materiali premium, elettrodomestici di fascia alta e finiture speciali. Il cliente è già innamorato del progetto: sta a te farlo evolvere.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <h3>Cosa succede se non chiudo la vendita?</h3>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-content">
+            Nessun problema. Nel Piano Base hai pagato 25€ per il lead, ma non devi alcuna provvigione se la vendita non va a buon fine. Nel Piano Business, il lead era incluso nel canone, quindi zero costi aggiuntivi.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FORM REGISTRAZIONE -->
+  <section class="partner-section">
+    <div class="partner-section-header">
+      <h2 class="partner-section-title">Richiedi l'accesso alla rete partner</h2>
+      <p class="partner-section-subtitle">Compila il form. Verificheremo la Partita IVA e ti ricontatteremo entro 24 ore.</p>
+    </div>
+    <div class="form-container">
+      <form id="partner-form" novalidate>
+        
+        <h3 class="form-section-title">Dati aziendali</h3>
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label class="form-label" for="ragione-sociale">Ragione Sociale *</label>
+            <input type="text" id="ragione-sociale" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="partita-iva">Partita IVA *</label>
+            <input type="text" id="partita-iva" class="form-input" placeholder="IT01234567890" pattern="IT?[0-9]{11}" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="nome-negozio">Nome del negozio / Showroom *</label>
+            <input type="text" id="nome-negozio" class="form-input" required>
+          </div>
+          <div class="form-group full-width">
+            <label class="form-label" for="indirizzo">Indirizzo completo *</label>
+            <input type="text" id="indirizzo" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="citta">Città *</label>
+            <input type="text" id="citta" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cap">CAP *</label>
+            <input type="text" id="cap" class="form-input" pattern="[0-9]{5}" required>
+          </div>
+        </div>
+
+        <h3 class="form-section-title">Contatti</h3>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="nome-referente">Nome e cognome referente *</label>
+            <input type="text" id="nome-referente" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="ruolo">Ruolo *</label>
+            <select id="ruolo" class="form-select" required>
+              <option value="">Seleziona...</option>
+              <option value="titolare">Titolare</option>
+              <option value="responsabile-vendite">Responsabile vendite</option>
+              <option value="responsabile-acquisti">Responsabile acquisti</option>
+              <option value="altro">Altro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">Email aziendale *</label>
+            <input type="email" id="email" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="telefono">Telefono *</label>
+            <input type="tel" id="telefono" class="form-input" required>
+          </div>
+        </div>
+
+        <h3 class="form-section-title">Informazioni commerciali</h3>
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label class="form-label" for="brand">Brand trattati *</label>
+            <select id="brand" class="form-select" required>
+              <option value="">Seleziona il brand principale...</option>
+              <option value="veneta">Veneta Cucine</option>
+              <option value="stosa">Stosa</option>
+              <option value="lube">Lube</option>
+              <option value="arredo3">Arredo3</option>
+              <option value="scavolini">Scavolini</option>
+              <option value="altro">Altro (specificare nel messaggio)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="piano">Piano preferito *</label>
+            <select id="piano" class="form-select" required>
+              <option value="base">Piano Base (25€ + IVA per lead)</option>
+              <option value="business">Piano Business (250€ + IVA/mese, 10 lead prioritari)</option>
+            </select>
+            <span style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Potrai cambiare piano in qualsiasi momento dalla tua dashboard.</span>
+          </div>
+        </div>
+
+        <h3 class="form-section-title">Consenso</h3>
+        <div class="form-consent">
+          <input type="checkbox" id="consent-terms" required>
+          <label for="consent-terms">Ho letto e accetto i <a href="termini-condizioni.html">Termini e Condizioni per i Partner</a> *</label>
+        </div>
+        <div class="form-consent">
+          <input type="checkbox" id="consent-piva" required>
+          <label for="consent-piva">Autorizzo Amarreda a verificare la mia Partita IVA tramite servizi terzi *</label>
+        </div>
+        <div class="form-consent">
+          <input type="checkbox" id="consent-marketing">
+          <label for="consent-marketing">Autorizzo Amarreda a contattarmi per comunicazioni relative alla partnership (facoltativo)</label>
+        </div>
+
+        <button type="submit" class="form-submit" id="submit-btn">Richiedi l'accesso</button>
+        <p style="text-align: center; font-size: var(--fs-micro); color: var(--text-muted); margin-top: var(--space-3);">
+          La verifica della P.IVA avviene in automatico. Riceverai una risposta entro 24 ore lavorative. Nessuna carta di credito richiesta per registrarsi.
+        </p>
+
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <img src="../assets/logo.svg" alt="Amarreda" class="footer-logo">
+          <p class="footer-text">La piattaforma AI per progettare la tua cucina con trasparenza e serenità.</p>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-title">Legale</h4>
+          <ul class="footer-links">
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="cookie-policy.html">Cookie Policy</a></li>
+            <li><a href="termini-condizioni.html">Termini e Condizioni</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Amarreda. Tutti i diritti riservati.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="../js/main.js"></script>
+  <script>
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(question => {
+      question.addEventListener('click', () => {
+        const item = question.parentElement;
+        const isActive = item.classList.contains('active');
+        document.querySelectorAll('.faq-item').forEach(faq => faq.classList.remove('active'));
+        if (!isActive) {
+          item.classList.add('active');
+        }
+      });
+    });
+
+    // Form submission simulation
+    const form = document.getElementById('partner-form');
+    const submitBtn = document.getElementById('submit-btn');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const piva = document.getElementById('partita-iva').value.trim();
+      const terms = document.getElementById('consent-terms').checked;
+      const pivaConsent = document.getElementById('consent-piva').checked;
+
+      if (!terms || !pivaConsent) {
+        alert('Devi accettare i Termini e l\'autorizzazione alla verifica della P.IVA per continuare.');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Verifica P.IVA in corso...';
+
+      setTimeout(() => {
+        alert('Richiesta inviata con successo! Il nostro team verificherà la tua Partita IVA e ti contatterà entro 24 ore per attivare il tuo account.');
+        form.reset();
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Richiedi l\'accesso';
+      }, 2000);
+    });
+  </script>
+</body>
+</html>

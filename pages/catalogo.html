@@ -478,32 +478,21 @@
   
   <!-- 4. Logica specifica del catalogo -->
   <script>
+      <!-- 4. Logica specifica del catalogo (con debug a schermo) -->
+  <script>
     let catalogModels = [];
 
     function createCardHTML(model) {
-      const styleLabels = {
-        'moderno': 'Moderno',
-        'classico': 'Classico',
-        'contemporaneo': 'Contemporaneo'
-      };
-      
-      const materialLabels = {
-        'laminato': 'Laminato',
-        'laccato': 'Laccato',
-        'fenix': 'Fenix',
-        'legno': 'Legno',
-        'vetro': 'Vetro'
-      };
+      const styleLabels = { 'moderno': 'Moderno', 'classico': 'Classico', 'contemporaneo': 'Contemporaneo' };
+      const materialLabels = { 'laminato': 'Laminato', 'laccato': 'Laccato', 'fenix': 'Fenix', 'legno': 'Legno', 'vetro': 'Vetro' };
 
       const imageHTML = model.image_url 
         ? `<img src="${model.image_url}" alt="${model.model_name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';this.parentElement.innerHTML='<span>Immagine modello</span>';">`
         : '<span>Immagine modello</span>';
 
       return `
-        <div class="catalog-card" data-product="${model.product_type}" data-style="${model.style}" data-material="${model.material}" data-brand="${model.brand}">
-          <div class="catalog-card-image">
-            ${imageHTML}
-          </div>
+        <div class="catalog-card">
+          <div class="catalog-card-image">${imageHTML}</div>
           <div class="catalog-card-content">
             <div class="catalog-card-brand">${model.brand}</div>
             <h3 class="catalog-card-title">Modello "${model.model_name}"</h3>
@@ -512,9 +501,7 @@
               <span class="catalog-tag">${styleLabels[model.style] || model.style}</span>
               <span class="catalog-tag">${materialLabels[model.material] || model.material}</span>
             </div>
-            <a href="progetto-chat.html?brand=${encodeURIComponent(model.brand)}&model=${encodeURIComponent(model.model_name)}&material=${model.material}&style=${model.style}" class="catalog-card-cta">
-              Inizia progetto con questo modello →
-            </a>
+            <a href="progetto-chat.html?brand=${encodeURIComponent(model.brand)}&model=${encodeURIComponent(model.model_name)}" class="catalog-card-cta">Inizia progetto →</a>
           </div>
         </div>
       `;
@@ -522,22 +509,12 @@
 
     function renderCatalog(models) {
       const grid = document.getElementById('catalog-grid');
-      
       if (models.length === 0) {
-        grid.innerHTML = `
-          <div class="catalog-empty">
-            <div class="catalog-empty-icon">🔍</div>
-            <h3 class="catalog-empty-title">Nessun modello trovato</h3>
-            <p class="catalog-empty-text">Prova a modificare i filtri per trovare il modello perfetto per te.</p>
-            <button class="btn btn-ghost" onclick="resetFilters()">Reset filtri</button>
-          </div>
-        `;
+        grid.innerHTML = `<div class="catalog-empty"><div class="catalog-empty-icon">🔍</div><h3 class="catalog-empty-title">Nessun modello trovato</h3><button class="btn btn-ghost" onclick="resetFilters()">Reset filtri</button></div>`;
       } else {
         grid.innerHTML = models.map(createCardHTML).join('');
       }
-      
-      document.getElementById('filters-count').innerHTML = 
-        `Mostrando <strong>${models.length}</strong> modell${models.length === 1 ? 'o' : 'i'}`;
+      document.getElementById('filters-count').innerHTML = `Mostrando <strong>${models.length}</strong> modell${models.length === 1 ? 'o' : 'i'}`;
     }
 
     async function applyFilters() {
@@ -548,7 +525,6 @@
         brand: document.getElementById('filter-brand').value,
         search: document.getElementById('filter-search').value
       };
-      
       const filtered = await getCatalogModels(filters);
       renderCatalog(filtered);
     }
@@ -559,53 +535,48 @@
       document.getElementById('filter-material').value = '';
       document.getElementById('filter-brand').value = '';
       document.getElementById('filter-search').value = '';
-      
       catalogModels = await getCatalogModels();
       renderCatalog(catalogModels);
     }
 
-    // Event Listeners
     document.getElementById('filter-product').addEventListener('change', applyFilters);
     document.getElementById('filter-style').addEventListener('change', applyFilters);
     document.getElementById('filter-material').addEventListener('change', applyFilters);
     document.getElementById('filter-brand').addEventListener('change', applyFilters);
-
+    
     let searchTimeout;
     document.getElementById('filter-search').addEventListener('input', () => {
       clearTimeout(searchTimeout);
       searchTimeout = setTimeout(applyFilters, 300);
     });
-
     document.getElementById('filter-reset').addEventListener('click', resetFilters);
 
-    // Caricamento iniziale
+    // CARICAMENTO INIZIALE CON DEBUG A SCHERMO
     (async function init() {
       try {
         if (typeof supabaseClient === 'undefined') {
-          console.error('Supabase non caricato. Controlla il file js/supabase.js');
-          document.getElementById('catalog-grid').innerHTML = `
-            <div class="catalog-empty">
-              <div class="catalog-empty-icon">⚠️</div>
-              <h3 class="catalog-empty-title">Errore di configurazione</h3>
-              <p class="catalog-empty-text">Impossibile connettersi al database. Controlla le chiavi API in js/supabase.js.</p>
-            </div>
-          `;
-          return;
+          throw new Error("Il file js/supabase.js non è stato trovato o contiene errori di sintassi.");
         }
 
         catalogModels = await getCatalogModels();
         renderCatalog(catalogModels);
       } catch (error) {
-        console.error('Errore nel caricamento iniziale:', error);
+        // QUESTO MOSTRA L'ERRORE REALE DI SUPABASE A SCHERMO
         document.getElementById('catalog-grid').innerHTML = `
           <div class="catalog-empty">
             <div class="catalog-empty-icon">⚠️</div>
             <h3 class="catalog-empty-title">Errore di connessione</h3>
-            <p class="catalog-empty-text">Impossibile caricare il catalogo. Riprova tra poco.</p>
+            <p class="catalog-empty-text" style="color: #ff6b6b; background: rgba(255,107,107,0.1); padding: 15px; border-radius: 8px; font-family: monospace; font-size: 13px; word-break: break-all; text-align: left;">
+              ${error.message}
+            </p>
+            <p class="catalog-empty-text" style="margin-top: 15px;">📸 Fai uno screenshot di questo messaggio rosso e invialo.</p>
           </div>
         `;
       }
     })();
+  </script>
+</body>
+</html>
   </script>
 </body>
 </html>

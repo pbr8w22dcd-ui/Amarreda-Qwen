@@ -578,6 +578,35 @@
 
   <!-- SCRIPTS -->
   <script src="../js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/supabase.js"></script>
+<script>
+  document.getElementById('register-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Registrazione in corso...';
+
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const fullName = document.getElementById('full_name').value;
+
+    const { data, error } = await supabaseClient.auth.signUp({
+      email,
+      password,
+      options: { data: { full_name: fullName } }
+    });
+
+    if (error) {
+      alert('Errore: ' + error.message);
+      btn.disabled = false;
+      btn.textContent = 'Crea il tuo account';
+    } else {
+      alert('✅ Registrazione completata! Controlla la tua email per confermare l\'account (o accedi direttamente se la conferma email è disattivata).');
+      window.location.href = 'login.html';
+    }
+  });
+</script>
   <script>
     // Toggle professional fields based on account type
     const accountTypeInputs = document.querySelectorAll('input[name="account-type"]');

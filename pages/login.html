@@ -410,6 +410,36 @@
 
   <!-- SCRIPTS -->
   <script src="../js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/supabase.js"></script>
+<script>
+  document.getElementById('login-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Accesso in corso...';
+
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
+    if (error) {
+      alert('Errore: ' + error.message);
+      btn.disabled = false;
+      btn.textContent = 'Accedi';
+    } else {
+      // Controllo ruolo per reindirizzare
+      const { data: profile } = await supabaseClient.from('profiles').select('role').eq('id', data.user.id).single();
+      
+      if (profile && profile.role === 'admin') {
+        window.location.href = 'admin.html';
+      } else {
+        window.location.href = '../index.html'; // O dashboard.html se la creeremo
+      }
+    }
+  });
+</script>
   <script>
     // Form submission
     const form = document.getElementById('login-form');

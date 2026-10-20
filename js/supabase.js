@@ -1,8 +1,8 @@
 // Configurazione Supabase per Amarreda
 // Sostituisci i valori qui sotto con le tue chiavi reali
 
-const SUPABASE_URL = 'INSERISCI_QUI_LA_TUA_URL';
-const SUPABASE_ANON_KEY = 'INSERISCI_QUI_LA_TUA_CHIAVE_ANON';
+const SUPABASE_URL = 'https://lrehuafqlyspunhxpuuq.supabase.co";
+const SUPABASE_ANON_KEY = 'sb_publishable_kMY0IsncywMxktNeCrRZ1g_Q_Urqwy6";
 
 // Inizializza il client Supabase
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);

@@ -351,4 +351,22 @@
     });
 
     window.editCompany = async (id) => {
-      const { data } = await supabaseClient.from
+            const { data } = await supabaseClient.from('companies').select('*').eq('id', id).single();
+      if (!data) return;
+      document.getElementById('company-id').value = data.id;
+      document.getElementById('company-name').value = data.name;
+      document.getElementById('company-commission').value = (data.retailer_commission_rate * 100).toFixed(2);
+      document.getElementById('company-logo').value = data.logo_url || '';
+      document.getElementById('company-desc').value = data.description || '';
+      document.getElementById('company-form-title').textContent = 'Modifica: ' + data.name;
+      document.getElementById('company-form-card').style.display = 'block';
+    };
+
+    window.deleteCompany = async (id) => {
+      if (!confirm('Eliminare questa azienda?')) return;
+      await supabaseClient.from('companies').delete().eq('id', id);
+      loadCompanies();
+    };
+  </script>
+</body>
+</html>

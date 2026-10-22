@@ -302,52 +302,58 @@
 
   </div>
 
-  <!-- SCRIPTS con percorsi relativi (../) -->
-  <script src="../js/main.js"></script>
-  <script src="../js/automation-adapter.js"></script>
-  <script src="../js/ai-provider-qwen.js"></script>
-  <script src="../js/chat-client.js"></script>
-
-  <!-- Script: controllo login reale + test UI chat -->
+  <!-- Script DIAGNOSTICO: ci dirà esattamente perché non funziona -->
   <script>
     document.addEventListener('DOMContentLoaded', async () => {
+      const messagesContainer = document.getElementById('chat-messages');
       const input = document.getElementById('chat-input');
       const btnSend = document.getElementById('btn-send');
-      const messagesContainer = document.getElementById('chat-messages');
 
-      // 1. CONTROLLO LOGIN REALE CON SUPABASE
-      try {
-        // Aspetta che Supabase legga il token salvato nel browser
-        const { data: { session } } = await supabaseClient.auth.getSession();
-        
-        if (!session) {
-          console.log("Nessuna sessione attiva, reindirizzamento al login...");
-          window.location.href = '../login.html';
-          return; // Ferma tutto, non eseguire il resto
-        }
-        
-        console.log("Login verificato per:", session.user.email);
-        
-        // Aggiorna la sidebar con l'email dell'utente (opzionale)
-        const sidebarValue = document.querySelector('.sidebar-value');
-        if (sidebarValue && session.user.email) {
-          sidebarValue.textContent = session.user.email;
-        }
-      } catch (error) {
-        console.error("Errore controllo sessione:", error);
-        window.location.href = '../login.html';
-        return;
+      // Funzione per stampare l'errore a schermo invece di reindirizzare
+      function showScreenError(titolo, messaggio) {
+        messagesContainer.innerHTML = `
+          <div style="background: #3a1c1c; border: 1px solid #ef4444; padding: 20px; border-radius: 12px; color: white; max-width: 80%;">
+            <h3 style="color: #ef4444; margin-top: 0;">⚠️ ${titolo}</h3>
+            <p style="font-size: 0.9rem; line-height: 1.5;">${messaggio}</p>
+            <p style="font-size: 0.8rem; color: #aaa; margin-top: 15px;">
+              💡 Per aiutarmi a risolvere: premi F12 (o tasto destro > Ispeziona > Console) e dimmi cosa c'è scritto in rosso.
+            </p>
+            <a href="../login.html" style="display: inline-block; margin-top: 15px; color: #B8996A; text-decoration: none; border: 1px solid #B8996A; padding: 8px 16px; border-radius: 6px;">Torna al Login</a>
+          </div>
+        `;
       }
 
-      // 2. FUNZIONI CHAT (test UI con pulsanti cliccabili)
+      // 1. CONTROLLO LOGIN REALE
+      try {
+        // Verifica se Supabase è stato caricato correttamente
+        if (typeof supabaseClient === 'undefined') {
+          throw new Error("La variabile 'supabaseClient' non esiste. Controlla che il file '../js/supabase.js' sia presente e corretto.");
+        }
+
+        const { data: { session }, error } = await supabaseClient.auth.getSession();
+        
+        if (error) throw error;
+
+        if (!session) {
+          // Se non c'è sessione, te lo dice a schermo invece di reindirizzarti
+          showScreenError("Nessun Login Rilevato", "Supabase non ha trovato una sessione attiva. Assicurati di aver fatto il login nella pagina precedente e che i cookie siano abilitati.");
+          return; 
+        }
+        
+        console.log("✅ Login verificato con successo per:", session.user.email);
+
+      } catch (err) {
+        console.error("❌ Errore critico:", err);
+        showScreenError("Errore Tecnico di Connessione", err.message);
+        return; // Blocca tutto se c'è errore
+      }
+
+      // 2. SE IL LOGIN È OK, AVVIA LA CHAT CON I PULSANTI
       function addMessage(text, type, options = []) {
         const msgDiv = document.createElement('div');
         msgDiv.className = `message ${type}`;
+        let html = `<div class="message-sender">${type === 'user' ? 'Tu' : 'Assistente Amarreda'}</div><div>${text}</div>`;
         
-        let html = `<div class="message-sender">${type === 'user' ? 'Tu' : 'Assistente Amarreda'}</div>`;
-        html += `<div>${text}</div>`;
-        
-        // Se ci sono opzioni (pulsanti cliccabili), le aggiungiamo
         if (options.length > 0 && type === 'ai') {
           html += `<div class="chat-options">`;
           options.forEach(opt => {
@@ -355,62 +361,41 @@
           });
           html += `</div>`;
         }
-        
         msgDiv.innerHTML = html;
         messagesContainer.appendChild(msgDiv);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
       }
 
-      // Quando l'utente clicca su un'opzione
       window.handleChipClick = function(buttonElement, selectedText) {
-        // Disabilita tutti i pulsanti di questo gruppo
         const parent = buttonElement.parentElement;
-        const chips = parent.querySelectorAll('.chat-chip');
-        chips.forEach(chip => chip.classList.add('disabled'));
-        
-        // Invia il testo selezionato
+        Array.from(parent.children).forEach(c => c.classList.add('disabled'));
         handleSend(selectedText);
       };
 
       function handleSend(textOverride = null) {
         const text = textOverride || input.value.trim();
         if (!text) return;
-
         addMessage(text, 'user');
         input.value = '';
         input.style.height = 'auto';
         
-        // Simulazione risposta AI (da sostituire con chat-client.js reale)
         setTimeout(() => {
-          addMessage("Ho ricevuto la tua richiesta. Sto analizzando le informazioni per il tuo progetto. (Questa è una demo UI)", 'ai');
+          addMessage("Ho ricevuto la tua richiesta. Sto analizzando le informazioni per il tuo progetto. (Demo UI)", 'ai');
         }, 1000);
       }
 
-      btnSend.addEventListener('click', handleSend);
+      btnSend.addEventListener('click', () => handleSend());
       input.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-          e.preventDefault();
-          handleSend();
-        }
+        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); }
       });
 
-      // Auto-resize textarea
-      input.addEventListener('input', function() {
-        this.style.height = 'auto';
-        this.style.height = (this.scrollHeight) + 'px';
-      });
-
-      // Svuota il messaggio di benvenuto iniziale (era hardcoded nell'HTML)
-      // e mostra il vero messaggio di avvio con pulsanti
-      messagesContainer.innerHTML = '';
-      addMessage("Ciao! Sono il tuo Interior Designer virtuale di Amarreda. Per creare un progetto tecnicamente perfetto, ti farò qualche domanda semplice, una alla volta.<br><br>Iniziamo: che tipo di composizione hai in mente per la tua cucina?", 'ai', [
-        "Lineare (tutto su una parete)",
-        "A L (due pareti ad angolo)",
-        "A U (tre pareti)",
-        "Con Isola o Penisola",
-        "Non lo so, consigliami tu!"
+      // Messaggio iniziale
+      messagesContainer.innerHTML = ''; // Pulisce il messaggio hardcoded
+      addMessage("Ciao! Sono il tuo Interior Designer virtuale. Iniziamo: che tipo di composizione hai in mente?", 'ai', [
+        "Lineare (tutto su una parete)", "A L (due pareti ad angolo)", "A U (tre pareti)", "Con Isola o Penisola", "Consigliami tu!"
       ]);
     });
+  
   </script>
 </body>
 </html>

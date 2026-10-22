@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Progettazione AI — Amarreda</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Ricollego il tuo file Supabase che ha già le chiavi vere -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase.js"></script>
+  
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/pages.css">
+
+  <style>
+    body { background-color: var(--bg-deep, #12110F); color: var(--text-bright, #FCFAF6); font-family: 'Manrope', sans-serif; margin: 0; }
+    .chat-layout { display: flex; height: calc(100vh - 80px); background-color: var(--bg-deep, #12110F); }
+    .chat-sidebar { width: 300px; background-color: var(--bg-main, #1A1916); border-right: 1px solid rgba(184, 153, 106, 0.2); padding: 24px; display: flex; flex-direction: column; gap: 20px; overflow-y: auto; }
+    .sidebar-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--rame, #B8996A); margin-bottom: 8px; }
+    .sidebar-value { font-size: 1rem; color: var(--text-bright); font-weight: 500; }
+    .chat-main { flex: 1; display: flex; flex-direction: column; position: relative; }
+    .chat-messages { flex: 1; padding: 24px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; }
+    .message { max-width: 75%; padding: 16px 20px; border-radius: 12px; font-size: 1rem; line-height: 1.6; animation: fadeIn 0.3s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .message.ai { align-self: flex-start; background-color: var(--bg-card, #1A1916); border: 1px solid rgba(184, 153, 106, 0.2); color: var(--text-gray, #9A958D); border-bottom-left-radius: 0; }
+    .message.user { align-self: flex-end; background: linear-gradient(135deg, #B8996A 0%, #D4AF37 100%); color: #12110F; font-weight: 500; border-bottom-right-radius: 0; }
+    .message-sender { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; opacity: 0.7; }
+    .chat-input-area { padding: 20px 24px; background-color: var(--bg-main, #1A1916); border-top: 1px solid rgba(184, 153, 106, 0.2); display: flex; gap: 12px; align-items: flex-end; }
+    .chat-input { flex: 1; background-color: var(--bg-deep, #12110F); border: 1px solid rgba(184, 153, 106, 0.2); border-radius: 8px; padding: 12px 16px; color: var(--text-bright); font-family: inherit; font-size: 1rem; resize: none; min-height: 24px; max-height: 120px; }
+    .chat-input:focus { outline: none; border-color: var(--rame, #B8996A); }
+    .btn-send { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #B8996A 0%, #D4AF37 100%); border: none; color: #12110F; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .chat-options { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+    .chat-chip { background: rgba(184, 153, 106, 0.1); border: 1px solid var(--rame, #B8996A); color: var(--rame, #B8996A); padding: 10px 18px; border-radius: 25px; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease; font-family: inherit; }
+    .chat-chip:hover { background: var(--rame, #B8996A); color: #12110F; transform: translateY(-2px); }
+    .chat-chip.disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; border-color: #6B6660; color: #6B6660; }
+    @media (max-width: 900px) { .chat-layout { flex-direction: column; height: auto; } .chat-sidebar { width: 100%; border-right: none; border-bottom: 1px solid rgba(184, 153, 106, 0.2); padding: 16px; } .chat-messages { min-height: 60vh; } }
+  </style>
+</head>
+<body>
+
+  <header style="padding: 20px; border-bottom: 1px solid rgba(184, 153, 106, 0.2); display: flex; justify-content: space-between; align-items: center;">
+    <a href="../index.html" style="color: var(--rame, #B8996A); text-decoration: none; font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600;">Amarreda</a>
+    <button id="btn-logout" style="background: transparent; border: 1px solid rgba(239, 68, 68, 0.3); color: #ef4444; padding: 8px 16px; border-radius: 6px; cursor: pointer;">Esci</button>
+  </header>
+
+  <div class="chat-layout">
+    <aside class="chat-sidebar">
+      <div><h3 class="sidebar-title">Ambiente</h3><p class="sidebar-value">Cucina</p></div>
+      <div><h3 class="sidebar-title">Stato Progetto</h3><p class="sidebar-value" style="color: var(--rame, #B8996A);">In intervista</p></div>
+      <div style="margin-top: auto;"><p style="font-size: 0.8rem; color: #6B6660;">Versione di test UI.</p></div>
+    </aside>
+
+    <main class="chat-main">
+      <div class="chat-messages" id="chat-messages"></div>
+      <div class="chat-input-area">
+        <textarea class="chat-input" id="chat-input" placeholder="Scrivi la tua risposta..." rows="1"></textarea>
+        <button class="btn-send" id="btn-send">➤</button>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // 1. CONTROLLO ACCESSO ROBUSTO (Usa il tuo supabaseClient già configurato)
+    async function checkAuth() {
+      try {
+        // Aspetta che Supabase legga il token dal browser
+        const { data: { session } } = await supabaseClient.auth.getSession();
+        
+        if (session) {
+          console.log("Accesso OK per:", session.user.email);
+          document.getElementById('btn-logout').addEventListener('click', async () => {
+            await supabaseClient.auth.signOut();
+            window.location.href = '../login.html';
+          });
+          startMockChat(); // Avvia la chat
+        } else {
+          console.warn("Nessuna sessione, reindirizzamento...");
+          window.location.href = '../login.html';
+        }
+      } catch (error) {
+        console.error("Errore auth:", error);
+        window.location.href = '../login.html';
+      }
+    }
+
+    // 2. MOTORE CHAT SIMULATO (Per testare l'UI e i pulsanti)
+    function startMockChat() {
+      const messagesContainer = document.getElementById('chat-messages');
+      const input = document.getElementById('chat-input');
+      const btnSend = document.getElementById('btn-send');
+
+      function addMessage(text, type, options = []) {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `message ${type}`;
+        let html = `<div class="message-sender">${type === 'user' ? 'Tu' : 'Amarreda AI'}</div><div>${text}</div>`;
+        
+        if (options.length > 0 && type === 'ai') {
+          html += `<div class="chat-options">`;
+          options.forEach(opt => {
+            html += `<button class="chat-chip" onclick="handleChipClick(this, '${opt}')">${opt}</button>`;
+          });
+          html += `</div>`;
+        }
+        msgDiv.innerHTML = html;
+        messagesContainer.appendChild(msgDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      }
+
+      window.handleChipClick = function(btn, text) {
+        const parent = btn.parentElement;
+        Array.from(parent.children).forEach(c => c.classList.add('disabled'));
+        handleSend(text);
+      };
+
+      function handleSend(textOverride = null) {
+        const text = textOverride || input.value.trim();
+        if (!text) return;
+        addMessage(text, 'user');
+        input.value = '';
+        setTimeout(() => processAIResponse(text), 600);
+      }
+
+      function processAIResponse(userText) {
+        const lower = userText.toLowerCase();
+        if (lower.includes('iniziare') || lower.includes('ciao') || lower.includes('dimensioni') || lower.includes('lineare') || lower.includes('angolo') || lower.includes('isola') || lower.includes('consigliami')) {
+          addMessage("Perfetto, iniziamo! Che tipo di composizione hai in mente per la tua cucina?", 'ai', [
+            "Lineare (tutto su una parete)", "A L (due pareti ad angolo)", "A U (tre pareti)", "Con Isola o Penisola", "Consigliami tu!"
+          ]);
+        } 
+        else if (lower.includes('maniglie') || lower.includes('gola')) {
+          let note = lower.includes('gola') ? "<br><i>(Nota tecnica: se scegli la gola e avremo elettrodomestici sottotop, il sistema imposterà automaticamente uno zoccolo minimo di 12 cm come da listino).</i>" : "";
+          addMessage(`Ricevuto.${note} Prevedi di inserire elettrodomestici sotto il piano di lavoro (es. lavastoviglie o frigo incasso)?`, 'ai', [
+            "Sì, almeno uno", "No, solo cassetti e ante"
+          ]);
+        }
+        else if (lower.includes('sì') || lower.includes('no')) {
+          addMessage("Perfetto. Passiamo alla zona cottura: che tipo di piano cottura installerai?", 'ai', [
+            "Gas o Misto (Cappa a min. 65 cm)", "Induzione / Elettrico (Cappa a min. 50 cm)"
+          ]);
+        }
+        else if (lower.includes('gas') || lower.includes('induzione') || lower.includes('elettrico')) {
+          addMessage("Fantastico! Ora, per disegnare la piantina in scala, come preferisci darmi le misure della stanza?", 'ai', [
+            "📸 Carico uno schizzo/foto", "⌨️ Le scrivo a mano"
+          ]);
+        }
+        else {
+          addMessage("Ho registrato. Che tipo di apertura preferisci per le ante?", 'ai', [
+            "Con Maniglie (Classico)", "Con Gola (Moderno/No maniglie)"
+          ]);
+        }
+      }
+
+      btnSend.addEventListener('click', () => handleSend());
+      input.addEventListener('keypress', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); } });
+
+      // Messaggio iniziale
+      addMessage("Ciao! Sono il tuo Interior Designer virtuale di Amarreda. Iniziamo: che tipo di composizione hai in mente per la tua cucina?", 'ai', [
+        "Lineare (tutto su una parete)", "A L (due pareti ad angolo)", "A U (tre pareti)", "Con Isola o Penisola", "Non lo so, consigliami tu!"
+      ]);
+    }
+
+    // Avvia tutto
+    document.addEventListener('DOMContentLoaded', checkAuth);
+  </script>
+</body>
+</html>

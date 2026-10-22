@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avvia un nuovo progetto — Amarreda</title>
+  <meta name="description" content="Prima di avviare la conversazione, leggi le condizioni del piano e conferma di averle comprese.">
+  <link rel="icon" type="image/svg+xml" href="../assets/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="logo" aria-label="Amarreda — Home">
+        <span class="logo-wordmark">Amarreda</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Apri il menu">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <nav class="main-nav" id="main-nav" aria-label="Navigazione principale">
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="progetti.html" class="nav-link">I miei progetti</a>
+        <a href="account.html" class="nav-link">Account</a>
+        <a href="login.html" class="nav-link" id="logout-link">Esci</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- STATO 1: NON AUTENTICATO -->
+    <section class="auth-page" id="state-not-authenticated">
+      <div class="container">
+        <div class="auth-card">
+          <h1 class="auth-title">Area riservata.</h1>
+          <p class="auth-subtitle">Per avviare un progetto devi prima accedere al tuo account.</p>
+          <a href="login.html" class="btn btn-primary btn-block btn-lg">Accedi</a>
+          <div class="auth-footer">
+            <p>Non hai un account? <a href="registrazione.html">Registrati</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATO 2: UTENTE CANCELLATO PRECEDENTEMENTE (Bloccato) -->
+    <section class="section" id="state-deleted-user" hidden>
+      <div class="container container-narrow">
+        <div class="callout callout-error">
+          <h2 class="callout-title">Accesso non consentito.</h2>
+          <p class="callout-text">Hai già utilizzato il servizio in precedenza con questa email. Il piano Free consente una sola opportunità di progettazione. Per nuovi progetti è necessario un abbonamento Premium.</p>
+        </div>
+        <div style="margin-top: var(--space-6); display: flex; flex-wrap: wrap; gap: var(--space-4);">
+          <a href="prezzi.html" class="btn btn-primary btn-lg">Scopri il piano Premium</a>
+          <a href="dashboard.html" class="btn btn-ghost">Torna alla dashboard</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATO 3: LIMITE PROGETTI RAGGIUNTO -->
+    <section class="section" id="state-limit-reached" hidden>
+      <div class="container container-narrow">
+        <div class="callout callout-warning">
+          <h2 class="callout-title" id="limit-title">Limite progetti raggiunto.</h2>
+          <p class="callout-text" id="limit-text">Hai utilizzato tutti i progetti disponibili per il tuo piano attuale.</p>
+        </div>
+        <div style="margin-top: var(--space-6); display: flex; flex-wrap: wrap; gap: var(--space-4);">
+          <a href="prezzi.html" class="btn btn-primary btn-lg">Passa a Premium</a>
+          <a href="progetti.html" class="btn btn-ghost">Vedi i tuoi progetti</a>
+          <a href="dashboard.html" class="btn btn-ghost">Torna alla dashboard</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATO 4: PROGETTO IN CORSO (Può riprenderlo) -->
+    <section class="section" id="state-in-progress" hidden>
+      <div class="container container-narrow">
+        <div class="callout callout-info">
+          <h2 class="callout-title">Hai un progetto in corso.</h2>
+          <p class="callout-text">Hai già iniziato una progettazione che non è stata completata. Puoi riprenderla da dove l'hai lasciata o completarla per sbloccare un nuovo slot.</p>
+        </div>
+        <div style="margin-top: var(--space-6); display: flex; flex-wrap: wrap; gap: var(--space-4);">
+          <a href="#" class="btn btn-primary btn-lg" id="btn-resume">Riprendi progetto</a>
+          <a href="progetti.html" class="btn btn-ghost">Vedi tutti i progetti</a>
+          <a href="dashboard.html" class="btn btn-ghost">Torna alla dashboard</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATO 5: PRONTO PER AVVIARE (Form di conferma) -->
+    <section class="section" id="state-ready" hidden>
+      <div class="container container-narrow">
+
+        <div style="margin-bottom: var(--space-7);">
+          <h1 class="section-title">Prima di iniziare.</h1>
+          <p class="section-lead">L'assistente AI ti guiderà nella progettazione del tuo ambiente. Leggi attentamente le condizioni.</p>
+        </div>
+
+        <!-- RIEPILOGO PIANO -->
+        <div class="plan-summary-card">
+          <h2 class="section-title">Il tuo piano attuale.</h2>
+          <p class="plan-summary-text" id="plan-description">Caricamento piano...</p>
+          <ul class="plan-summary-list" id="plan-features">
+            <!-- Popolato via JS -->
+          </ul>
+        </div>
+
+        <!-- AVVISO IMPORTANTI -->
+        <div class="callout callout-warning" style="margin-top: var(--space-6);">
+          <h3 class="callout-title">Attenzione.</h3>
+          <p class="callout-text">L'AI può commettere errori. Le misure dedotte dalle fotografie non sono certificate. Il rendering è illustrativo. Verifica le informazioni prima di acquistare o lavorare.</p>
+        </div>
+
+        <!-- FORM DI CONFERMA -->
+        <form id="confirm-form" style="margin-top: var(--space-7);">
+          
+          <!-- Il selettore ambiente verrà iniettato qui via JS -->
+          <div id="room-selector-container"></div>
+
+          <div class="form-field">
+            <label class="form-check">
+              <input type="checkbox" id="confirm-understand" name="understand" required>
+              <span>Ho letto e compreso le condizioni del servizio.</span>
+            </label>
+          </div>
+
+          <div class="form-field">
+            <label class="form-check">
+              <input type="checkbox" id="confirm-ai" name="ai" required>
+              <span>Sono consapevole che sto interagendo con un sistema AI e che il risultato è preliminare.</span>
+            </label>
+          </div>
+
+          <div class="form-field">
+            <label class="form-check">
+              <input type="checkbox" id="confirm-verify" name="verify" required>
+              <span>Mi impegno a verificare le informazioni prima di prendere decisioni definitive.</span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block btn-lg" id="btn-start" disabled style="margin-top: var(--space-5);">Avvia la conversazione</button>
+
+        </form>
+
+        <div style="margin-top: var(--space-5); text-align: center;">
+          <a href="dashboard.html" class="btn btn-ghost">Annulla, torna alla dashboard</a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-brand">
+          <span class="logo-wordmark logo-wordmark-light">Amarreda</span>
+          <p class="footer-tagline">Progettazione d'interni assistita dall'intelligenza artificiale.</p>
+        </div>
+        <div class="footer-col">
+          <h3 class="footer-heading">Servizio</h3>
+          <a href="come-funziona.html" class="footer-link">Come funziona</a>
+          <a href="prezzi.html" class="footer-link">Prezzi e piani</a>
+        </div>
+        <div class="footer-col">
+          <h3 class="footer-heading">Legale</h3>
+          <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+          <a href="termini-condizioni.html" class="footer-link">Termini e Condizioni</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 Amarreda. Tutti i diritti riservati.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase.js"></script>
+
+  <script>
+    (async function () {
+      const stateNotAuth = document.getElementById('state-not-authenticated');
+      const stateDeletedUser = document.getElementById('state-deleted-user');
+      const stateLimitReached = document.getElementById('state-limit-reached');
+      const stateInProgress = document.getElementById('state-in-progress');
+      const stateReady = document.getElementById('state-ready');
+      const btnStart = document.getElementById('btn-start');
+      const btnResume = document.getElementById('btn-resume');
+
+      // 1. CONTROLLO AUTH
+      try {
+        const { data: { session }, error } = await supabaseClient.auth.getSession();
+
+        if (error || !session) {
+          stateNotAuth.hidden = false;
+          return;
+        }
+
+        const userEmail = session.user.email;
+        const userId = session.user.id;
+
+        // 2. CONTROLLO UTENTE CANCELLATO
+        const { data: deletedUser } = await supabaseClient
+          .from('deleted_users')
+          .select('id')
+          .eq('user_email', userEmail)
+          .maybeSingle();
+
+        if (deletedUser) {
+          stateDeletedUser.hidden = false;
+          return;
+        }
+
+        // 3. CONTROLLO PROGETTO IN CORSO
+        const { data: inProgressProject } = await supabaseClient
+          .from('project_attempts')
+          .select('project_id, room_type')
+          .eq('user_email', userEmail)
+          .eq('status', 'started')
+          .order('started_at', { ascending: false })
+          .maybeSingle();
+
+        if (inProgressProject) {
+          stateInProgress.hidden = false;
+          btnResume.href = `progetto-chat.html?id=${inProgressProject.project_id}`;
+          btnResume.textContent = `Riprendi progetto: ${inProgressProject.room_type}`;
+          return;
+        }
+
+        // 4. CONTROLLO PIANO E LIMITI
+        const { data: premiumSub } = await supabaseClient
+          .from('subscriptions')
+          .select('id, projects_used')
+          .eq('user_email', userEmail)
+          .eq('plan_type', 'premium')
+          .eq('status', 'active')
+          .maybeSingle();
+
+        const { data: completedAttempts, error: countError } = await supabaseClient
+          .from('project_attempts')
+          .select('id')
+          .eq('user_email', userEmail)
+          .eq('status', 'completed');
+
+        const completedCount = completedAttempts ? completedAttempts.length : 0;
+
+        // LOGICA DECISIONALE
+        if (premiumSub) {
+          // PREMIUM: Max 2 progetti
+          if (completedCount >= 2) {
+            stateLimitReached.hidden = false;
+            document.getElementById('limit-title').textContent = 'Hai utilizzato entrambi i progetti Premium.';
+            document.getElementById('limit-text').textContent = 'Puoi modificare i progetti esistenti dalla tua dashboard o attendere il rinnovo.';
+            return;
+          }
+          // Premium OK
+          stateReady.hidden = false;
+          setupForm(userId, userEmail, 'premium', 2 - completedCount);
+        } else {
+          // FREE: Max 1 progetto
+          if (completedCount >= 1) {
+            stateLimitReached.hidden = false;
+            document.getElementById('limit-title').textContent = 'Hai già utilizzato il tuo progetto Free.';
+            document.getElementById('limit-text').textContent = 'Per creare nuovi progetti o modificare quello esistente, passa al piano Premium.';
+            return;
+          }
+          // Free OK
+          stateReady.hidden = false;
+          setupForm(userId, userEmail, 'free', 1);
+        }
+
+      } catch (err) {
+        console.error("Errore critico:", err);
+        stateNotAuth.hidden = false;
+      }
+
+      // SETUP DEL FORM DINAMICO
+      function setupForm(userId, userEmail, planType, slotsRemaining) {
+        const form = document.getElementById('confirm-form');
+        const container = document.getElementById('room-selector-container');
+        const checkboxes = document.querySelectorAll('#confirm-form input[type="checkbox"]');
+        
+        // Popola info piano
+        document.getElementById('plan-description').textContent = 
+          planType === 'premium' 
+            ? `Piano Premium: hai ${slotsRemaining} progetto/i rimanente/i su 2.` 
+            : 'Piano Free: 1 progetto disponibile.';
+        
+        const featuresList = document.getElementById('plan-features');
+        featuresList.innerHTML = planType === 'premium' 
+          ? '<li>2 progetti totali (Cucina, Living, Camera, ecc.)</li><li>Modifica progetti esistenti</li><li>Supporto prioritario</li>'
+          : '<li>1 progetto (solo Cucina)</li><li>Proposta preliminare</li>';
+
+        // Inietta selettore ambiente
+        let roomOptions = `<option value="cucina">🍳 Cucina</option>`;
+        if (planType === 'premium') {
+          roomOptions += `
+            <option value="living">🛋️ Living / Soggiorno</option>
+            <option value="camera">🛏️ Camera da letto</option>
+            <option value="cameretta"> Cameretta</option>
+            <option value="bagno">🚿 Bagno</option>
+            <option value="lavanderia">🧺 Lavanderia</option>
+          `;
+        }
+
+        container.innerHTML = `
+          <div class="form-field" style="margin-bottom: var(--space-5);">
+            <label class="form-label" for="room-select" style="display:block; margin-bottom: 8px; font-weight: 500; color: var(--text-bright);">
+              Quale ambiente vuoi progettare?
+            </label>
+            <select id="room-select" required style="width:100%; padding: 12px; background: var(--bg-deep); border: 1px solid rgba(184,153,106,0.3); border-radius: 8px; color: var(--text-bright); font-size: 1rem; font-family: inherit;">
+              <option value="">-- Seleziona ambiente --</option>
+              ${roomOptions}
+            </select>
+          </div>
+        `;
+
+        // Validazione form
+        function updateButtonState() {
+          const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+          const roomSelected = document.getElementById('room-select').value !== '';
+          btnStart.disabled = !(allChecked && roomSelected);
+        }
+
+        checkboxes.forEach(cb => cb.addEventListener('change', updateButtonState));
+        document.getElementById('room-select').addEventListener('change', updateButtonState);
+
+        // Submit
+        form.addEventListener('submit', async function (e) {
+          e.preventDefault();
+          btnStart.disabled = true;
+          btnStart.textContent = "Creazione progetto in corso...";
+
+          const roomType = document.getElementById('room-select').value;
+
+          try {
+            // 1. Crea progetto
+            const { data: newProject, error: projectError } = await supabaseClient
+              .from('projects')
+              .insert([{
+                user_id: userId,
+                title: `Progetto ${roomType}`,
+                status: 'in_intervista',
+                room_type: roomType
+              }])
+              .select()
+              .single();
+
+            if (projectError) throw projectError;
+
+            // 2. Registra tentativo
+            const { error: attemptError } = await supabaseClient
+              .from('project_attempts')
+              .insert([{
+                user_email: userEmail,
+                user_id: userId,
+                project_id: newProject.id,
+                status: 'started',
+                room_type: roomType
+              }]);
+
+            if (attemptError) throw attemptError;
+
+            // 3. Aggiorna contatore Premium
+            if (planType === 'premium') {
+              await supabaseClient
+                .from('subscriptions')
+                .update({ projects_used: completedCount + 1 })
+                .eq('user_email', userEmail)
+                .eq('plan_type', 'premium');
+            }
+
+            // 4. Redirect
+            window.location.href = `progetto-chat.html?id=${newProject.id}`;
+
+          } catch (err) {
+            console.error('Errore creazione progetto:', err);
+            alert("Si è verificato un errore. Controlla la console.");
+            btnStart.disabled = false;
+            btnStart.textContent = "Avvia la conversazione";
+          }
+        });
+      }
+
+      // LOGOUT
+      const logoutLink = document.getElementById('logout-link');
+      if (logoutLink) {
+        logoutLink.addEventListener('click', async function (e) {
+          e.preventDefault();
+          await supabaseClient.auth.signOut();
+          window.location.href = 'login.html';
+        });
+      }
+
+    })();
+  </script>
+</body>
+</html>
